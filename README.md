@@ -94,1144 +94,250 @@ Hai câu này **vừa sức với kiến thức hiện tại của nhóm**.
                  USER INTERFACE
 ```
 
----
+## PHẦN 1: DỮ LIỆU & KIẾN TRÚC LƯU TRỮ (DATA & STORAGE)
 
-1 thu thập data
-2 tiền xử lí 
-3 eda 
-4 model
-5 app
+Hệ thống sử dụng các bộ dữ liệu có cấu trúc từ O*NET, OECD, bảng ánh xạ chuẩn quốc tế và dữ liệu nền tảng về lực lượng lao động Việt Nam.
 
-# 4. DATA — Phần quan trọng nhất
+### 1.1 Dữ liệu thô đầu vào (Raw Data Sources)
 
-MVP sẽ **không tự thu thập mọi thứ từ Internet**.
-
-Chúng ta sử dụng các nguồn có cấu trúc trước.
-
-## 4.1. Nguồn 1 — O*NET
-
-Đây là nguồn chính.
-
-O*NET 31.0 cung cấp:
-
-- Occupations
+1. **Bộ dữ liệu O*NET 31.0:**
     
-- Tasks
+    - `Occupation Data.csv`: Danh mục 832 nghề nghiệp (`O*NET-SOC Code`, `Title`, `Description`).
+        
+    - `Skills.csv` & `Abilities.csv`: Điểm `Data Value` theo `Scale ID` (`IM` - Importance, `LV` - Level).
+        
+    - `Work Context.csv`: Môi trường làm việc (tính lặp lại, khuôn mẫu, áp lực công việc).
+        
+    - `Education, Training, and Experience.csv`: Yêu cầu trình độ học vấn tối thiểu.
+        
+    - `Related Occupations.csv`: Các cặp nghề nghiệp chuyển đổi tham chiếu.
+        
+2. **OECD AI Exposure Dataset:**
     
-- Essential Skills
+    - File `.xlsx`/`.csv` chứa chỉ số `AI Capability Gap Index` (chuẩn hóa về dải $0.0 - 1.0$), đóng vai trò là nhãn Target ($y$).
+        
+3. **Crosswalk & Vietnam Baseline:**
     
-- Transferable Skills
-    
-- Work Activities
-    
-- Education
-    
-- Abilities
-    
-- Related Occupations
-    
-- Job titles
-    
-- Software skills
+    - `SOC_to_ISCO08.csv`: Bảng chuyển đổi mã SOC (Mỹ) sang mã ISCO-08 (Quốc tế).
+        
+    - `vn_isco_baseline.csv`: File CSV 9 dòng lưu trữ tổng số lao động và tỷ lệ lao động nữ tại Việt Nam phân theo 9 nhóm nghề chính ISCO-08 (trích xuất từ ILOSTAT / Tổng cục Thống kê).
+        
+
+### 1.2 Cấu trúc Dữ liệu Sạch (Clean Datasets / Relational Schema)
+
+Dữ liệu sau khi xử lý được lưu trữ dưới dạng 4 file CSV sạch hoặc nạp vào SQLite/PostgreSQL:
+
+#### Bảng 1: `occupations_master.csv` (Bảng Master Nghề nghiệp)
+
+|**Tên cột**|**Kiểu dữ liệu**|**Mô tả**|
+|---|---|---|
+|`occupation_code` **(PK)**|VARCHAR(10)|Mã SOC (Ví dụ: `11-3031.00`)|
+|`occupation_title`|VARCHAR(255)|Tên nghề nghiệp|
+|`education_level_id`|INT|Trình độ học vấn ($1 = \text{High School}$, $4 = \text{Bachelor}$, $6 = \text{Master/PhD}$)|
+|`cognitive_intensity`|FLOAT|Mức độ tư duy phức tạp ($0.0 - 1.0$)|
+|`social_intensity`|FLOAT|Mức độ tương tác con người ($0.0 - 1.0$)|
+|`physical_intensity`|FLOAT|Mức độ lao động chân tay ($0.0 - 1.0$)|
+|`digital_intensity`|FLOAT|Mức độ sử dụng máy tính/công nghệ ($0.0 - 1.0$)|
+|`routine_intensity`|FLOAT|Mức độ lặp đi lặp lại/khuôn mẫu ($0.0 - 1.0$)|
+|`ai_exposure_score`|FLOAT|**Target ($y$):** Điểm tiếp xúc AI từ OECD ($0.0 - 1.0$)|
+
+#### Bảng 2: `occupation_skills.csv` (Bảng Kỹ năng)
+
+|**Tên cột**|**Kiểu dữ liệu**|**Mô tả**|
+|---|---|---|
+|`occupation_code` **(FK)**|VARCHAR(10)|Mã SOC liên kết `occupations_master`|
+|`skill_id`|VARCHAR(50)|Mã Element ID trong O*NET (Ví dụ: `2.A.2.a`)|
+|`skill_name`|VARCHAR(255)|Tên kỹ năng (_Critical Thinking_, _Negotiation_...)|
+|`importance_score`|FLOAT|Điểm tầm quan trọng ($1.0 - 5.0$)|
+|`level_score`|FLOAT|Điểm cấp độ yêu cầu ($0.0 - 7.0$)|
+|`normalized_weight`|FLOAT|Trọng số kỹ năng chuẩn hóa $w_{i,j} \in [0, 1]$|
+
+#### Bảng 3: `vn_isco_baseline.csv` (Bảng Bối cảnh Việt Nam)
+
+|**Tên cột**|**Kiểu dữ liệu**|**Mô tả**|
+|---|---|---|
+|`isco_major_code` **(PK)**|INT|Mã nhóm nghề lớn ISCO-08 ($1 \to 9$)|
+|`group_name_vn`|VARCHAR(255)|Tên nhóm nghề tiếng Việt|
+|`vn_employment_thousands`|FLOAT|Tổng số lao động tại VN (đơn vị: nghìn người)|
+|`female_share_pct`|FLOAT|Tỷ lệ lao động nữ (%)|
+
+#### Bảng 4: `related_occupations.csv` (Bảng Nghề liên quan)
+
+- **Cột:** `occupation_code`, `related_occupation_code`.
     
 
-O*NET hiện cung cấp dữ liệu dưới CSV, Excel, JSON và nhiều format khác. ([O*NET Center](https://www.onetcenter.org/database.html?utm_source=chatgpt.com "O*NET Database at O*NET Resource Center"))
+## ⚙️ PHẦN 2: TRÍCH XUẤT ĐẶC TRƯNG (FEATURE ENGINEERING)
 
-### Các bảng MVP cần lấy
+Để loại bỏ hiện tượng thiên vị đối với các nghề có danh mục kỹ năng rộng (Scope Bias), phương pháp chuẩn hóa của _Felten et al. (2021)_ được áp dụng.
 
-Không lấy toàn bộ database.
+### 2.1 Công thức Tính toán 5 Nhóm Features ($X$)
 
-Chỉ lấy:
+Với mỗi nghề $k$, giá trị của một nhóm đặc trưng (Domain) được tính bằng tổng trọng số của nhóm đó chia cho tổng trọng số của tất cả năng lực mà nghề đó yêu cầu:
 
-### `Occupation Data`
+$$\text{Domain\_Intensity}_k = \frac{\sum_{j \in \text{Domain}} (\text{Importance}_{j,k} \times \text{Level}_{j,k})}{\sum_{\text{All } j} (\text{Importance}_{j,k} \times \text{Level}_{j,k})}$$
 
-```text
-occupation_code
-occupation_title
-description
+#### Danh mục Mapping O*NET Elements:
+
+- **`cognitive_intensity`:** `2.A.2.a` (Critical Thinking), `2.A.2.b` (Complex Problem Solving), `2.D.1.e` (Judgment & Decision Making), `1.A.1.b.4` (Deductive Reasoning).
+    
+- **`social_intensity`:** `2.A.1.b` (Social Perceptiveness), `2.B.1.b` (Persuasion), `2.B.1.c` (Negotiation), `4.A.4.a.2` (Caring for Others).
+    
+- **`physical_intensity`:** `1.A.2.a` (Static Strength), `1.A.3.a` (Stamina), `1.A.1.a` (Arm-Hand Steadiness), `1.A.1.b` (Manual Dexterity).
+    
+- **`digital_intensity`:** Điểm $I \times L$ của Element `4.A.3.a.1` (_Interacting With Computers_) kết hợp số lượng công cụ công nghệ từ file `Technology Skills.csv`.
+    
+- **`routine_intensity`:** Trung bình cộng các chỉ số môi trường làm việc `4.C.3.b.7` (Repeat Same Tasks), `4.C.3.b.8` (Structured Work), `4.C.3.b.4` (Pace Speed Equipment).
+    
+- **`education_level_id`:** Lấy giá trị Yêu cầu Trình độ Học vấn có tỷ lệ % phân bổ cao nhất (Mode) trong file `Education, Training, and Experience.csv`.
+    
+
+### 2.2 Trọng số Ma trận Kỹ năng (Skill Matrix Weights)
+
+Ô $w_{i,j}$ biểu diễn mức độ thành thạo của nghề $i$ đối với kỹ năng $j$:
+
+$$w_{i,j} = \frac{\text{Importance}_{i,j} \times \text{Level}_{i,j}}{5.0 \times 7.0} = \frac{\text{Importance}_{i,j} \times \text{Level}_{i,j}}{35.0}$$
+
+## 🤖 PHẦN 3: TRIỂN KHAI CÁC MÔ HÌNH & THUẬT TOÁN (MODELING & ALGORITHMS)
+
+### 3.1 Bài toán 1: AI Impact Analysis (XGBoost + SHAP Explainability)
+
+Mục tiêu là dự đoán điểm AI Exposure và giải thích các thuộc tính ảnh hưởng.
+
+- **Thuật toán:** XGBoost Regressor (hoặc Random Forest Regressor).
+    
+- **Tập dữ liệu:**
+    
+    - $X = [\text{cognitive}, \text{social}, \text{physical}, \text{digital}, \text{routine}, \text{education}]$
+        
+    - $y = \text{ai\_exposure\_score}$
+        
+- **Chia tập dữ liệu:** $80\%$ Train, $20\%$ Test.
+    
+- **Đánh giá mô hình:** $R^2$ Score, Mean Absolute Error (MAE), Root Mean Squared Error (RMSE).
+    
+- **Giải thích mô hình (Explainability):**
+    
+    - Chạy **SHAP (SHapley Additive exPlanations)** để tính giá trị SHAP value cho từng sample.
+        
+    - Xuất top 2 yếu tố đẩy rủi ro AI lên cao nhất ($SHAP > 0$) và top 2 yếu tố giảm rủi ro AI ($SHAP < 0$).
+        
+
+### 3.2 Bài toán 2: Career Transition Pathway (Cosine Similarity + Filter)
+
+Mục tiêu là tìm các nghề chuyển đổi có mức độ tương đồng kỹ năng cao, an toàn hơn trước AI và chỉ ra lỗ hổng kỹ năng.
+
+1. **Ma trận Kỹ năng:** Tạo ma trận $M \in \mathbb{R}^{N \times K}$ ($N = 832$ nghề, $K = 35$ kỹ năng O*NET).
+    
+2. **Tính Độ tương đồng Cosine:**
+    
+    Với nghề hiện tại $V_A$ và nghề mục tiêu $V_B$:
+    
+    $$\text{Similarity}(A, B) = \frac{V_A \cdot V_B}{\Vert{}V_A\Vert{} \Vert{}V_B\Vert{}} = \frac{\sum_{k=1}^{K} w_{A,k} w_{B,k}}{\sqrt{\sum_{k=1}^{K} w_{A,k}^2} \sqrt{\sum_{k=1}^{K} w_{B,k}^2}}$$
+    
+3. **Bộ lọc Rủi ro AI (Safety Constraint):**
+    
+    Chỉ giữ lại các nghề $B$ thỏa mãn:
+    
+    $$\text{AI Exposure}(B) < \text{AI Exposure}(A)$$
+    
+4. **Trích xuất Khoảng cách Kỹ năng (Skill Gap Extraction):**
+    
+    Xác định danh sách các kỹ năng $s_k$ mà nghề $B$ đòi hỏi cao hơn nghề $A$:
+    
+    $$\text{Skill Gap}(A \to B) = \left\{ s_k \;\mid\; w_{B,k} - w_{A,k} > 0.20 \right\}$$
+    
+
+## 🇻🇳 PHẦN 4: TÍCH HỢP BỐI CẢNH THỊ TRƯỜNG VIỆT NAM (LOCALIZATION)
+
+### 4.1 Luồng kết nối Dữ liệu (Crosswalk Routing)
+
+Plaintext
+
+```
+[Mã SOC O*NET] ──► [SOC_to_ISCO08.csv] ──► [Mã ISCO-08] ──► [Ký tự đầu = isco_major_code] ──► [vn_isco_baseline.csv]
 ```
 
-### `Task Statements`
+### 4.2 Phân tích Đối chiếu trong Jupyter Notebook (EDA)
 
-```text
-occupation_code
-task_id
-task
-task_type
-```
+Trong Notebook `EDA_and_Modeling.ipynb`, gộp chỉ số AI Exposure trung bình của mô hình theo 9 Nhóm nghề lớn ISCO-08 tại Việt Nam:
 
-O*NET hiện có 18.838 task statements. ([O*NET Center](https://www.onetcenter.org/dictionary/31.0/csv/task_statements.html?utm_source=chatgpt.com "Task Statements - O*NET 31.0 Data Dictionary at O*NET Resource Center"))
-
-### `Essential Skills`
-
-```text
-occupation_code
-skill
-importance
-level
-```
-
-### `Transferable Skills`
-
-```text
-occupation_code
-skill
-importance
-level
-```
-
-### `Related Occupations`
-
-```text
-occupation_code
-related_occupation_code
-```
-
----
-
-# 5. Nguồn 2 — AI Exposure
-
-MVP nên có **một nguồn AI exposure chính**, thay vì lấy 5 nguồn rồi trộn lung tung.
-
-Mình đề xuất:
-
-### OECD AI Exposure Measure
-
-OECD xây dựng chỉ số bằng cách mapping AI capabilities với occupational requirements và tạo **AI Capability Gap**. Khoảng cách thấp hơn tương ứng với mức AI exposure tiềm năng cao hơn. OECD cũng cung cấp dataset XLSX. ([OECD](https://www.oecd.org/en/publications/the-oecd-ai-exposure-measure_f3da0f0a-en.html?utm_source=chatgpt.com "The OECD AI exposure measure | OECD"))
-
-Dataset của chúng ta có thể cần:
-
-```text
-occupation
-ai_exposure
-source
-```
-
-Sau đó chuẩn hóa:
-
-```text
-AI Exposure
-0 → 1
-```
-
-hoặc:
-
-```text
-0 → 100
-```
-
----
-
-# 6. ILO dùng để làm gì?
-
-Không nhất thiết đưa ILO vào model ngay.
-
-ILO 2025 có một phương pháp đánh giá GenAI exposure ở cấp occupational/task, dựa trên task-level data, expert input và AI predictions; nghiên cứu bao phủ gần 30.000 tasks trong hệ thống phân loại nghề nghiệp được nghiên cứu. ([International Labour Organization](https://www.ilo.org/publications/generative-ai-and-jobs-2025-update?utm_source=chatgpt.com "Generative AI and jobs: A 2025 update | International Labour Organization"))
-
-Vì vậy trong MVP, ILO có thể dùng để:
-
-### Option A
-
-Làm **nguồn kiểm chứng/benchmark** cho OECD.
-
-### Option B
-
-Bổ sung AI exposure nếu mapping occupation phù hợp.
-
-### Option C
-
-Dùng trong phần Discussion:
-
-> "Our findings are compared with existing occupational exposure estimates from ILO."
-
-Điều này rất tốt cho report.
-
----
-
-# 7. Dữ liệu Việt Nam
-
-ILO đã công bố một brief năm 2026 áp dụng global occupational exposure index vào **Vietnam Labour Force Survey 2024**, phân tích exposure theo ngành, nghề và nhiều đặc điểm của lực lượng lao động Việt Nam. ([International Labour Organization](https://www.ilo.org/publications/generative-ai-and-jobs-viet-nam-labour-market-exposure-and-policy?utm_source=chatgpt.com "Generative AI and jobs in Viet Nam: Labour market exposure and policy considerations | International Labour Organization"))
-
-Nhưng:
-
-### MVP:
-
-**Không cần biến toàn bộ dataset thành Việt Nam.**
-
-Có thể dùng nguồn Việt Nam ở phần:
-
-> Context / Discussion
-
-Ví dụ:
-
-> "The global occupation-level analysis is contextualized using ILO's 2026 assessment of GenAI exposure in Viet Nam."
-
-Sau này nếu còn thời gian mới làm mapping:
-
-```text
-O*NET-SOC
-      ↓
-ISCO
-      ↓
-Vietnam occupation
-```
-
----
-
-# 8. Dataset cuối cùng
-
-Sau khi merge, chúng ta muốn có **một bảng phân tích chính**:
-
-### `occupation_master.csv`
-
-Ví dụ:
-
-|Column|Ý nghĩa|
-|---|---|
-|occupation_code|Mã nghề|
-|occupation_name|Tên nghề|
-|ai_exposure|AI exposure|
-|education_level|Trình độ|
-|skill_1|Skill|
-|skill_2|Skill|
-|...|...|
-|related_occupation|Nghề liên quan|
-
-Nhưng thực tế **không nên lưu skill thành hàng chục cột ngay từ đầu**.
-
-Tốt hơn:
-
-### `occupations.csv`
-
-```text
-occupation_code
-occupation_name
-ai_exposure
-education
-```
-
-### `occupation_skills.csv`
-
-```text
-occupation_code
-skill
-importance
-level
-```
-
-### `occupation_tasks.csv`
-
-```text
-occupation_code
-task_id
-task
-task_type
-```
-
-### `related_occupations.csv`
-
-```text
-occupation_code
-related_occupation_code
-```
-
----
-
-# 9. Data preprocessing
-
-Đây là phần nhóm bạn đã học → tận dụng tối đa.
-
-## Bước 1 — Remove duplicates
-
-```text
-occupation_code
-```
-
-phải unique ở bảng occupation.
-
----
-
-## Bước 2 — Missing values
-
-Kiểm tra:
-
-```text
-occupation
-skills
-AI exposure
-education
-```
-
----
-
-## Bước 3 — Normalize occupation names
-
-Ví dụ:
-
-```text
-"Accountants and Auditors"
-"Accountant"
-```
-
-không được tự động coi là hai occupation khác nhau nếu chúng thực chất cùng mapping.
-
----
-
-## Bước 4 — Normalize skills
-
-Ví dụ:
-
-```text
-Data Analysis
-Data Analysis
-data analysis
-DATA ANALYSIS
-```
-
-→ một skill.
-
----
-
-## Bước 5 — Normalize AI exposure
-
-Nếu nguồn có scale:
-
-```text
-0–1
-```
-
-thì giữ nguyên.
-
-Nếu:
-
-```text
-0–100
-```
-
-thì normalize:
-
-```python
-df["ai_exposure_norm"] = df["ai_exposure"] / 100
-```
-
----
-
-# 10. EDA
-
-Đây sẽ là một trong những phần **quan trọng nhất của project**.
-
-## EDA 1 — Distribution
-
-```text
-AI Exposure distribution
-```
-
-Histogram.
-
-Câu hỏi:
-
-> AI exposure phân bố như thế nào giữa các occupation?
-
----
-
-## EDA 2 — Top occupations
-
-Ví dụ:
-
-```text
-Highest AI Exposure
-────────────────────
-Occupation A  0.89
-Occupation B  0.87
-Occupation C  0.85
-...
-```
-
-Không nên kết luận:
-
-> "Các nghề này sẽ bị thay thế."
-
-Chỉ nên nói:
-
-> "Các nghề này có mức exposure cao hơn theo chỉ số được sử dụng."
-
-OECD cũng nhấn mạnh rằng exposure không phải là dự báo chắc chắn về việc làm bị thay thế; tác động thực tế còn phụ thuộc vào adoption, regulation, organizational change và social choices. ([OECD](https://www.oecd.org/en/publications/the-oecd-ai-exposure-measure_f3da0f0a-en.html?utm_source=chatgpt.com "The OECD AI exposure measure | OECD"))
-
----
-
-# 11. EDA 3 — Skill vs AI exposure
-
-Đây có thể là **biểu đồ quan trọng nhất**.
-
-Ví dụ:
-
-```text
-AI Exposure
-1.0 │                    ● ●
-    │                ● ●
-0.8 │           ● ●
-    │
-0.6 │       ●
-    │
-0.4 │   ●
-    └────────────────────────
-       Digital skill intensity
-```
-
-Câu hỏi:
-
-> Có mối quan hệ giữa digital/technical skill và AI exposure không?
-
----
-
-# 12. EDA 4 — Task characteristics
-
-Nếu có dữ liệu task/work activity:
-
-Phân tích:
-
-```text
-Occupation
-       ↓
-Tasks
-       ↓
-Task characteristics
-       ↓
-AI exposure
-```
-
-Ví dụ phân nhóm:
-
-```text
-Routine information processing
-Administrative
-Social interaction
-Physical
-Analytical
-Creative
-```
-
-Nhưng **đừng tự gán hàng chục nghìn task vào category bằng tay**.
-
-MVP có thể sử dụng các work activity/skill đã có trong O*NET thay vì tự xây task taxonomy.
-
----
-
-# 13. Feature Engineering
-
-Đây là bước chuyển từ raw dataset → ML dataset.
-
-Ví dụ chúng ta tạo:
-
-```text
-digital_skill_score
-analytical_skill_score
-social_skill_score
-creative_skill_score
-management_skill_score
-routine_activity_score
-education_level
-```
-
-Sau đó:
-
-```text
-X =
-[
- digital_skill_score,
- analytical_skill_score,
- social_skill_score,
- creative_skill_score,
- social_skill_score,
- education_level
-]
-```
-
-Target:
-
-```text
-y = ai_exposure
-```
-
----
-
-# 14. Nhưng có một thay đổi mình muốn đề xuất
-
-### Đừng biến ML thành mục tiêu chính.
-
-Nếu OECD đã cung cấp AI exposure score, chúng ta không cần nói:
-
-> "ML tiên đoán AI exposure của nghề."
-
-Một MVP tốt hơn là:
-
-## Experiment A
-
-**Statistical analysis**
-
-```text
-Skill → AI exposure
-```
-
-## Experiment B
-
-**ML regression**
-
-```text
-Occupation features
-       ↓
-ML
-       ↓
-Predicted AI exposure
-```
-
-Mục tiêu là xem:
-
-> Những đặc trưng occupation có thể giải thích/ước lượng AI exposure đến mức nào?
-
----
-
-# 15. Models
-
-Không cần 10 model.
-
-Chỉ:
-
-### Baseline
-
-**Linear Regression**
-
-### Model 2
-
-**Random Forest Regressor**
-
-### Model 3
-
-**Gradient Boosting / XGBoost** nếu nhóm đã quen.
-
-Nếu chưa biết XGBoost:
-
-> Không cần.
-
-Random Forest là đủ.
-
----
-
-# 16. Evaluation
-
-Regression:
-
-```text
-MAE
-RMSE
-R²
-```
-
-Ví dụ:
-
-|Model|MAE|RMSE|R²|
-|---|--:|--:|--:|
-|Linear Regression|0.14|0.18|0.62|
-|Random Forest|0.09|0.12|0.81|
-
-Các con số trên **chỉ là ví dụ**, chưa phải kết quả.
-
----
-
-# 17. Feature Importance
-
-Đây là phần rất đẹp để trình bày.
-
-Random Forest:
-
-```text
-Feature Importance
-
-Digital skills       ███████████████
-Routine activities   ███████████
-Analytical skills    ████████
-Social skills        █████
-Creative skills      ████
-Education            ███
-```
-
-Sau đó giải thích:
-
-> Model cho thấy những đặc trưng nào có đóng góp lớn hơn vào việc ước lượng AI exposure trong dataset.
-
-Không nói:
-
-> "Digital skills gây ra AI replacement."
-
-**Correlation/predictive importance không đồng nghĩa causation.**
-
----
-
-# 18. Career Transition
-
-Đây là phần thứ hai của MVP.
-
-Không dùng ML recommendation system.
-
-## Skill Vector
-
-Ví dụ:
-
-```text
-Occupation A
-
-Accounting       0.95
-Data Analysis    0.80
-Communication    0.60
-Management       0.40
-```
-
-Occupation B:
-
-```text
-Accounting       0.20
-Data Analysis    0.90
-Communication    0.70
-Management       0.50
-```
-
-→ tạo vector.
-
----
-
-# 19. Similarity
-
-Dùng:
-
-```python
-cosine_similarity()
-```
-
-Ví dụ:
-
-```text
-Accountant
-     ↓
-Skill Vector
-     ↓
-Compare with all occupations
-     ↓
-Similarity
-     ↓
-Top 5
-```
-
-Output:
-
-```text
-Current occupation:
-Accountant
-
-Potentially similar occupations:
-
-1. Financial Analyst       0.86
-2. Budget Analyst          0.82
-3. Business Analyst        0.76
-4. Financial Examiner      0.74
-5. Management Analyst      0.69
-```
-
-**Đây không phải lời khuyên nghề nghiệp cá nhân hóa.**
-
-Nó chỉ là:
-
-> occupations with high skill similarity.
-
----
-
-# 20. Thêm một điều kiện rất hay
-
-Nếu nghề hiện tại có:
-
-```text
-AI exposure = 0.85
-```
-
-thì không nên gợi ý toàn bộ nghề similarity cao.
-
-Có thể filter:
-
-```text
-Similarity > 0.70
-AND
-AI exposure < current occupation
-```
-
-Ví dụ:
-
-```text
-Current:
-Accountant
-AI exposure = 0.80
-
-Candidate:
-
-Financial Analyst
-Similarity = 0.84
-AI exposure = 0.55
-
-Business Analyst
-Similarity = 0.78
-AI exposure = 0.49
-```
-
-→ hiển thị:
-
-> **Potential transition candidates**
-
-Điều này tạo ra sự liên kết rất đẹp:
-
-```text
-AI Impact
-     +
-Skill Similarity
-     ↓
-Career Transition
-```
-
----
-
-# 21. Streamlit MVP
-
-Chỉ cần **3 màn hình**.
-
-## Page 1 — Overview
-
-```text
-AI Job Impact Analyzer
-
-Total occupations: XXX
-
-Average AI Exposure: XX
-
-[Chart]
-AI Exposure Distribution
-
-[Chart]
-Exposure by occupation
-```
-
----
-
-# 22. Page 2 — Occupation Analysis
-
-User chọn:
-
-```text
-Select occupation:
-[ Accountant ▼ ]
-```
-
-Hiển thị:
-
-```text
-ACCOUNTANT
-
-AI Exposure
-██████████████░░░░ 72%
-
-Skills
-──────────────
-Accounting       95%
-Data Analysis    82%
-Communication    65%
-
-Tasks
-──────────────
-• Prepare financial reports
-• Analyze financial records
-• Prepare tax documents
-```
-
----
-
-# 23. Page 3 — Career Transition
-
-```text
-Current occupation:
-Accountant
-
-Potentially similar occupations
-```
-
-|Occupation|Skill Similarity|AI Exposure|
-|---|--:|--:|
-|Financial Analyst|0.86|0.55|
-|Budget Analyst|0.82|0.51|
-|Business Analyst|0.78|0.48|
-
-Sau đó có thể hiển thị:
-
-> These occupations have high skill similarity and lower AI exposure in the reference dataset.
-
----
-
-# 24. Technology Stack
-
-MVP:
-
-```text
-Python
-│
-├── pandas
-├── numpy
-├── matplotlib
-├── seaborn
-├── scikit-learn
-│
-└── Streamlit
-```
-
-Không cần:
-
-```text
-❌ PyTorch
-❌ TensorFlow
-❌ Transformers
-❌ LangChain
-❌ Vector DB
-❌ Neo4j
-❌ FastAPI
-❌ LLM API
-```
-
-Đây là **MVP**, đừng over-engineer.
-
----
-
-# 25. Project structure
-
-Mình đề xuất:
-
-```text
-AI_Job_Transition/
-│
-├── data/
-│   ├── raw/
-│   │   ├── onet/
-│   │   ├── oecd/
-│   │   └── ilo/
-│   │
-│   └── processed/
-│       ├── occupations.csv
-│       ├── skills.csv
-│       ├── tasks.csv
-│       └── occupation_master.csv
-│
-├── notebooks/
-│   ├── 01_data_collection.ipynb
-│   ├── 02_data_cleaning.ipynb
-│   ├── 03_eda.ipynb
-│   └── 04_modeling.ipynb
-│
-├── src/
-│   ├── data_processing.py
-│   ├── feature_engineering.py
-│   ├── model.py
-│   └── similarity.py
-│
-├── models/
-│   └── model.pkl
-│
-├── app/
-│   └── streamlit_app.py
-│
-├── requirements.txt
-└── README.md
-```
-
----
-
-# 26. Phân chia công việc nhóm
-
-Nếu nhóm 4 người, mình sẽ chia:
-
-### Member 1 — Data
-
-- O*NET
+1. Tính `avg_ai_exposure` cho từng `isco_major_code`.
     
-- OECD
+2. Merge với bảng `vn_isco_baseline.csv`.
     
-- ILO
+3. Vẽ biểu đồ trục kép (Dual-axis Chart):
     
-- download
-    
-- understand schema
-    
-- merge
-    
+    - **Trục 1 (Cột):** Quy mô lao động Việt Nam (`vn_employment_thousands`).
+        
+    - **Trục 2 (Đường):** Điểm rủi ro AI Exposure trung bình (`avg_ai_exposure`).
+        
 
-### Member 2 — Cleaning + EDA
+## 🖥️ PHẦN 5: CHƯƠNG TRÌNH CLI TRÊN TERMINAL (`main.py`)
 
-- missing values
-    
-- duplicate
-    
-- normalization
-    
-- visualization
-    
-- correlation
-    
+Chương trình chạy trực tiếp bằng dòng lệnh Python, không dùng giao diện Web UI, hiển thị báo cáo phân tích bằng thư viện `rich`.
 
-### Member 3 — ML
+### Kịch bản hiển thị Output trên Terminal:
 
-- feature engineering
-    
-- baseline
-    
-- Random Forest
-    
-- evaluation
-    
-- feature importance
-    
+Plaintext
 
-### Member 4 — Career Transition + App
+```
+================================================================================
+                    CAREER AI EXPOSURE & TRANSITION REPORT                      
+================================================================================
+[Nghề nghiệp tra cứu]: Financial Managers (Mã SOC: 11-3031.00)
 
-- skill vector
-    
-- cosine similarity
-    
-- Streamlit
-    
-- integration
-    
+--------------------------------------------------------------------------------
+1. AI IMPACT ANALYSIS (Mô hình XGBoost & SHAP)
+--------------------------------------------------------------------------------
+* Dự báo AI Exposure Score : 0.88 / 1.00 (MỨC ĐỘ RỦI RO CAO)
+* Yếu tố làm tăng rủi ro   : Digital Intensity (+0.25), Routine Intensity (+0.12)
+* Yếu tố bảo vệ (Giảm rủi ro): Social Intensity (-0.08)
 
-### Cả nhóm
+--------------------------------------------------------------------------------
+2. BỐI CẢNH THỊ TRƯỜNG VIỆT NAM (ILO Baseline & ISCO-08)
+--------------------------------------------------------------------------------
+* Nhóm nghề tương đương    : Nhóm 1 - Nhà quản lý (ISCO Code: 1211)
+* Quy mô lao động tại VN   : ~1,250,000 người
+* Tỷ lệ lao động nữ        : 42.5%
+* Điểm rủi ro AI trung bình: 0.65 / 1.00 (Tác động ở mức khá)
 
-- research question
-    
-- interpretation
-    
-- report
-    
-- presentation
-    
+--------------------------------------------------------------------------------
+3. GỢI Ý LỘ TRÌNH CHUYỂN ĐỔI NGHỀ NGHIỆP AN TOÀN (Top 3 Recommendations)
+--------------------------------------------------------------------------------
+ [#1] Human Resources Managers (SOC: 11-3121.00)
+      * Độ tương đồng kỹ năng : 87.5%
+      * Chỉ số AI Exposure     : 0.62 (An toàn hơn: -0.26)
+      * Kỹ năng cần bổ sung    : Personnel and Human Resources (+0.45), Negotiation (+0.30)
 
----
-
-# 27. MVP Acceptance Criteria
-
-Đây là phần rất quan trọng.
-
-**MVP được coi là hoàn thành khi:**
-
-### Data
-
--  Có occupation dataset
-    
--  Có skill dataset
-    
--  Có AI exposure
-    
--  Merge thành dataset cuối
-    
--  Document nguồn dữ liệu
-    
-
-### EDA
-
--  AI exposure distribution
-    
--  Top/bottom exposure
-    
--  Skill/exposure relationship
-    
--  Một số occupation case studies
-    
-
-### ML
-
--  Baseline
-    
--  Random Forest
-    
--  MAE/RMSE/R²
-    
--  Feature importance
-    
-
-### Career transition
-
--  Skill vector
-    
--  Cosine similarity
-    
--  Top 5 related occupations
-    
-
-### Application
-
--  Streamlit
-    
--  Occupation selection
-    
--  AI exposure display
-    
--  Skill display
-    
--  Career transition suggestions
-    
-
-### Documentation
-
--  Data sources
-    
--  Methodology
-    
--  Limitations
-    
--  README
-    
-
-**Hoàn thành hết đây là MVP.**
-
----
-
-# 28. Những thứ tuyệt đối để "Later"
-
-Nếu còn thời gian, mới thêm:
-
-### V1.1 — Job postings
-
-```text
-VietnamWorks / other job postings
-        ↓
-Job description
-        ↓
-NLP
-        ↓
-Skill extraction
+ [#2] Training and Development Managers (SOC: 11-3131.00)
+      * Độ tương đồng kỹ năng : 82.1%
+      * Chỉ số AI Exposure     : 0.58 (An toàn hơn: -0.30)
+      * Kỹ năng cần bổ sung    : Instructing (+0.40), Learning Strategies (+0.35)
+================================================================================
 ```
 
-### V1.2 — Vietnamese occupation mapping
+## 📅 PHẦN 6: LỘ TRÌNH THỰC HIỆN DỰ ÁN (PROJECT ROADMAP)
 
-```text
-O*NET
- ↓
-ISCO
- ↓
-Vietnam occupation classification
+Plaintext
+
+```
+Phase 1: ETL & FE           Phase 2: Modeling         Phase 3: VN Context        Phase 4: CLI & Report
+[Ngày 1 - 2]               [Ngày 3 - 4]               [Ngày 5 - 6]               [Ngày 7 - 8]
+ ├── Thu thập O*NET/OECD    ├── Train XGBoost Model    ├── Tạo vn_isco_baseline   ├── Code main.py (Rich CLI)
+ ├── Tính 6 Features (X)    ├── Chạy SHAP Analysis     ├── Map SOC -> ISCO-08     ├── Hoàn thiện Notebook
+ └── Dựng Skill Matrix      └── Code Cosine Sim Alg    └── Vẽ biểu đồ EDA         └── Chuẩn bị Slide
 ```
 
-### V1.3 — NLP
+### Danh mục Sản phẩm Bàn giao (Deliverables)
 
-```text
-Job description
-       ↓
-TF-IDF / embeddings
-       ↓
-Skill extraction
-```
+1. `data/`: Thư mục chứa 4 file CSV sạch (`occupations_master.csv`, `occupation_skills.csv`, `SOC_to_ISCO08.csv`, `vn_isco_baseline.csv`).
+    
+2. `notebooks/EDA_and_Modeling.ipynb`: Notebook hoàn chỉnh chứa pipeline ETL, Feature Engineering, EDA đối chiếu Mỹ - Việt Nam, huấn luyện mô hình XGBoost và SHAP plot.
+    
+3. `src/` & `main.py`: Chương trình Python CLI phục vụ tra cứu và chạy gợi ý chuyển nghề trực tiếp trên Terminal.
+    
+4. **Slide thuyết trình:** Tóm tắt phương pháp luận Data Science, kết quả mô hình ML, các biểu đồ EDA và thảo luận về tác động tới thị trường lao động Việt Nam.
 
-### V1.4 — Better recommendation
-
-```text
-Skill similarity
-+
-AI exposure
-+
-salary
-+
-job demand
-+
-education requirement
-```
-
-### V2 — Graph
-
-```text
-Occupation
-    ↕
-Skill
-    ↕
-Occupation
-```
-
-→ Neo4j.
-
-### V3 — Personalization
-
-```text
-CV
- ↓
-NLP
- ↓
-Extract skills
- ↓
-Current skill vector
- ↓
-Career transition
-```
-
-Đây mới là lúc project trở thành **AI Job Transition Map** đúng nghĩa.
-
----
-
-# 29. Một limitation cực kỳ quan trọng phải ghi ngay từ MVP
-
-Tên project có chữ **"AI Job Impact"**, nhưng kết quả **không được diễn giải thành xác suất một nghề sẽ mất việc**.
-
-Ví dụ không viết:
-
-> ❌ Accountant có 72% khả năng bị AI thay thế.
-
-Mà:
-
-> **Accountant has an AI exposure score of 0.72 according to the reference exposure measure.**
-
-Bởi OECD mô tả measure của họ là mức độ gần giữa capability của AI hiện tại và requirements của occupation, đồng thời nhấn mạnh rằng tác động thực tế còn phụ thuộc adoption, regulation, organizational change và social choices. ([OECD](https://www.oecd.org/en/publications/the-oecd-ai-exposure-measure_f3da0f0a-en.html?utm_source=chatgpt.com "The OECD AI exposure measure | OECD"))
-
-ILO cũng phân biệt exposure với việc làm thực sự bị mất; nghiên cứu 2025 kết luận phần lớn jobs có khả năng được **transformed** hơn là hoàn toàn redundant. ([International Labour Organization](https://www.ilo.org/publications/generative-ai-and-jobs-2025-update?utm_source=chatgpt.com "Generative AI and jobs: A 2025 update | International Labour Organization"))
-
-Điều này sẽ làm report của nhóm **chắc hơn rất nhiều**.
-
----
-
-# 30. Toàn bộ MVP gói lại trong một câu
-
-> **Build a data-driven system that analyzes occupational AI exposure using O*NET occupational characteristics and established AI-exposure measures, then identifies potentially relevant career-transition options based on transferable-skill similarity.**
-
-Và pipeline cuối cùng chỉ cần nhớ:
-
-```text
-                 O*NET
-                   │
-        ┌──────────┼──────────┐
-        ↓          ↓          ↓
-      Tasks      Skills     Related Jobs
-        │          │
-        └────┬─────┘
-             ↓
-        Occupation Data
-             │
-             + ← OECD / ILO AI Exposure
-             │
-             ↓
-        ┌─────────────┐
-        │     EDA     │
-        └──────┬──────┘
-               ↓
-       Feature Engineering
-               ↓
-        ┌──────┴──────┐
-        ↓             ↓
-    ML Analysis    Skill Vector
-        ↓             ↓
-    AI Impact      Similarity
-        │             │
-        └──────┬──────┘
-               ↓
-           Streamlit
-               ↓
-     AI Job Impact Analyzer
-```
 
 
 
