@@ -246,7 +246,7 @@ ai_exposure_score: ...
 
 ---
 
-# 6.2. Bảng `occupation_skills`
+## 6.2. Bảng `occupation_skills`
 
 Lưu các skill của từng occupation.
 
@@ -291,7 +291,7 @@ Các trường:
 
 ---
 
-# 6.3. Bảng `occupation_tasks`
+## 6.3. Bảng `occupation_tasks`
 
 Lưu các task của occupation.
 
@@ -330,7 +330,7 @@ Không nhất thiết phải đưa toàn bộ task text trực tiếp vào K-Mea
 
 ---
 
-# 6.4. Bảng `occupation_features`
+## 6.4. Bảng `occupation_features`
 
 Đây là bảng chứa các occupational features được nhóm feature engineering.
 
@@ -374,7 +374,7 @@ Các feature này có thể được sử dụng làm input cho clustering.
 
 ---
 
-# 6.5. Bảng `related_occupations`
+## 6.5. Bảng `related_occupations`
 
 Lưu các occupation liên quan được O*NET cung cấp.
 
