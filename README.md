@@ -4,7 +4,7 @@
 
 ### 1.1. Ý tưởng
 
-Dự án xây dựng một hệ thống Data Science nhằm phân tích đặc điểm của các nghề nghiệp, khám phá các nhóm nghề có đặc điểm tương đồng bằng **Unsupervised Learning**, phân tích mức độ AI Exposure của các nghề và tìm kiếm các hướng chuyển đổi nghề nghiệp dựa trên mức độ tương đồng về kỹ năng.
+Dự án xây dựng một hệ thống Data Science nhằm phân tích đặc điểm của các nghề nghiệp, khám phá các nhóm nghề có đặc điểm tương đồng bằng **Unsupervised Learning** và tìm kiếm các hướng chuyển đổi nghề nghiệp dựa trên mức độ tương đồng về kỹ năng.
 
 Thay vì xây dựng một mô hình dự đoán nghề nào sẽ bị AI thay thế, dự án sử dụng **OECD AI Exposure** như một chỉ số đã được OECD xây dựng để phân tích dữ liệu nghề nghiệp.
 
@@ -52,27 +52,36 @@ Sử dụng dữ liệu O*NET để tìm ra các nhóm occupation có đặc đi
 - Các feature được nhóm tự xây dựng
 
 Áp dụng Unsupervised Learning, dự kiến sử dụng K-Means Clustering.
+Ví dụ sau khi K-Means tạo ra:
+Cluster 0
+Cluster 1
+Cluster 2
+Cluster 3
+Cluster 4
+
+chúng ta lấy OECD Exposure và gắn vào:
+Occupation       Cluster       AI Exposure
+------------------------------------------------
+Accountant       Cluster 0       0.XX
+Data Scientist   Cluster 0       0.XX
+Nurse            Cluster 1       0.XX
+Teacher          Cluster 1       0.XX
+Electrician      Cluster 3       0.XX
+...
+
+Sau đó hỏi:
+Các cluster khác nhau có mức AI Exposure khác nhau như thế nào?
+
+Ví dụ minh họa:
+Cluster 0 → Average AI Exposure = 0.76
+Cluster 1 → Average AI Exposure = 0.61
+Cluster 2 → Average AI Exposure = 0.43
+Cluster 3 → Average AI Exposure = 0.32
+
 
 ---
 
-### Mục tiêu 2 — Phân tích AI Exposure
-
-Kết hợp dữ liệu OECD AI Exposure với occupation data để phân tích:
-
-- AI Exposure của từng occupation
-- AI Exposure giữa các occupation cluster
-- Đặc điểm của những nhóm nghề có AI Exposure khác nhau
-- Mối quan hệ giữa occupational characteristics và AI Exposure
-
-Lưu ý:
-
-> OECD AI Exposure không phải là xác suất nghề nghiệp bị AI thay thế.
-
-Đây là một chỉ số dùng để phân tích mức độ exposure/potential impact của AI đối với occupation.
-
----
-
-### Mục tiêu 3 — Phân tích Career Transition
+### Mục tiêu 2 — Phân tích Career Transition
 
 Xây dựng hệ thống tìm kiếm các occupation có skill profile tương đồng với occupation hiện tại.
 
