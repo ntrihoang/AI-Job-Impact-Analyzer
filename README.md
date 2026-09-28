@@ -53,30 +53,31 @@ Sử dụng dữ liệu O*NET để tìm ra các nhóm occupation có đặc đi
 
 Áp dụng Unsupervised Learning, dự kiến sử dụng K-Means Clustering.
 Ví dụ sau khi K-Means tạo ra:
-Cluster 0
-Cluster 1
-Cluster 2
-Cluster 3
-Cluster 4
+- Cluster 0  
+- Cluster 1  
+- Cluster 2
+- Cluster 3
+- Cluster 4
 
 chúng ta lấy OECD Exposure và gắn vào:
-Occupation       Cluster       AI Exposure
-------------------------------------------------
-Accountant       Cluster 0       0.XX
-Data Scientist   Cluster 0       0.XX
-Nurse            Cluster 1       0.XX
-Teacher          Cluster 1       0.XX
-Electrician      Cluster 3       0.XX
+Occupation     | Cluster     | AI Exposure
+-------------- | ----------- | -----------
+Accountant     | Cluster 0   | 0.XX
+Data Scientist | Cluster 0   | 0.XX
+Nurse          | Cluster 1   | 0.XX
+Teacher        | Cluster 1   | 0.XX
+Electrician    | Cluster 3   | 0.XX
+
 ...
 
 Sau đó hỏi:
 Các cluster khác nhau có mức AI Exposure khác nhau như thế nào?
 
 Ví dụ minh họa:
-Cluster 0 → Average AI Exposure = 0.76
-Cluster 1 → Average AI Exposure = 0.61
-Cluster 2 → Average AI Exposure = 0.43
-Cluster 3 → Average AI Exposure = 0.32
+Cluster 0 → Average AI Exposure = 0.76  
+Cluster 1 → Average AI Exposure = 0.61  
+Cluster 2 → Average AI Exposure = 0.43  
+Cluster 3 → Average AI Exposure = 0.32  
 
 
 ---
