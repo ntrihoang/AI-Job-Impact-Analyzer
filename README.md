@@ -237,8 +237,8 @@ AI Capability Gap Index_Total
 vì hướng diễn giải của chỉ số này khác với chỉ số normalized được lựa chọn.
 
 ---
-
-# 3. Occupation Master Data
+# 3. Data thu thập
+## 3.1 Occupation Master Data
 
 Bảng `occupations` đóng vai trò là **master table** của toàn bộ database.
 
@@ -268,7 +268,7 @@ Trong đó:
 
 ---
 
-# 4. Occupation Education
+## 3.2 Occupation Education
 
 Education được lưu trong một bảng riêng thay vì chỉ giữ một `education_level` duy nhất trong bảng `occupations`.
 
@@ -306,7 +306,7 @@ Các occupation không có education data không bị ép giá trị giả vào 
 
 ---
 
-# 5. Occupation Skills
+## 3.3. Occupation Skills
 
 Essential Skills được sử dụng để xây dựng skill representation cho occupation.
 
@@ -345,7 +345,7 @@ normalized_weight
 
 ---
 
-## 5.1. Kiểm tra Skill Data
+## 3.4. Kiểm tra Skill Data
 
 Sau khi xử lý:
 
@@ -389,47 +389,6 @@ Các giá trị `Level = 0` được giữ lại vì đây có thể là giá tr
 
 ---
 
-# 6. Normalized Skill Weight
-
-Ngoài các giá trị gốc `importance_score` và `level_score`, project tạo thêm một feature:
-
-```text
-normalized_weight
-```
-
-Đây là **feature engineered của project**, không phải trường dữ liệu gốc.
-
-Đầu tiên tính:
-
-```text
-raw_weight = importance_score × level_score
-```
-
-Sau đó chuẩn hóa trong phạm vi từng occupation:
-
-```text
-normalized_weight
-=
-raw_weight
-/
-Σ raw_weight của occupation
-```
-
-Mục đích là tạo một vector skill representation cho mỗi occupation.
-
-Ví dụ về mặt khái niệm:
-
-```text
-Occupation A
-
-Skill 1 → 0.30
-Skill 2 → 0.25
-Skill 3 → 0.20
-Skill 4 → 0.15
-Skill 5 → 0.10
-             ────
-              1.00
-```
 
 Vector này sẽ được sử dụng ở giai đoạn sau cho:
 
@@ -440,7 +399,7 @@ Vector này sẽ được sử dụng ở giai đoạn sau cho:
 
 ---
 
-# 7. Occupation Work Activities
+## 3.6. Occupation Work Activities
 
 Work Activities được sử dụng để xây dựng các đặc trưng cấp occupation.
 
@@ -467,7 +426,7 @@ occupation + activity + importance + level
 
 ---
 
-# 8. Work Activities: Importance và Level
+### Work Activities: Importance và Level
 
 Hai measurement được giữ riêng vì chúng mô tả hai khía cạnh khác nhau.
 
@@ -503,7 +462,7 @@ Cách này giúp giữ lại ý nghĩa riêng của hai measurement.
 
 ---
 
-# 9. Work Activity Feature Engineering
+### Work Activity Feature Engineering
 
 Từ O\*NET Work Activities, project xây dựng 5 occupational dimensions.
 
@@ -511,117 +470,9 @@ Các dimensions này là **feature do project định nghĩa**, không phải n�
 
 Feature được tính bằng cách lấy mean `LV` của các activities thuộc cùng một nhóm.
 
-## 9.1. Cognitive Intensity
-
-```python
-cognitive_intensity = mean(LV)
-```
-
-Activities gồm:
-
-```text
-Making Decisions and Solving Problems
-Thinking Creatively
-Developing Objectives and Strategies
-Updating and Using Relevant Knowledge
-Judging the Qualities of Objects, Services, or People
-Evaluating Information to Determine Compliance with Standards
-Estimating the Quantifiable Characteristics of Products, Events, or Information
-Organizing, Planning, and Prioritizing Work
-```
-
 ---
 
-## 9.2. Social Intensity
-
-```python
-social_intensity = mean(LV)
-```
-
-Activities gồm:
-
-```text
-Communicating with Supervisors, Peers, or Subordinates
-Communicating with People Outside the Organization
-Establishing and Maintaining Interpersonal Relationships
-Assisting and Caring for Others
-Selling or Influencing Others
-Resolving Conflicts and Negotiating with Others
-Performing for or Working Directly with the Public
-Coordinating the Work and Activities of Others
-Developing and Building Teams
-Training and Teaching Others
-Guiding, Directing, and Motivating Subordinates
-Coaching and Developing Others
-Providing Consultation and Advice to Others
-Interpreting the Meaning of Information for Others
-Staffing Organizational Units
-```
-
----
-
-## 9.3. Physical / Operational Intensity
-
-```python
-physical_operational_intensity = mean(LV)
-```
-
-Activities gồm:
-
-```text
-Performing General Physical Activities
-Handling and Moving Objects
-Operating Vehicles, Mechanized Devices, or Equipment
-Repairing and Maintaining Mechanical Equipment
-Repairing and Maintaining Electronic Equipment
-Controlling Machines and Processes
-Inspecting Equipment, Structures, or Materials
-```
-
----
-
-## 9.4. Information / Digital Intensity
-
-```python
-information_digital_intensity = mean(LV)
-```
-
-Activities gồm:
-
-```text
-Working with Computers
-Processing Information
-Analyzing Data or Information
-Getting Information
-Drafting, Laying Out, and Specifying Technical Devices, Parts, and Equipment
-```
-
-Tên `information_digital_intensity` được sử dụng để tránh diễn giải tất cả activities trong nhóm này là inherently digital.
-
----
-
-## 9.5. Administrative / Routine Intensity
-
-```python
-administrative_routine_intensity = mean(LV)
-```
-
-Activities gồm:
-
-```text
-Monitoring Processes, Materials, or Surroundings
-Scheduling Work and Activities
-Documenting/Recording Information
-Performing Administrative Activities
-Monitoring and Controlling Resources
-Identifying Objects, Actions, and Events
-```
-
-Đây cũng là một dimension được project định nghĩa dựa trên semantic grouping của Work Activities.
-
----
-
-# 10. Kiểm tra Coverage của Work Activities
+### Kiểm tra Coverage của Work Activities
 
 Work Activities có coverage nhỏ hơn master occupation table.
 
@@ -658,47 +509,19 @@ occupation_features
 
 Các occupation thiếu feature sẽ được xử lý ở bước Machine Learning sau, khi tạo dataset phù hợp cho K-Means.
 
----
-
-# 11. Correlation Analysis của Occupational Features
-
-Sau khi xây dựng 5 features, correlation matrix được kiểm tra để đánh giá mối quan hệ giữa các dimensions.
-
-Kết quả hiện tại:
-
-|                            | Cognitive | Social | Physical/Operational | Information/Digital | Administrative/Routine |
-| -------------------------- | --------: | -----: | -------------------: | ------------------: | ---------------------: |
-| **Cognitive**              |      1.00 |   0.81 |                -0.11 |                0.89 |                   0.89 |
-| **Social**                 |      0.81 |   1.00 |                -0.20 |                0.66 |                   0.85 |
-| **Physical/Operational**   |     -0.11 |  -0.20 |                 1.00 |               -0.12 |                  -0.02 |
-| **Information/Digital**    |      0.89 |   0.66 |                -0.12 |                1.00 |                   0.82 |
-| **Administrative/Routine** |      0.89 |   0.85 |                -0.02 |                0.82 |                   1.00 |
-
-Kết quả cho thấy:
-
-- Physical/Operational có tương quan thấp với các dimensions còn lại.
-- Cognitive, Information/Digital và Administrative/Routine có tương quan cao.
-- Social cũng có tương quan tương đối cao với Cognitive và Administrative/Routine.
-
-Correlation cao không được xem ngay là lỗi dữ liệu.
-
-Nó có thể phản ánh việc nhiều đặc điểm hoạt động nghề nghiệp cùng tăng ở các occupation có mức độ công việc phức tạp cao.
-
-Việc đánh giá sâu hơn bằng PCA và các phương pháp khác sẽ được thực hiện ở giai đoạn feature analysis / Machine Learning.
 
 ---
 
-# 12. OECD AI Exposure Integration
+## 3.7 OECD AI Exposure Integration
 
 OECD data được đọc từ Excel workbook, trong đó sheet `Data` có nhiều dòng metadata/header trước phần dữ liệu occupation.
 
 Dữ liệu thực tế bắt đầu từ row 4.
 
 
-
 ---
 
-# 13. OECD - O\*NET Mapping Validation
+**OECD - O\*NET Mapping Validation**
 
 Kết quả mapping:
 
@@ -736,7 +559,7 @@ vì `NULL` biểu diễn **không có dữ liệu**, trong khi `0` sẽ mang ngh
 
 ---
 
-# 14. Database Schema
+# 4. Database Schema
 
 Database hiện tại được thiết kế xoay quanh `occupation_code`.
 
@@ -771,20 +594,11 @@ related_occupations
 
 ---
 
-# 15. Indexes
-
-Các index được sử dụng để hỗ trợ truy vấn theo occupation:
-
-```sql
-```
-
----
-
-# 16. Nguyên tắc xử lý dữ liệu
+## 4.1. Nguyên tắc xử lý dữ liệu
 
 Một số nguyên tắc được thống nhất trong quá trình xây dựng database:
 
-### 16.1. Không merge bằng occupation title
+### 1. Không merge bằng occupation title
 
 Sử dụng:
 
@@ -798,7 +612,7 @@ Không sử dụng `occupation_title` để merge dữ liệu giữa các nguồ
 
 ---
 
-### 16.2. Không biến missing thành zero
+### 2. Không biến missing thành zero
 
 Ví dụ:
 
@@ -816,13 +630,13 @@ NULL
 
 ---
 
-### 16.3. Không tự động xóa các giá trị Level = 0
+### 3. Không tự động xóa các giá trị Level = 0
 
 `LV = 0` được giữ vì đây có thể là giá trị hợp lệ trong dữ liệu O\*NET.
 
 ---
 
-### 16.4. Phân biệt raw data và engineered features
+### 4. Phân biệt raw data và engineered features
 
 Ví dụ:
 
@@ -848,7 +662,7 @@ là feature được project xây dựng.
 
 ---
 
-### 16.5. AI Exposure không được dùng để tạo occupational clusters
+### 5. AI Exposure không được dùng để tạo occupational clusters
 
 `ai_exposure_score` được lưu trong `occupations` nhưng không được sử dụng làm input cho K-Means.
 
@@ -870,7 +684,7 @@ Như vậy AI Exposure được sử dụng như một **external indicator** đ
 
 ---
 
-# 17. Data Validation
+## 4.2 Data Validation
 
 Sau khi insert dữ liệu vào SQLite, database cần được kiểm tra trước khi chuyển sang EDA và Machine Learning.
 
@@ -926,70 +740,11 @@ Missing do data processing error
 
 ---
 
-# 18. Current Data Pipeline Status
-
-Tại thời điểm hiện tại, phần Data Preparation đã hoàn thành các bước chính:
-
-```text
-[✓] Collect O*NET data
-[✓] Collect OECD AI Exposure
-[✓] Clean occupation data
-[✓] Establish occupation_code as central identifier
-[✓] Process occupation skills
-[✓] Calculate normalized skill weights
-[✓] Process education distribution
-[✓] Process Work Activities
-[✓] Separate IM and LV
-[✓] Engineer occupational activity features
-[✓] Integrate OECD AI Exposure
-[✓] Design SQLite database
-[✓] Insert data into database
-[ ] Complete automated database validation
-[ ] EDA
-[ ] Feature analysis / PCA
-[ ] StandardScaler
-[ ] K-Means
-[ ] Skill similarity
-[ ] Skill gap analysis
-[ ] Career transition analysis
-```
-
----
-
-# 19. Next Step
-
-Sau khi database validation hoàn tất, pipeline sẽ chuyển sang:
-
-```text
-SQLite Database
-       ↓
-      EDA
-       ↓
-Feature Validation
-       ↓
-StandardScaler
-       ↓
-K-Means Clustering
-       ↓
-Cluster Analysis
-       ↓
-OECD AI Exposure Analysis
-       ↓
-Skill Similarity
-       ↓
-Skill Gap
-       ↓
-Career Transition Analysis
-```
-
-Database được thiết kế theo hướng **giữ dữ liệu nguồn càng đầy đủ càng tốt**, trong khi các bước xử lý dành cho Machine Learning sẽ được thực hiện ở downstream pipeline. Điều này cho phép thay đổi cách feature engineering hoặc clustering mà không cần xây dựng lại toàn bộ dữ liệu gốc.
-
-
-# 10. PHASE 4 — EXPLORATORY DATA ANALYSIS
+# 5. PHASE 4 — EXPLORATORY DATA ANALYSIS
 
 EDA tập trung vào việc hiểu dữ liệu trước khi machine learning.
 
-## 10.1. Occupation distribution
+## 5.1. Occupation distribution
 
 Phân tích:
 
@@ -998,7 +753,7 @@ Phân tích:
 - job zone
 - skill distribution
 
-## 10.2. AI Exposure
+## 5.2. AI Exposure
 
 Phân tích:
 
@@ -1006,7 +761,7 @@ Phân tích:
 - occupation có exposure cao/thấp
 - AI Exposure theo occupational characteristics
 
-## 10.3. Feature relationships
+## 5.3. Feature relationships
 
 Phân tích mối quan hệ giữa:
 
@@ -1028,7 +783,7 @@ Lưu ý:
 
 > Correlation không đồng nghĩa với causation.
 
-## 10.4. Skill analysis
+## 5.4. Skill analysis
 
 Phân tích:
 
@@ -1039,122 +794,637 @@ Phân tích:
 EDA sẽ giúp xác định feature nào phù hợp cho clustering.
 
 ---
+# AI JOB IMPACT & CAREER TRANSITION ANALYSIS
 
-# 11. PHASE 5 — UNSUPERVISED LEARNING
+## Trạng thái dự án
 
-## 11.1. Bài toán
-
-Câu hỏi:
-
-> Các occupation có thể tự nhiên được chia thành những nhóm nào dựa trên đặc điểm nghề nghiệp?
-
-Input:
-
-```text
-Occupation Features
-+
-Selected O*NET Features
-```
-
-Không có target `y`.
+| Giai đoạn | Nội dung | Trạng thái |
+|---|---|---|
+| Data Preparation & Database | O*NET + OECD, SQLite, validation | Hoàn thành |
+| EDA | Phân tích phân phối, AI Exposure, quan hệ giữa các feature | Hoàn thành |
+| Feature Representation | 41 Work Activities LV (chính) và PCA 14 components (so sánh) | Hoàn thành |
+| Unsupervised Learning | K-Means, ứng viên K = 4, diễn giải cụm | Hoàn thành |
+| AI Exposure Analysis | Phân tích theo cụm, Kruskal–Wallis, Mann–Whitney U (Holm) | Hoàn thành |
+| Skill Similarity & Career Transition | Cosine similarity, Top-K occupation tương đồng | Tiếp theo |
+| Skill Gap Analysis | So sánh skill vector giữa nghề hiện tại và nghề mục tiêu | Chưa thực hiện |
+| Evaluation với O*NET Related Occupations | Top-K overlap, similarity distribution | Chưa thực hiện |
+| Visualization & Streamlit | Occupation Explorer, Clusters, Career Transition | Chưa thực hiện |
 
 ---
 
-## 11.2. K-Means Clustering
+## 1. Tổng quan dự án
 
-Thử nhiều giá trị K:
+### 1.1. Ý tưởng
+
+Dự án xây dựng một hệ thống Data Science nhằm phân tích đặc điểm của các nghề nghiệp, khám phá các nhóm nghề có đặc điểm tương đồng bằng **Unsupervised Learning** và tìm kiếm các hướng chuyển đổi nghề nghiệp dựa trên mức độ tương đồng về kỹ năng.
+
+Thay vì xây dựng một mô hình dự đoán nghề nào sẽ bị AI thay thế, dự án sử dụng **OECD AI Exposure** như một chỉ số đã được OECD xây dựng để phân tích dữ liệu nghề nghiệp. Chỉ số này là mức phơi nhiễm với AI, không phải xác suất mất việc hay xác suất một nghề bị tự động hóa hoàn toàn.
+
+Trọng tâm của dự án là:
 
 ```text
-K = 3
-K = 4
-K = 5
-K = 6
-K = 7
+Occupation Data
+       ↓
+Data Cleaning & Feature Engineering
+       ↓
+Exploratory Data Analysis
+       ↓
+Unsupervised Learning
+       ↓
+Occupation Clustering
+       ↓
+AI Exposure Analysis
+       ↓
+Skill Similarity
+       ↓
+Career Transition
+       ↓
+Evaluation & Interpretation
 ```
 
-Đánh giá bằng:
-
-- Elbow Method
-- Silhouette Score
-- Davies-Bouldin Index
-
-Không chọn K chỉ dựa vào một metric.
+Dashboard chỉ đóng vai trò là lớp trình bày kết quả, không phải trọng tâm của dự án.
 
 ---
 
-## 11.3. Cluster Interpretation
+# 2. Mục tiêu dự án
 
-Sau khi clustering, phân tích từng cluster:
+## 2.1. Mục tiêu chính
+
+Dự án hướng tới 3 mục tiêu chính:
+
+### Mục tiêu 1 — Khám phá cấu trúc nghề nghiệp
+
+Sử dụng dữ liệu O*NET để tìm ra các nhóm occupation có đặc điểm tương đồng dựa trên **41 Work Activities Level (LV)**, áp dụng **K-Means Clustering**.
+
+Sau khi có cụm, OECD AI Exposure được ghép vào theo `occupation_code`, rồi trả lời câu hỏi:
+
+> Các cluster khác nhau có mức AI Exposure khác nhau như thế nào?
+
+Kết quả thực tế với K = 4 (911 occupation có Work Activities LV):
+
+| Cluster | Tên mô tả | Số occupation | Mean AI Exposure |
+|---|---|---:|---:|
+| 0 | General Physical & Material-Handling | 204 | 0.922 |
+| 1 | Interpersonal, Administrative & Digital-Service | 221 | 0.822 |
+| 2 | Analytical, Advisory & Organizational-Leadership | 258 | 0.768 |
+| 3 | Mechanical, Equipment & Process-Operations | 228 | 0.870 |
+
+AI Exposure **không** được dùng làm input của K-Means; nó chỉ là chỉ số bên ngoài để phân tích sau phân cụm.
+
+### Mục tiêu 2 — Phân tích Career Transition
+
+Xây dựng hệ thống tìm kiếm các occupation có skill profile tương đồng với occupation hiện tại.
+
+Quy trình:
 
 ```text
-Cluster 0
-→ Cognitive + Digital intensive
-
-Cluster 1
-→ Social + Cognitive intensive
-
-Cluster 2
-→ Physical + Routine intensive
-
-Cluster 3
-→ Technical + Physical intensive
+Current Occupation
+       ↓
+Skill Vector
+       ↓
+Cosine Similarity
+       ↓
+Similar Occupations
+       ↓
+Skill Gap Analysis
+       ↓
+Potential Career Transition
 ```
 
-Tên trên chỉ là ví dụ.
+Hệ thống không quyết định nghề nghiệp cho người dùng mà cung cấp thông tin về:
 
-Tên thực tế phải được xác định **sau khi xem dữ liệu và centroid**.
+- Skill similarity
+- Skill gap
+- Education requirement
+- AI Exposure
+- Occupation cluster
+
+để người dùng tự đánh giá các hướng chuyển đổi.
 
 ---
 
-# 12. PHASE 6 — AI EXPOSURE ANALYSIS
+# 3. Phạm vi MVP
 
-Sau khi có cluster:
+## 3.1. Bao gồm
 
-```text
-Occupation
-    ↓
-Cluster
-    ↓
-OECD AI Exposure
-```
+MVP tập trung vào:
 
-Tính:
-
-- Mean AI Exposure
-    
-- Median AI Exposure
-    
-- Distribution
-    
-- Range
-    
-
-theo từng cluster.
-
-Ví dụ:
-
-```text
-Cluster 0 → Mean Exposure = 0.78
-Cluster 1 → Mean Exposure = 0.61
-Cluster 2 → Mean Exposure = 0.38
-Cluster 3 → Mean Exposure = 0.31
-```
-
-Các con số trên chỉ là ví dụ minh họa.
-
-Mục tiêu là trả lời câu hỏi:
-
-> Các nhóm occupation có đặc điểm khác nhau có mức AI Exposure khác nhau như thế nào?
+- O*NET occupation data
+- O*NET skills
+- O*NET tasks
+- O*NET work activities (41 activities, dùng Level làm feature cho clustering)
+- O*NET education/job zone
+- O*NET Related Occupations
+- OECD AI Exposure
+- Data cleaning
+- Data integration
+- Feature engineering
+- EDA
+- K-Means clustering
+- AI Exposure analysis theo cụm
+- Skill similarity
+- Skill gap analysis
+- Evaluation
+- Visualization
+- Streamlit ở mức cơ bản để trình bày kết quả
 
 ---
 
-# 13. PHASE 7 — CAREER TRANSITION
+# 4. Data Preparation & Database
 
-## 13.1. Skill Similarity
+## 4.1. Tổng quan
 
-Mỗi occupation được biểu diễn thành một skill vector.
+Phần Data của project tập trung vào việc xây dựng một cơ sở dữ liệu nghề nghiệp thống nhất, phục vụ cho các bước phân tích và Machine Learning ở các giai đoạn sau.
 
-Ví dụ:
+Pipeline dữ liệu:
+
+```text
+Raw Data
+   │
+   ├── O*NET Occupation Data
+   ├── O*NET Skills
+   ├── O*NET Education
+   ├── O*NET Work Activities
+   ├── O*NET Related Occupations
+   │
+   └── OECD AI Exposure
+          │
+          ↓
+     Data Cleaning
+          │
+          ↓
+   Data Integration
+          │
+          ↓
+  Feature Engineering
+          │
+          ↓
+      SQLite Database
+          │
+          ↓
+       Data Validation
+          │
+          ↓
+   EDA / Machine Learning
+```
+
+Database sử dụng **SQLite**, với `occupation_code` là khóa định danh trung tâm để liên kết dữ liệu giữa các bảng.
+
+---
+
+## 4.2. Nguồn dữ liệu
+
+### O*NET
+
+O*NET được sử dụng làm nguồn dữ liệu chính về đặc điểm nghề nghiệp. Các nhóm dữ liệu được sử dụng gồm:
+
+- Occupations
+- Essential Skills
+- Education
+- Work Activities
+- Related Occupations
+
+`occupation_code` được sử dụng làm identifier chính thay vì `occupation_title`, để tránh merge dữ liệu dựa trên tên nghề vì tên nghề có thể được viết khác nhau giữa các nguồn.
+
+### OECD AI Exposure
+
+OECD AI Exposure được sử dụng như một chỉ số bên ngoài để phân tích mức độ tiếp xúc của occupation với AI.
+
+Dữ liệu OECD sử dụng:
+
+```text
+OCC_Code
+AI Capability Gap Index_Rev. norm.
+```
+
+Trong đó `AI Capability Gap Index_Rev. norm.` được dùng làm `ai_exposure_score`, vì chỉ số này nằm trong khoảng `0–1`, với giá trị cao hơn thể hiện mức exposure cao hơn theo định nghĩa của nguồn dữ liệu.
+
+Không sử dụng `AI Capability Gap Index_Total` vì hướng diễn giải của chỉ số này khác với chỉ số normalized được chọn.
+
+---
+
+## 4.3. Occupation Master Data
+
+Bảng `occupations` là **master table** của toàn bộ database.
+
+```sql
+CREATE TABLE occupations (
+    occupation_code TEXT PRIMARY KEY,
+    occupation_title TEXT NOT NULL,
+    description TEXT,
+    job_zone INTEGER,
+    ai_exposure_score REAL
+);
+```
+
+| Column              | Description               |
+| ------------------- | ------------------------- |
+| `occupation_code`   | Mã occupation, khóa chính |
+| `occupation_title`  | Tên occupation            |
+| `description`       | Mô tả occupation          |
+| `job_zone`          | Job Zone của occupation   |
+| `ai_exposure_score` | AI exposure từ OECD       |
+
+`ai_exposure_score` được cập nhật từ OECD dựa trên `occupation_code`.
+
+---
+
+## 4.4. Occupation Education
+
+Education được lưu trong một bảng riêng thay vì chỉ giữ một `education_level` duy nhất trong bảng `occupations`.
+
+```sql
+CREATE TABLE occupation_education (
+    occupation_code TEXT NOT NULL,
+    education_category INTEGER NOT NULL,
+    percentage REAL,
+    PRIMARY KEY (occupation_code, education_category),
+    FOREIGN KEY (occupation_code)
+        REFERENCES occupations(occupation_code)
+);
+
+CREATE INDEX idx_education_occupation
+ON occupation_education(occupation_code);
+```
+
+Kết quả kiểm tra dữ liệu:
+
+```text
+Rows:                  10,812
+Unique occupations:       901
+Duplicate pairs:            0
+Missing values:              0
+Matched occupation codes:  901 / 901
+```
+
+Education được giữ dưới dạng phân phối theo category thay vì làm mất thông tin bằng cách chọn một education level duy nhất. Các occupation không có education data không bị ép giá trị giả vào database.
+
+---
+
+## 4.5. Occupation Skills
+
+Essential Skills được sử dụng để xây dựng skill representation cho occupation.
+
+Raw data có 18,200 rows, tổ chức theo occupation-skill với hai loại measurement:
+
+```text
+IM = Importance
+LV = Level
+```
+
+Sau khi pivot, bảng `occupation_skills` gồm:
+
+```text
+occupation_code
+skill_id
+skill_name
+importance_score
+level_score
+normalized_weight
+```
+
+Kiểm tra sau xử lý:
+
+```text
+Occupation-skill combinations: 9,100
+Importance values:             9,100
+Level values:                 9,100
+Missing importance:                0
+Missing level:                    0
+```
+
+```text
+Importance: mean = 3.103655, std = 0.771478, min = 1, max = 5
+Level:      mean = 3.099026, std = 1.066853, min = 0, max = 6
+```
+
+Có 165 records `Level = 0` (khoảng 1.813%). Các giá trị này được giữ lại vì có thể là giá trị hợp lệ thể hiện level requirement rất thấp hoặc không đáng kể.
+
+Skill vector của occupation sẽ được dùng ở giai đoạn sau cho:
+
+- Skill similarity
+- Cosine similarity
+- Skill gap analysis
+- Career transition analysis
+
+---
+
+## 4.6. Occupation Work Activities
+
+Work Activities là nguồn dữ liệu chính cho bước phân cụm.
+
+Raw data chứa hai loại measurement `IM` (Importance) và `LV` (Level), được pivot từ dạng:
+
+```text
+occupation + activity + scale + score
+```
+
+thành:
+
+```text
+occupation + activity + importance + level
+```
+
+Hai measurement được giữ riêng vì mô tả hai khía cạnh khác nhau:
+
+- **Importance (IM):** activity quan trọng như thế nào đối với occupation.
+- **Level (LV):** occupation yêu cầu activity đó ở mức độ nào.
+
+Project không trực tiếp gộp `Importance × Level`. Thay vào đó:
+
+```text
+LV → feature cho clustering
+IM → EDA / phân tích riêng
+```
+
+### Coverage của Work Activities
+
+Master occupation dataset có khoảng **1,016 occupations**, trong khi Work Activities có đầy đủ dữ liệu cho khoảng **911 occupations**. Project **không drop** occupation khỏi master table:
+
+```text
+occupations
+    └── giữ toàn bộ occupation
+
+occupation_features / work activities
+    └── có thể thiếu đối với occupation
+        không đủ Work Activities
+```
+
+Các occupation thiếu feature được xử lý ở bước Machine Learning, khi tạo dataset cho K-Means (dataset phân cụm gồm 911 occupation).
+
+---
+
+## 4.7. OECD AI Exposure Integration
+
+OECD data được đọc từ Excel workbook, trong đó sheet `Data` có nhiều dòng metadata/header trước phần dữ liệu occupation. Dữ liệu thực tế bắt đầu từ row 4.
+
+Kết quả mapping OECD – O*NET:
+
+```text
+O*NET occupations:       1,016
+OECD occupations:          879
+Matched occupations:       879
+Unmatched OECD:               0
+O*NET without OECD:         137
+```
+
+Tức 879 / 1,016 ≈ 86.5% occupation trong master table có AI exposure. 137 occupation còn lại giữ `NULL` thay vì `0`, vì `NULL` biểu diễn **không có dữ liệu**, trong khi `0` mang nghĩa exposure bằng 0.
+
+---
+
+# 5. Database Schema
+
+Database được thiết kế xoay quanh `occupation_code`:
+
+```text
+                    occupations
+                         │
+   ┌─────────────┬───────┼──────────────┬──────────────────┐
+   ▼             ▼       ▼              ▼                  ▼
+occupation_  occupation_ occupation_  occupation_work_   related_
+skills       education   tasks        activities         occupations
+   │
+   ▼
+occupation_features
+```
+
+Các bảng chính:
+
+```text
+occupations
+occupation_skills
+occupation_education
+occupation_tasks
+occupation_work_activities
+occupation_features
+related_occupations
+```
+
+## 5.1. Nguyên tắc xử lý dữ liệu
+
+1. **Không merge bằng occupation title.** Dùng `occupation_code` làm identifier chính.
+2. **Không biến missing thành zero.** Không có OECD exposure ≠ AI exposure = 0, giữ `NULL`.
+3. **Không tự động xóa các giá trị Level = 0.** `LV = 0` có thể là giá trị hợp lệ trong O*NET.
+4. **Phân biệt raw data và engineered features.** `importance_score`, `level_score` là dữ liệu nguồn; `normalized_weight` và các feature tổng hợp do project xây dựng là engineered features.
+5. **AI Exposure không được dùng để tạo occupational clusters.** `ai_exposure_score` được lưu trong `occupations` nhưng không là input của K-Means:
+
+```text
+O*NET Work Activities LV
+          ↓
+       K-Means
+          ↓
+ Occupational Clusters
+          ↓
+Compare / Analyze
+          ↑
+ OECD AI Exposure
+```
+
+AI Exposure là **external indicator** dùng để phân tích cụm sau khi clustering, không quyết định việc hình thành cụm.
+
+## 5.2. Data Validation
+
+Sau khi insert dữ liệu vào SQLite, database được kiểm tra trước khi chuyển sang EDA và Machine Learning:
+
+- **Primary key:** duplicate hoặc NULL `occupation_code`.
+- **Foreign key:** các bảng con có occupation tồn tại trong `occupations`.
+- **Duplicate records:** occupation + skill, occupation + education_category, occupation + task, occupation + related occupation.
+- **Numerical range:** `importance_score`, `level_score`, `normalized_weight`, `ai_exposure_score`, occupational features.
+- **Missing values:** phân biệt missing do source coverage với missing do lỗi xử lý dữ liệu.
+
+---
+
+# 6. EDA
+
+EDA tập trung vào việc hiểu dữ liệu trước khi machine learning.
+
+- **Occupation distribution:** số lượng occupation, education, job zone, skill distribution.
+- **AI Exposure:** distribution, occupation có exposure cao/thấp, quan hệ với đặc điểm nghề nghiệp.
+- **Feature relationships:** quan hệ giữa các feature tổng hợp ban đầu (Cognitive, Social, Physical, Digital, Routine) và AI Exposure. Lưu ý: correlation không đồng nghĩa với causation.
+- **Skill analysis:** skill phổ biến, skill importance, skill distribution giữa các occupation.
+
+Phát hiện quan trọng: một số feature tổng hợp có tương quan cao, đặc biệt giữa Cognitive, Information/Digital và Administrative/Routine. Điều này đặt ra câu hỏi về ảnh hưởng của cách nhóm hoạt động thủ công đối với cấu trúc phân cụm, và dẫn đến thay đổi biểu diễn ở phần 7.
+
+---
+
+# 7. Feature Engineering — Work Activities Representation
+
+## 7.1. Mục tiêu
+
+Chuyển dữ liệu Work Activities từ O*NET thành biểu diễn số phù hợp cho bài toán phân cụm nghề nghiệp. Phiên bản hiện tại sử dụng trực tiếp **41 Work Activities Level (LV)** để giữ thông tin ở cấp từng hoạt động công việc.
+
+## 7.2. Các phương án biểu diễn
+
+| Representation | Số chiều | Vai trò |
+|---|---:|---|
+| 41 Work Activities LV | 41 | Biểu diễn chính cho K-Means |
+| PCA từ 41 Work Activities LV | 14 | Phương án so sánh sau giảm chiều |
+
+### Phương án 1 — 41 Work Activities LV
+
+Mỗi occupation là một vector gồm 41 giá trị Level, tương ứng 41 hoạt động trong O*NET (ví dụ: Handling and Moving Objects, Making Decisions and Solving Problems, Analyzing Data or Information, Working with Computers, Controlling Machines and Processes).
+
+Giá trị được pivot từ bảng `occupation_work_activities` (dùng `occupation_code` và `activity`), và được chuẩn hóa trước khi chạy K-Means để hạn chế ảnh hưởng của khác biệt thang đo.
+
+Lý do chọn:
+
+- Giữ nguyên ý nghĩa của từng hoạt động công việc.
+- Không phụ thuộc vào cách nhóm hoạt động thủ công.
+- Hỗ trợ diễn giải cụm dựa trên các hoạt động cụ thể của O*NET.
+
+### Phương án 2 — PCA trên 41 Work Activities LV
+
+Quy trình:
+
+1. Chuẩn hóa 41 feature LV.
+2. Fit PCA trên dữ liệu đã chuẩn hóa.
+3. Giữ lại 14 principal components (giải thích khoảng **90,32%** tổng phương sai).
+4. Dùng các components làm đầu vào cho K-Means.
+5. Khi diễn giải, quay lại 41 Work Activities LV gốc để mô tả đặc trưng cụm.
+
+14 components là một cấu hình tiềm năng, không phải mô hình tối ưu được xác định trước. PCA giúp kiểm tra việc giảm chiều có cải thiện cấu trúc phân cụm hay không, nhưng các component khó diễn giải trực tiếp hơn hoạt động công việc gốc.
+
+## 7.3. Điều chỉnh so với feature baseline ban đầu
+
+Giai đoạn đầu, dự án xây dựng 5 feature tổng hợp (mean LV của các nhóm activities, là feature do project định nghĩa, không phải category chính thức của O*NET):
+
+- `cognitive_intensity`
+- `social_intensity`
+- `physical_operational_intensity`
+- `information_digital_intensity`
+- `administrative_routine_intensity`
+
+Do EDA cho thấy các feature này có tương quan cao và mức độ phụ thuộc vào cách nhóm thủ công, dự án **không tiếp tục dùng 5 feature tổng hợp làm baseline trong pipeline clustering chính**. 41 Work Activities LV được chọn làm biểu diễn chính, PCA 14 components được giữ để đối chiếu. Phương án mở rộng 41 IM + 41 LV chưa được thử nghiệm.
+
+Quyết định này không có nghĩa các feature tổng hợp ban đầu là sai, mà phản ánh lựa chọn biểu diễn phù hợp hơn với phạm vi phân tích hiện tại.
+
+---
+
+# 8. Unsupervised Learning
+
+## 8.1. Bài toán
+
+> Các nghề nghiệp có thể được chia thành những nhóm nào dựa trên đặc điểm hoạt động công việc, và các nhóm đó khác nhau như thế nào về AI Exposure?
+
+Đây là bài toán phân cụm không giám sát, không có target `y`.
+
+- **Input:** 41 Work Activities LV cho mỗi occupation, đã chuẩn hóa.
+- **Output:** nhãn cụm cho từng occupation, hồ sơ đặc trưng từng cụm, phân phối AI Exposure của các cụm sau khi ghép dữ liệu OECD.
+
+## 8.2. Phương pháp K-Means
+
+Quy trình thực nghiệm:
+
+1. Xây dựng ma trận đặc trưng từ 41 Work Activities LV.
+2. Chuẩn hóa dữ liệu.
+3. Chạy K-Means với K từ 2 đến 8.
+4. Đánh giá bằng các clustering metrics.
+5. Lưu nhãn cụm để phục vụ phân tích và diễn giải.
+6. Phân tích kết quả với K = 4 như phương án ứng viên.
+
+| Metric | Ý nghĩa |
+|---|---|
+| Inertia | Tổng bình phương khoảng cách từ các điểm đến tâm cụm; thường giảm khi tăng K |
+| Silhouette Score | Mức độ một điểm phù hợp với cụm của nó so với cụm khác; càng cao càng tốt |
+| Davies–Bouldin Index | Mức độ tương đồng giữa các cụm; càng thấp càng tốt |
+| Calinski–Harabasz Index | Độ phân tán giữa các cụm so với trong cụm; càng cao càng tốt |
+
+Không có chỉ số đơn lẻ nào đủ để xác định K tối ưu. Việc chọn K còn xem xét kích thước cụm và khả năng diễn giải theo đặc điểm nghề nghiệp.
+
+## 8.3. So sánh feature representations (K = 4)
+
+| Metric | 41 Work Activities LV | PCA 14 components |
+|---|---:|---:|
+| Silhouette Score | 0.1747 | 0.2019 |
+| Davies–Bouldin Index | 1.7008 | 1.5320 |
+| Calinski–Harabasz Index | 281.26 | 345.38 |
+
+PCA có Silhouette và Calinski–Harabasz cao hơn, Davies–Bouldin thấp hơn trong thực nghiệm K = 4 này. Tuy nhiên điều đó chưa đủ để kết luận PCA tốt nhất cho toàn dự án, vì khả năng diễn giải cụm theo hoạt động công việc gốc cũng quan trọng. Dự án ưu tiên 41 Work Activities LV làm biểu diễn chính; PCA là phương án so sánh.
+
+Lưu ý: Silhouette Score ở mức thấp (khoảng 0.17–0.20) cho thấy cấu trúc cụm không tách biệt mạnh. Các nhóm nên được hiểu là cách chia dữ liệu hữu ích cho diễn giải, không phải ranh giới tự nhiên rõ ràng giữa các nghề.
+
+## 8.4. Kết quả phân cụm với K = 4
+
+| Cluster | Số occupation | Đặc trưng chính | Tên mô tả đề xuất |
+|---|---:|---|---|
+| 0 | 204 | Xử lý vật thể và hoạt động thể chất nói chung | General Physical & Material-Handling Occupations |
+| 1 | 221 | Giao tiếp bên ngoài, quan hệ liên cá nhân, máy tính và hành chính | Interpersonal, Administrative & Digital-Service Occupations |
+| 2 | 258 | Phân tích thông tin, tư vấn, chiến lược và điều phối tổ chức | Analytical, Advisory & Organizational-Leadership Occupations |
+| 3 | 228 | Sửa chữa, kiểm soát máy móc, thiết bị và vận hành quy trình | Mechanical, Equipment & Process-Operations Occupations |
+| **Tổng** | **911** | | |
+
+Tên cụm được đặt dựa trên các hoạt động có điểm Level trung bình nổi bật **tương đối** so với các cụm khác, kết hợp với các occupation tiêu biểu gần tâm cụm. Đây là nhãn mô tả do dự án xây dựng, không phải nhóm nghề chính thức của O*NET.
+
+**Cluster 0.** Nổi bật ở `Handling and Moving Objects` và `Performing General Physical Activities`; các hoạt động phân tích thông tin và tư vấn thấp hơn đáng kể.
+
+**Cluster 1.** Nổi bật ở giao tiếp với người ngoài tổ chức, làm việc với máy tính, thu thập thông tin và duy trì quan hệ liên cá nhân; xử lý vật thể và kiểm soát máy móc tương đối thấp.
+
+**Cluster 2.** Nổi bật ở tư vấn, phân tích dữ liệu, bố trí nhân sự, định hướng cấp dưới và xử lý thông tin.
+
+**Cluster 3.** Nổi bật ở sửa chữa thiết bị cơ khí, kiểm soát máy móc, xử lý vật thể, vận hành thiết bị và kiểm tra thiết bị hoặc vật liệu.
+
+---
+
+# 9. AI Exposure Analysis by Cluster
+
+## 9.1. Mục tiêu
+
+Tìm hiểu liệu các nhóm occupation có đặc trưng hoạt động công việc khác nhau có phân phối AI Exposure khác nhau hay không.
+
+## 9.2. Ghép dữ liệu và xử lý giá trị thiếu
+
+Nhãn cụm được ghép với `ai_exposure_score` trong bảng `occupations` bằng `occupation_code`. Các occupation không có AI Exposure từ OECD vẫn được giữ trong dữ liệu phân cụm; giá trị thiếu không bị thay bằng 0. Khi tính thống kê theo cụm, chỉ dùng occupation có điểm hợp lệ, và số lượng cùng tỷ lệ coverage được báo cáo.
+
+## 9.3. Kết quả
+
+| Cluster | Occupations có dữ liệu | Coverage | Mean | Median |
+|---|---:|---:|---:|---:|
+| 0 | 198/204 | 97.06% | 0.922 | 0.931 |
+| 1 | 210/221 | 95.02% | 0.822 | 0.822 |
+| 2 | 247/258 | 95.74% | 0.768 | 0.763 |
+| 3 | 224/228 | 98.25% | 0.870 | 0.874 |
+
+- **Cluster 0** có mean và median AI Exposure cao nhất.
+- **Cluster 3** đứng thứ hai.
+- **Cluster 1** ở mức trung gian.
+- **Cluster 2** thấp nhất.
+
+Chênh lệch mean giữa Cluster 0 và Cluster 2 khoảng 0.154 điểm; chênh lệch median khoảng 0.168 điểm.
+
+Không nên suy luận rằng hoạt động thể chất tự thân có mức phơi nhiễm AI cao hơn hoạt động trí óc. Các cụm hình thành từ nhiều đặc trưng cùng lúc, và AI Exposure là chỉ số độc lập được phân tích sau phân cụm.
+
+## 9.4. Trực quan hóa và kiểm định thống kê
+
+Boxplot được dùng để so sánh trung vị, độ phân tán và quan sát ngoại lệ của AI Exposure giữa bốn cụm.
+
+Kiểm định Kruskal–Wallis:
+
+```text
+H statistic: 329.5844
+p-value:     3.9255 × 10⁻⁷¹
+```
+
+Ở mức ý nghĩa 0.05, có bằng chứng thống kê rằng phân phối AI Exposure khác biệt giữa ít nhất một số cụm. Các kiểm định Mann–Whitney U theo từng cặp, hiệu chỉnh Holm, cho thấy cả sáu cặp cụm đều khác biệt có ý nghĩa ở mức 0.05.
+
+Các kiểm định hậu nghiệm được lưu làm kết quả bổ sung; phần trình bày chính tập trung vào thống kê mô tả, biểu đồ và phát hiện tổng quát. Các kết quả này không chứng minh quan hệ nhân quả giữa đặc điểm công việc và AI Exposure, và không cho biết trực tiếp nghề nào sẽ bị AI thay thế.
+
+## 9.5. Kết luận giai đoạn Unsupervised Learning
+
+1. Phân cụm 911 occupation có Work Activities LV thành bốn nhóm (K = 4).
+2. Diễn giải các cụm bằng đặc trưng hoạt động công việc và occupation tiêu biểu.
+3. Ghép OECD AI Exposure với nhãn cụm bằng `occupation_code`.
+4. Tính thống kê mô tả và trực quan hóa phân phối AI Exposure.
+5. Ghi nhận khác biệt có ý nghĩa thống kê về AI Exposure giữa các cụm.
+
+Kết quả này là nền tảng cho giai đoạn tiếp theo: Skill Similarity và Career Transition Analysis.
+
+---
+
+# 10. Career Transition
+
+## 10.1. Skill Similarity
+
+Mỗi occupation được biểu diễn thành một skill vector, ví dụ:
 
 ```text
 Accountant
@@ -1166,19 +1436,9 @@ Accountant
 ]
 ```
 
-Tính:
+Tính **Cosine Similarity** giữa occupation hiện tại và toàn bộ occupation khác.
 
-```text
-Cosine Similarity
-```
-
-giữa occupation hiện tại và toàn bộ occupation khác.
-
----
-
-## 13.2. Top-K Similar Occupations
-
-Ví dụ:
+## 10.2. Top-K Similar Occupations
 
 ```text
 Accountant
@@ -1190,17 +1450,11 @@ Accountant
 5. ...
 ```
 
-Không gọi trực tiếp đây là "nghề tốt hơn".
-
-Đây là:
-
-> Occupations có skill profile tương đồng.
+(Ví dụ minh họa, chưa phải kết quả thực tế.) Không gọi đây là "nghề tốt hơn"; đây là **occupations có skill profile tương đồng**.
 
 ---
 
-# 14. PHASE 8 — SKILL GAP ANALYSIS
-
-Sau khi tìm occupation tương đồng:
+# 11. Skill Gap Analysis
 
 ```text
 Current Occupation
@@ -1212,7 +1466,7 @@ Compare Skill Vectors
 Skill Gap
 ```
 
-Ví dụ:
+Ví dụ minh họa:
 
 ```text
 Accountant → Data Analyst
@@ -1227,36 +1481,23 @@ Skill gaps:
 → Data Analysis
 ```
 
-Mục tiêu:
-
-> Giải thích tại sao hai occupation tương đồng hoặc khác nhau.
-
-Không chỉ đưa ra một con số similarity.
+Mục tiêu là giải thích tại sao hai occupation tương đồng hoặc khác nhau, không chỉ đưa ra một con số similarity.
 
 ---
 
-# 15. PHASE 9 — EVALUATION
+# 12. Evaluation
 
-## 15.1. Clustering Evaluation
+## 12.1. Clustering Evaluation (đã thực hiện)
 
-Sử dụng:
+- Inertia, Silhouette Score, Davies–Bouldin Index, Calinski–Harabasz Index với K = 2–8
+- So sánh 41 Work Activities LV và PCA 14 components tại K = 4
+- Kích thước cụm và khả năng diễn giải
 
-- Silhouette Score
-    
-- Davies-Bouldin Index
-    
-- Elbow Method
-    
-- Cluster interpretability
-    
+Việc đánh giá độ ổn định cụm khi thay đổi random seed vẫn có thể bổ sung nếu cần.
 
----
+## 12.2. Career Recommendation Evaluation (chưa thực hiện)
 
-## 15.2. Career Recommendation Evaluation
-
-Dùng O*NET Related Occupations làm baseline.
-
-Ví dụ:
+Dùng O*NET Related Occupations làm baseline:
 
 ```text
 O*NET Related Occupations
@@ -1264,78 +1505,30 @@ O*NET Related Occupations
 Our Skill Similarity
 ```
 
-Đánh giá:
+Đánh giá: Top-K overlap, số occupation chung, similarity distribution, các trường hợp recommendation khác biệt.
 
-- Top-K overlap
-    
-- số occupation chung
-    
-- similarity distribution
-    
-- các trường hợp recommendation khác biệt
-    
-
-Mục tiêu không phải chứng minh hệ thống "đúng tuyệt đối", mà kiểm tra xem skill-based similarity có tạo ra các kết quả hợp lý và có mức tương đồng nhất định với dữ liệu tham chiếu hay không.
+Mục tiêu không phải chứng minh hệ thống "đúng tuyệt đối", mà kiểm tra xem skill-based similarity có tạo ra kết quả hợp lý và có mức tương đồng nhất định với dữ liệu tham chiếu hay không.
 
 ---
 
-# 16. PHASE 10 — VISUALIZATION & STREAMLIT
+# 13. Visualization & Streamlit
 
-Dashboard chỉ là lớp trình bày kết quả.
-
-Có thể xây dựng một giao diện đơn giản gồm:
+Dashboard chỉ là lớp trình bày kết quả, gồm:
 
 ### Occupation Explorer
-
-Người dùng chọn occupation.
-
-Hiển thị:
-
-- Occupation information
-    
-- Skills
-    
-- Education
-    
-- Job Zone
-    
-- AI Exposure
-    
-- Cluster
-    
+Người dùng chọn occupation; hiển thị occupation information, skills, education, job zone, AI Exposure, cluster.
 
 ### Occupation Clusters
-
-Hiển thị:
-
-- cluster distribution
-    
-- PCA visualization
-    
-- cluster characteristics
-    
-- AI Exposure distribution
-    
+Cluster distribution, PCA visualization, cluster characteristics, AI Exposure distribution.
 
 ### Career Transition
-
-Người dùng chọn occupation.
-
-Hiển thị:
-
-```text
-Candidate Occupation
-Skill Similarity
-AI Exposure
-Skill Gap
-Education
-```
+Người dùng chọn occupation; hiển thị candidate occupation, skill similarity, AI Exposure, skill gap, education.
 
 Không cần xây dựng dashboard quá phức tạp.
 
 ---
 
-# 17. TOÀN BỘ PIPELINE
+# 14. Toàn bộ pipeline
 
 ```text
                     DATA SOURCES
@@ -1357,7 +1550,8 @@ Không cần xây dựng dashboard quá phức tạp.
                          │
              ┌───────────┴───────────┐
              ↓                       ↓
-        Occupation Features      Skill Matrix
+   41 Work Activities LV         Skill Matrix
+   (PCA 14 để so sánh)               │
              │                       │
              ↓                       ↓
           K-MEANS             COSINE SIMILARITY
@@ -1365,10 +1559,10 @@ Không cần xây dựng dashboard quá phức tạp.
              ↓                       ↓
      OCCUPATION CLUSTERS       CAREER TRANSITION
              │                       │
+             ↓                       │
+   AI EXPOSURE ANALYSIS              │
+             │                       │
              └───────────┬───────────┘
-                         ↓
-                  AI EXPOSURE
-                    ANALYSIS
                          ↓
                     EVALUATION
                          ↓
@@ -1379,42 +1573,26 @@ Không cần xây dựng dashboard quá phức tạp.
 
 ---
 
-# 18. Câu hỏi nghiên cứu chính
+# 15. Câu hỏi nghiên cứu chính
 
-Dự án có thể xoay quanh các câu hỏi:
-
-### RQ1
-
-**Các occupation có thể được phân nhóm như thế nào dựa trên đặc điểm kỹ năng và công việc?**
-
-### RQ2
-
-**Các occupation cluster khác nhau có mức AI Exposure khác nhau như thế nào?**
-
-### RQ3
-
-**Có thể sử dụng skill similarity để xác định các occupation có tiềm năng chuyển đổi nghề nghiệp không?**
-
-### RQ4
-
-**Các recommendation dựa trên skill similarity có mức độ tương đồng như thế nào với O*NET Related Occupations?**
-
-### RQ5
-
-**Skill gap giữa occupation hiện tại và occupation mục tiêu có thể được sử dụng để giải thích career transition như thế nào?**
+- **RQ1.** Các occupation có thể được phân nhóm như thế nào dựa trên đặc điểm hoạt động công việc? *(đã trả lời ở mức K = 4)*
+- **RQ2.** Các occupation cluster khác nhau có mức AI Exposure khác nhau như thế nào? *(đã trả lời, xem mục 9)*
+- **RQ3.** Có thể dùng skill similarity để xác định occupation có tiềm năng chuyển đổi nghề nghiệp không?
+- **RQ4.** Recommendation dựa trên skill similarity tương đồng với O*NET Related Occupations ở mức nào?
+- **RQ5.** Skill gap giữa occupation hiện tại và occupation mục tiêu có thể giải thích career transition như thế nào?
 
 ---
 
-# 19. Kết quả đầu ra của MVP
-
-Sau khi hoàn thành MVP, nhóm cần có:
+# 16. Kết quả đầu ra của MVP
 
 ### Dataset
 
 ```text
 occupations
 occupation_skills
+occupation_education
 occupation_tasks
+occupation_work_activities
 occupation_features
 related_occupations
 ```
@@ -1424,9 +1602,9 @@ related_occupations
 ```text
 EDA
 +
-Feature Engineering
+Feature Engineering (41 Work Activities LV, PCA 14)
 +
-K-Means Clustering
+K-Means Clustering (K = 4)
 +
 Cluster Analysis
 +
@@ -1441,13 +1619,7 @@ Evaluation
 
 ### Final system
 
-Người dùng chọn:
-
-```text
-Accountant
-```
-
-Hệ thống có thể trả về:
+Người dùng chọn một occupation (ví dụ `Accountant`), hệ thống trả về:
 
 ```text
 Occupation Profile
@@ -1467,7 +1639,7 @@ O*NET Baseline Comparison
 
 ---
 
-# 20. Hướng mở rộng sau MVP
+# 17. Hướng mở rộng sau MVP
 
 Chỉ sau khi MVP hoàn thành mới cân nhắc mở rộng:
 
@@ -1475,21 +1647,15 @@ Chỉ sau khi MVP hoàn thành mới cân nhắc mở rộng:
 MVP
 │
 ├── Vietnam labor market
-│
 ├── ILO
-│
 ├── Job postings
-│
 ├── Real-world demand
-│
 ├── Salary
-│
 ├── Employment trends
-│
 └── More advanced recommendation
 ```
 
-Đặc biệt, nếu sau này thêm Việt Nam, có thể nghiên cứu:
+Nếu thêm Việt Nam, có thể nghiên cứu:
 
 ```text
 Global occupation analysis
@@ -1498,3 +1664,5 @@ Vietnam labor market data
         ↓
 Vietnam-specific career transition analysis
 ```
+
+
