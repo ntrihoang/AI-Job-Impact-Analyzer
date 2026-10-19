@@ -456,42 +456,43 @@ Phát hiện quan trọng: một số feature tổng hợp có tương quan cao,
 
 ## 7.1. Mục tiêu
 
-Chuyển dữ liệu Work Activities từ O*NET thành biểu diễn số phù hợp cho bài toán phân cụm nghề nghiệp. Phiên bản hiện tại sử dụng trực tiếp **41 Work Activities Level (LV)** để giữ thông tin ở cấp từng hoạt động công việc.
+Chuyển dữ liệu Work Activities từ O\*NET thành ma trận đặc trưng phục vụ bài toán phân cụm nghề nghiệp.
 
-## 7.2. Các phương án biểu diễn
+Dự án sử dụng **41 Work Activities Level (LV)** làm biểu diễn chính. Cách tiếp cận này giữ lại thông tin ở cấp từng hoạt động công việc, giúp mô tả và so sánh đặc trưng giữa các nhóm nghề sau khi phân cụm.
 
-| Representation | Số chiều | Vai trò |
-|---|---:|---|
-| 41 Work Activities LV | 41 | Biểu diễn chính cho K-Means |
-| PCA từ 41 Work Activities LV | 14 | Phương án so sánh sau giảm chiều |
+## 7.2. Xây dựng ma trận đặc trưng
 
-### Phương án 1 — 41 Work Activities LV
+Mỗi occupation được biểu diễn bằng một vector gồm 41 giá trị Level, tương ứng với 41 hoạt động công việc trong O\*NET.
 
-Mỗi occupation là một vector gồm 41 giá trị Level, tương ứng 41 hoạt động trong O*NET (ví dụ: Handling and Moving Objects, Making Decisions and Solving Problems, Analyzing Data or Information, Working with Computers, Controlling Machines and Processes).
+Một số hoạt động tiêu biểu:
 
-Giá trị được pivot từ bảng `occupation_work_activities` (dùng `occupation_code` và `activity`), và được chuẩn hóa trước khi chạy K-Means để hạn chế ảnh hưởng của khác biệt thang đo.
+- `Handling and Moving Objects`
+- `Making Decisions and Solving Problems`
+- `Analyzing Data or Information`
+- `Working with Computers`
+- `Controlling Machines and Processes`
 
-Lý do chọn:
+Ma trận được xây dựng bằng cách pivot dữ liệu từ bảng `occupation_work_activities`, sử dụng `occupation_code` làm định danh nghề và `activity` làm đặc trưng.
 
-- Giữ nguyên ý nghĩa của từng hoạt động công việc.
-- Không phụ thuộc vào cách nhóm hoạt động thủ công.
-- Hỗ trợ diễn giải cụm dựa trên các hoạt động cụ thể của O*NET.
+Trước khi phân cụm, dữ liệu được chuẩn hóa để hạn chế ảnh hưởng của khác biệt về thang đo giữa các đặc trưng.
 
-### Phương án 2 — PCA trên 41 Work Activities LV
+### Kiểm tra chất lượng dữ liệu
 
-Quy trình:
+Dữ liệu Work Activities được sử dụng có các đặc điểm:
 
-1. Chuẩn hóa 41 feature LV.
-2. Fit PCA trên dữ liệu đã chuẩn hóa.
-3. Giữ lại 14 principal components (giải thích khoảng **90,32%** tổng phương sai).
-4. Dùng các components làm đầu vào cho K-Means.
-5. Khi diễn giải, quay lại 41 Work Activities LV gốc để mô tả đặc trưng cụm.
+| Chỉ tiêu | Kết quả |
+|---|---:|
+| Số occupation | 911 |
+| Số hoạt động trên mỗi occupation | 41 |
+| Tổng số bản ghi nguồn | 37,351 |
+| Giá trị thiếu ở `importance_score` và `level_score` | 0 |
+| Cặp occupation–activity trùng lặp | 0 |
 
-14 components là một cấu hình tiềm năng, không phải mô hình tối ưu được xác định trước. PCA giúp kiểm tra việc giảm chiều có cải thiện cấu trúc phân cụm hay không, nhưng các component khó diễn giải trực tiếp hơn hoạt động công việc gốc.
+Sau khi pivot, ma trận có 911 hàng và 41 đặc trưng, không có giá trị LV bị thiếu.
 
-## 7.3. Điều chỉnh so với feature baseline ban đầu
+## 7.3. Lý do lựa chọn 41 Work Activities LV
 
-Giai đoạn đầu, dự án xây dựng 5 feature tổng hợp (mean LV của các nhóm activities, là feature do project định nghĩa, không phải category chính thức của O*NET):
+Trong giai đoạn đầu, dự án xây dựng năm đặc trưng tổng hợp từ các nhóm hoạt động công việc:
 
 - `cognitive_intensity`
 - `social_intensity`
@@ -499,74 +500,131 @@ Giai đoạn đầu, dự án xây dựng 5 feature tổng hợp (mean LV của 
 - `information_digital_intensity`
 - `administrative_routine_intensity`
 
-Do EDA cho thấy các feature này có tương quan cao và mức độ phụ thuộc vào cách nhóm thủ công, dự án **không tiếp tục dùng 5 feature tổng hợp làm baseline trong pipeline clustering chính**. 41 Work Activities LV được chọn làm biểu diễn chính, PCA 14 components được giữ để đối chiếu. Phương án mở rộng 41 IM + 41 LV chưa được thử nghiệm.
+Các đặc trưng này được định nghĩa trong phạm vi dự án, không phải các nhóm phân loại chính thức của O\*NET. EDA cho thấy một số đặc trưng có tương quan cao và việc tổng hợp phụ thuộc vào cách nhóm hoạt động do dự án lựa chọn.
 
-Quyết định này không có nghĩa các feature tổng hợp ban đầu là sai, mà phản ánh lựa chọn biểu diễn phù hợp hơn với phạm vi phân tích hiện tại.
+Vì vậy, dự án chuyển sang sử dụng trực tiếp 41 Work Activities LV làm biểu diễn chính nhằm:
+
+- Giữ lại ý nghĩa cụ thể của từng hoạt động công việc.
+- Hạn chế sự phụ thuộc vào cách tổng hợp đặc trưng thủ công.
+- Hỗ trợ diễn giải các cluster bằng những hoạt động có mức độ nổi bật tương đối.
+- Tạo cơ sở nhất quán cho việc phân tích mối liên hệ giữa đặc điểm hoạt động công việc và AI Exposure.
+
+Năm đặc trưng tổng hợp ban đầu không được sử dụng trong pipeline clustering chính thức.
 
 ---
 
-# 8. Unsupervised Learning
+# 8. Unsupervised Learning — Occupational Clustering
 
 ## 8.1. Bài toán
 
-> Các nghề nghiệp có thể được chia thành những nhóm nào dựa trên đặc điểm hoạt động công việc, và các nhóm đó khác nhau như thế nào về AI Exposure?
+Dự án đặt ra câu hỏi nghiên cứu:
 
-Đây là bài toán phân cụm không giám sát, không có target `y`.
+> Các nghề nghiệp có thể được phân thành những nhóm nào dựa trên đặc điểm hoạt động công việc, và các nhóm đó khác nhau như thế nào về AI Exposure?
 
-- **Input:** 41 Work Activities LV cho mỗi occupation, đã chuẩn hóa.
-- **Output:** nhãn cụm cho từng occupation, hồ sơ đặc trưng từng cụm, phân phối AI Exposure của các cụm sau khi ghép dữ liệu OECD.
+Đây là bài toán phân cụm không giám sát. Mô hình không sử dụng nhãn mục tiêu `y`.
+
+- **Input:** Ma trận 41 Work Activities LV đã chuẩn hóa.
+- **Model:** K-Means.
+- **Output:** Nhãn cluster của từng occupation và hồ sơ đặc trưng của các cluster.
+- **Phân tích tiếp theo:** Ghép nhãn cluster với OECD AI Exposure để so sánh phân phối điểm giữa các nhóm.
+
+AI Exposure không được sử dụng làm đầu vào cho K-Means, nhằm tránh việc phân cụm trực tiếp theo biến sẽ được phân tích ở bước sau.
 
 ## 8.2. Phương pháp K-Means
 
-Quy trình thực nghiệm:
+K-Means phân chia dữ liệu thành \(K\) cụm bằng cách tối thiểu hóa tổng bình phương khoảng cách từ mỗi điểm dữ liệu đến tâm cụm tương ứng:
 
-1. Xây dựng ma trận đặc trưng từ 41 Work Activities LV.
-2. Chuẩn hóa dữ liệu.
+\[
+J=\sum_{i=1}^{n}\left\|x_i-\mu_{c_i}\right\|^2
+\]
+
+Trong đó:
+
+- \(x_i\) là vector đặc trưng của occupation thứ \(i\).
+- \(\mu_{c_i}\) là tâm của cluster được gán cho occupation đó.
+- \(K\) là số cluster được xác định trước.
+
+### Quy trình thực nghiệm
+
+1. Xây dựng ma trận 41 Work Activities LV.
+2. Chuẩn hóa các đặc trưng.
 3. Chạy K-Means với K từ 2 đến 8.
-4. Đánh giá bằng các clustering metrics.
-5. Lưu nhãn cụm để phục vụ phân tích và diễn giải.
-6. Phân tích kết quả với K = 4 như phương án ứng viên.
+4. Tính các clustering metrics để so sánh kết quả.
+5. Xem xét kích thước cụm và khả năng diễn giải theo hoạt động công việc.
+6. Sử dụng (K=4) làm phương án phân tích chính hiện tại.
+7. Lưu nhãn cluster để phục vụ phân tích AI Exposure và các bước tiếp theo.
 
-| Metric | Ý nghĩa |
-|---|---|
-| Inertia | Tổng bình phương khoảng cách từ các điểm đến tâm cụm; thường giảm khi tăng K |
-| Silhouette Score | Mức độ một điểm phù hợp với cụm của nó so với cụm khác; càng cao càng tốt |
-| Davies–Bouldin Index | Mức độ tương đồng giữa các cụm; càng thấp càng tốt |
-| Calinski–Harabasz Index | Độ phân tán giữa các cụm so với trong cụm; càng cao càng tốt |
+## 8.3. So sánh các giá trị K
 
-Không có chỉ số đơn lẻ nào đủ để xác định K tối ưu. Việc chọn K còn xem xét kích thước cụm và khả năng diễn giải theo đặc điểm nghề nghiệp.
+Dự án đánh giá các cấu hình K-Means với \(K=2,\ldots,8\) bằng bốn chỉ số:
 
-## 8.3. So sánh feature representations (K = 4)
+| Metric | Ý nghĩa | Hướng đánh giá |
+|---|---|---|
+| Inertia | Tổng bình phương khoảng cách đến tâm cụm | Thường giảm khi tăng \(K\) |
+| Silhouette Score | Mức độ gắn kết trong cụm và tách biệt giữa các cụm | Cao hơn thường tốt hơn |
+| Davies–Bouldin Index | Mức độ tương đồng giữa các cụm | Thấp hơn thường tốt hơn |
+| Calinski–Harabasz Index | Tương quan giữa độ phân tán giữa cụm và trong cụm | Cao hơn thường tốt hơn |
 
-| Metric | 41 Work Activities LV | PCA 14 components |
-|---|---:|---:|
-| Silhouette Score | 0.1747 | 0.2019 |
-| Davies–Bouldin Index | 1.7008 | 1.5320 |
-| Calinski–Harabasz Index | 281.26 | 345.38 |
+### Kết quả thực nghiệm trên 41 Work Activities LV
 
-PCA có Silhouette và Calinski–Harabasz cao hơn, Davies–Bouldin thấp hơn trong thực nghiệm K = 4 này. Tuy nhiên điều đó chưa đủ để kết luận PCA tốt nhất cho toàn dự án, vì khả năng diễn giải cụm theo hoạt động công việc gốc cũng quan trọng. Dự án ưu tiên 41 Work Activities LV làm biểu diễn chính; PCA là phương án so sánh.
+| K | Inertia | Silhouette | Davies–Bouldin | Calinski–Harabasz |
+|---:|---:|---:|---:|---:|
+| 2 | 24718.852 | 0.2799 | 1.3453 | 464.529 |
+| 3 | 21640.614 | 0.1786 | 1.7253 | 329.589 |
+| 4 | 19349.927 | 0.1747 | 1.7008 | 281.258 |
+| 5 | 18071.636 | 0.1535 | 1.7691 | 241.637 |
+| 6 | 16975.542 | 0.1395 | 1.8182 | 217.252 |
+| 7 | 16259.275 | 0.1407 | 1.7965 | 195.447 |
+| 8 | 15719.113 | 0.1301 | 1.8651 | 177.524 |
 
-Lưu ý: Silhouette Score ở mức thấp (khoảng 0.17–0.20) cho thấy cấu trúc cụm không tách biệt mạnh. Các nhóm nên được hiểu là cách chia dữ liệu hữu ích cho diễn giải, không phải ranh giới tự nhiên rõ ràng giữa các nghề.
+### Lựa chọn K = 4
+
+Kết quả cho thấy Silhouette Score cao nhất trong các cấu hình được thử nghiệm tại \(K=2\). Tuy nhiên, lựa chọn \(K=2\) tạo ra cách phân chia thô hơn và có thể không cung cấp đủ mức độ chi tiết cho mục tiêu mô tả các nhóm nghề nghiệp.
+
+Dự án lựa chọn \(K=4\) làm phương án phân tích chính dựa trên sự cân nhắc giữa:
+
+- Khả năng mô tả các nhóm nghề với đặc điểm hoạt động khác nhau.
+- Kích thước của các cluster.
+- Khả năng diễn giải kết quả bằng các hoạt động công việc cụ thể.
+- Các clustering metrics thu được từ thực nghiệm.
+
+Đây là lựa chọn phục vụ mục tiêu phân tích của dự án, không phải khẳng định \(K=4\) là số cụm tối ưu tuyệt đối.
+
+Silhouette Score tại \(K=4\) khoảng 0.1747, cho thấy các cụm chưa tách biệt mạnh. Do đó, kết quả được xem là một cách phân nhóm hữu ích để khám phá và mô tả dữ liệu, không phải bằng chứng về các ranh giới tự nhiên hoàn toàn rõ ràng giữa các nghề.
 
 ## 8.4. Kết quả phân cụm với K = 4
 
+Mô hình phân chia 911 occupation thành bốn cluster:
+
 | Cluster | Số occupation | Đặc trưng chính | Tên mô tả đề xuất |
 |---|---:|---|---|
-| 0 | 204 | Xử lý vật thể và hoạt động thể chất nói chung | General Physical & Material-Handling Occupations |
-| 1 | 221 | Giao tiếp bên ngoài, quan hệ liên cá nhân, máy tính và hành chính | Interpersonal, Administrative & Digital-Service Occupations |
-| 2 | 258 | Phân tích thông tin, tư vấn, chiến lược và điều phối tổ chức | Analytical, Advisory & Organizational-Leadership Occupations |
-| 3 | 228 | Sửa chữa, kiểm soát máy móc, thiết bị và vận hành quy trình | Mechanical, Equipment & Process-Operations Occupations |
+| 0 | 204 | Xử lý vật thể và hoạt động thể chất tổng quát | General Physical & Material-Handling Occupations |
+| 1 | 221 | Quan hệ liên cá nhân, giao tiếp, hành chính và dịch vụ số | Interpersonal, Administrative & Digital-Service Occupations |
+| 2 | 258 | Phân tích, tư vấn, chiến lược và điều phối tổ chức | Analytical, Advisory & Organizational-Leadership Occupations |
+| 3 | 228 | Máy móc, thiết bị, sửa chữa và vận hành quy trình | Mechanical, Equipment & Process-Operations Occupations |
 | **Tổng** | **911** | | |
 
-Tên cụm được đặt dựa trên các hoạt động có điểm Level trung bình nổi bật **tương đối** so với các cụm khác, kết hợp với các occupation tiêu biểu gần tâm cụm. Đây là nhãn mô tả do dự án xây dựng, không phải nhóm nghề chính thức của O*NET.
+Các tên cluster là nhãn mô tả do dự án xây dựng, không phải phân loại nghề nghiệp chính thức của O\*NET. Việc diễn giải dựa trên các hoạt động có mức Level trung bình nổi bật tương đối so với những cluster còn lại, kết hợp với việc xem xét các occupation tiêu biểu.
 
-**Cluster 0.** Nổi bật ở `Handling and Moving Objects` và `Performing General Physical Activities`; các hoạt động phân tích thông tin và tư vấn thấp hơn đáng kể.
+### Đặc điểm của từng cluster
 
-**Cluster 1.** Nổi bật ở giao tiếp với người ngoài tổ chức, làm việc với máy tính, thu thập thông tin và duy trì quan hệ liên cá nhân; xử lý vật thể và kiểm soát máy móc tương đối thấp.
+**Cluster 0 — General Physical & Material-Handling Occupations**
 
-**Cluster 2.** Nổi bật ở tư vấn, phân tích dữ liệu, bố trí nhân sự, định hướng cấp dưới và xử lý thông tin.
+Nhóm này nổi bật ở `Handling and Moving Objects` và `Performing General Physical Activities`. Các hoạt động phân tích thông tin và tư vấn thấp hơn đáng kể so với một số cluster khác.
 
-**Cluster 3.** Nổi bật ở sửa chữa thiết bị cơ khí, kiểm soát máy móc, xử lý vật thể, vận hành thiết bị và kiểm tra thiết bị hoặc vật liệu.
+**Cluster 1 — Interpersonal, Administrative & Digital-Service Occupations**
+
+Nhóm này nổi bật ở giao tiếp với người ngoài tổ chức, làm việc với máy tính, thu thập thông tin và duy trì quan hệ liên cá nhân. Các hoạt động xử lý vật thể và kiểm soát máy móc tương đối thấp.
+
+**Cluster 2 — Analytical, Advisory & Organizational-Leadership Occupations**
+
+Nhóm này có mức độ nổi bật tương đối ở tư vấn, phân tích dữ liệu, diễn giải thông tin, bố trí nhân sự và định hướng hoạt động tổ chức.
+
+**Cluster 3 — Mechanical, Equipment & Process-Operations Occupations**
+
+Nhóm này nổi bật ở sửa chữa thiết bị cơ khí, kiểm soát máy móc, xử lý vật thể, vận hành thiết bị và kiểm tra thiết bị hoặc vật liệu.
+
+Các cluster được mô tả theo hồ sơ hoạt động công việc tổng thể. Không nên diễn giải chúng thành các nhóm nghề hoàn toàn tách biệt hoặc cho rằng mọi occupation trong một cluster đều có đặc điểm giống hệt nhau.
 
 ---
 
@@ -574,56 +632,77 @@ Tên cụm được đặt dựa trên các hoạt động có điểm Level tru
 
 ## 9.1. Mục tiêu
 
-Tìm hiểu liệu các nhóm occupation có đặc trưng hoạt động công việc khác nhau có phân phối AI Exposure khác nhau hay không.
+Phân tích liệu các nhóm occupation được hình thành từ Work Activities LV có phân phối AI Exposure khác nhau hay không.
+
+AI Exposure được sử dụng như một biến phân tích sau phân cụm, không phải đầu vào của mô hình K-Means.
 
 ## 9.2. Ghép dữ liệu và xử lý giá trị thiếu
 
-Nhãn cụm được ghép với `ai_exposure_score` trong bảng `occupations` bằng `occupation_code`. Các occupation không có AI Exposure từ OECD vẫn được giữ trong dữ liệu phân cụm; giá trị thiếu không bị thay bằng 0. Khi tính thống kê theo cụm, chỉ dùng occupation có điểm hợp lệ, và số lượng cùng tỷ lệ coverage được báo cáo.
+Nhãn cluster được ghép với `ai_exposure_score` trong bảng `occupations` bằng khóa `occupation_code`.
 
-## 9.3. Kết quả
+Các occupation không có điểm AI Exposure từ OECD vẫn được giữ trong kết quả phân cụm. Giá trị thiếu không bị thay bằng 0.
+
+Khi tính thống kê AI Exposure theo cluster, chỉ các occupation có điểm hợp lệ được sử dụng. Số lượng occupation có dữ liệu và tỷ lệ coverage được báo cáo để thể hiện mức độ đầy đủ của dữ liệu.
+
+## 9.3. Thống kê mô tả theo cluster
 
 | Cluster | Occupations có dữ liệu | Coverage | Mean | Median |
 |---|---:|---:|---:|---:|
-| 0 | 198/204 | 97.06% | 0.922 | 0.931 |
-| 1 | 210/221 | 95.02% | 0.822 | 0.822 |
-| 2 | 247/258 | 95.74% | 0.768 | 0.763 |
-| 3 | 224/228 | 98.25% | 0.870 | 0.874 |
+| 0 | 198/204 | 97.06% | 0.9221 | 0.9311 |
+| 1 | 210/221 | 95.02% | 0.8221 | 0.8219 |
+| 2 | 247/258 | 95.74% | 0.7680 | 0.7635 |
+| 3 | 224/228 | 98.25% | 0.8698 | 0.8742 |
+
+Trong 879 occupation có dữ liệu AI Exposure:
+
+- Mean toàn bộ tập dữ liệu: **0.8416**.
+- Median toàn bộ tập dữ liệu: **0.8557**.
+
+### Phát hiện chính
 
 - **Cluster 0** có mean và median AI Exposure cao nhất.
 - **Cluster 3** đứng thứ hai.
-- **Cluster 1** ở mức trung gian.
-- **Cluster 2** thấp nhất.
+- **Cluster 1** có điểm thấp hơn mặt bằng chung một chút.
+- **Cluster 2** có mean và median thấp nhất.
 
-Chênh lệch mean giữa Cluster 0 và Cluster 2 khoảng 0.154 điểm; chênh lệch median khoảng 0.168 điểm.
+Chênh lệch mean giữa Cluster 0 và Cluster 2 khoảng 0.1541 điểm; chênh lệch median khoảng 0.1676 điểm.
 
-Không nên suy luận rằng hoạt động thể chất tự thân có mức phơi nhiễm AI cao hơn hoạt động trí óc. Các cụm hình thành từ nhiều đặc trưng cùng lúc, và AI Exposure là chỉ số độc lập được phân tích sau phân cụm.
+Kết quả cho thấy các nhóm nghề có hồ sơ hoạt động công việc khác nhau cũng có phân phối AI Exposure khác nhau trong dữ liệu đang phân tích. Tuy nhiên, không thể từ kết quả này suy luận rằng hoạt động thể chất tự thân có AI Exposure cao hơn hoạt động trí óc, bởi mỗi cluster được hình thành từ nhiều đặc trưng cùng lúc.
+
+Điểm AI Exposure cũng không phải xác suất mất việc hoặc xác suất một occupation bị AI thay thế.
 
 ## 9.4. Trực quan hóa và kiểm định thống kê
 
-Boxplot được dùng để so sánh trung vị, độ phân tán và quan sát ngoại lệ của AI Exposure giữa bốn cụm.
+Boxplot được sử dụng để so sánh trung vị, độ phân tán và các giá trị ngoại lệ của AI Exposure giữa bốn cluster.
 
-Kiểm định Kruskal–Wallis:
+### Kiểm định Kruskal–Wallis
 
-```text
-H statistic: 329.5844
-p-value:     3.9255 × 10⁻⁷¹
-```
+Kết quả kiểm định:
 
-Ở mức ý nghĩa 0.05, có bằng chứng thống kê rằng phân phối AI Exposure khác biệt giữa ít nhất một số cụm. Các kiểm định Mann–Whitney U theo từng cặp, hiệu chỉnh Holm, cho thấy cả sáu cặp cụm đều khác biệt có ý nghĩa ở mức 0.05.
+- H statistic: **329.5844**
+- p-value: **3.9255 × 10⁻⁷¹**
 
-Các kiểm định hậu nghiệm được lưu làm kết quả bổ sung; phần trình bày chính tập trung vào thống kê mô tả, biểu đồ và phát hiện tổng quát. Các kết quả này không chứng minh quan hệ nhân quả giữa đặc điểm công việc và AI Exposure, và không cho biết trực tiếp nghề nào sẽ bị AI thay thế.
+Ở mức ý nghĩa 0.05, có bằng chứng thống kê cho thấy phân phối AI Exposure không giống nhau giữa tất cả các cluster.
+
+Các kiểm định Mann–Whitney U theo từng cặp, với hiệu chỉnh Holm, cho thấy cả sáu cặp cluster đều có khác biệt có ý nghĩa thống kê ở mức 0.05.
+
+Các kiểm định hậu nghiệm được lưu làm kết quả bổ sung. Phần trình bày chính tập trung vào thống kê mô tả, biểu đồ và phát hiện tổng quát.
+
+Ý nghĩa thống kê không tự động chứng minh rằng mọi khác biệt đều lớn về mặt thực tiễn. Những kết quả này cũng không chứng minh quan hệ nhân quả giữa đặc điểm công việc và AI Exposure.
 
 ## 9.5. Kết luận giai đoạn Unsupervised Learning
 
-1. Phân cụm 911 occupation có Work Activities LV thành bốn nhóm (K = 4).
-2. Diễn giải các cụm bằng đặc trưng hoạt động công việc và occupation tiêu biểu.
-3. Ghép OECD AI Exposure với nhãn cụm bằng `occupation_code`.
-4. Tính thống kê mô tả và trực quan hóa phân phối AI Exposure.
-5. Ghi nhận khác biệt có ý nghĩa thống kê về AI Exposure giữa các cụm.
+Giai đoạn Unsupervised Learning đã thực hiện các công việc chính:
 
-Kết quả này là nền tảng cho giai đoạn tiếp theo: Skill Similarity và Career Transition Analysis.
+1. Xây dựng biểu diễn 911 occupation bằng 41 Work Activities LV.
+2. Thử nghiệm K-Means với \(K=2\) đến \(K=8\).
+3. Chọn \(K=4\) làm phương án phân tích chính dựa trên mục tiêu mô tả và khả năng diễn giải.
+4. Xác định và mô tả bốn cluster dựa trên đặc trưng hoạt động công việc.
+5. Ghép OECD AI Exposure với nhãn cluster bằng `occupation_code`.
+6. So sánh AI Exposure giữa các cluster bằng thống kê mô tả, trực quan hóa và kiểm định phi tham số.
 
----
+Kết quả cho thấy AI Exposure có phân phối khác nhau giữa các nhóm nghề được hình thành từ Work Activities LV. Đây là cơ sở để tiếp tục nghiên cứu cấu trúc nghề nghiệp và kết hợp với giai đoạn Skill Similarity và Career Transition Analysis nhằm khám phá các lựa chọn chuyển đổi nghề nghiệp dựa trên dữ liệu.
+
 
 # 10. Career Transition
 
