@@ -532,17 +532,16 @@ AI Exposure không được sử dụng làm đầu vào cho K-Means, nhằm tr�
 
 ## 8.2. Phương pháp K-Means
 
-K-Means phân chia dữ liệu thành \(K\) cụm bằng cách tối thiểu hóa tổng bình phương khoảng cách từ mỗi điểm dữ liệu đến tâm cụm tương ứng:
+K-Means phân chia dữ liệu thành K cụm bằng cách tối thiểu hóa tổng bình phương khoảng cách từ mỗi điểm dữ liệu đến tâm cụm tương ứng:
 
-\[
-J=\sum_{i=1}^{n}\left\|x_i-\mu_{c_i}\right\|^2
-\]
+
+$J=\sum_{i=1}^{n}\left\|x_i-\mu_{c_i}\right\|^2$
 
 Trong đó:
 
-- \(x_i\) là vector đặc trưng của occupation thứ \(i\).
-- \(\mu_{c_i}\) là tâm của cluster được gán cho occupation đó.
-- \(K\) là số cluster được xác định trước.
+- $x_i$ là vector đặc trưng của occupation thứ \(i\).
+- $\mu_{c_i}$ là tâm của cluster được gán cho occupation đó.
+- K là số cluster được xác định trước.
 
 ### Quy trình thực nghiệm
 
@@ -556,11 +555,11 @@ Trong đó:
 
 ## 8.3. So sánh các giá trị K
 
-Dự án đánh giá các cấu hình K-Means với \(K=2,\ldots,8\) bằng bốn chỉ số:
+Dự án đánh giá các cấu hình K-Means với K=2 đến 8 bằng bốn chỉ số:
 
 | Metric | Ý nghĩa | Hướng đánh giá |
 |---|---|---|
-| Inertia | Tổng bình phương khoảng cách đến tâm cụm | Thường giảm khi tăng \(K\) |
+| Inertia | Tổng bình phương khoảng cách đến tâm cụm | Thường giảm khi tăng K |
 | Silhouette Score | Mức độ gắn kết trong cụm và tách biệt giữa các cụm | Cao hơn thường tốt hơn |
 | Davies–Bouldin Index | Mức độ tương đồng giữa các cụm | Thấp hơn thường tốt hơn |
 | Calinski–Harabasz Index | Tương quan giữa độ phân tán giữa cụm và trong cụm | Cao hơn thường tốt hơn |
@@ -579,18 +578,18 @@ Dự án đánh giá các cấu hình K-Means với \(K=2,\ldots,8\) bằng bố
 
 ### Lựa chọn K = 4
 
-Kết quả cho thấy Silhouette Score cao nhất trong các cấu hình được thử nghiệm tại \(K=2\). Tuy nhiên, lựa chọn \(K=2\) tạo ra cách phân chia thô hơn và có thể không cung cấp đủ mức độ chi tiết cho mục tiêu mô tả các nhóm nghề nghiệp.
+Kết quả cho thấy Silhouette Score cao nhất trong các cấu hình được thử nghiệm tại K=2. Tuy nhiên, lựa chọn K=2 tạo ra cách phân chia thô hơn và có thể không cung cấp đủ mức độ chi tiết cho mục tiêu mô tả các nhóm nghề nghiệp.
 
-Dự án lựa chọn \(K=4\) làm phương án phân tích chính dựa trên sự cân nhắc giữa:
+Dự án lựa chọn K=4 làm phương án phân tích chính dựa trên sự cân nhắc giữa:
 
 - Khả năng mô tả các nhóm nghề với đặc điểm hoạt động khác nhau.
 - Kích thước của các cluster.
 - Khả năng diễn giải kết quả bằng các hoạt động công việc cụ thể.
 - Các clustering metrics thu được từ thực nghiệm.
 
-Đây là lựa chọn phục vụ mục tiêu phân tích của dự án, không phải khẳng định \(K=4\) là số cụm tối ưu tuyệt đối.
+Đây là lựa chọn phục vụ mục tiêu phân tích của dự án, không phải khẳng định K=4 là số cụm tối ưu tuyệt đối.
 
-Silhouette Score tại \(K=4\) khoảng 0.1747, cho thấy các cụm chưa tách biệt mạnh. Do đó, kết quả được xem là một cách phân nhóm hữu ích để khám phá và mô tả dữ liệu, không phải bằng chứng về các ranh giới tự nhiên hoàn toàn rõ ràng giữa các nghề.
+Silhouette Score tại K=4 khoảng 0.1747, cho thấy các cụm chưa tách biệt mạnh. Do đó, kết quả được xem là một cách phân nhóm hữu ích để khám phá và mô tả dữ liệu, không phải bằng chứng về các ranh giới tự nhiên hoàn toàn rõ ràng giữa các nghề.
 
 ## 8.4. Kết quả phân cụm với K = 4
 
@@ -695,8 +694,8 @@ Các kiểm định hậu nghiệm được lưu làm kết quả bổ sung. Ph�
 Giai đoạn Unsupervised Learning đã thực hiện các công việc chính:
 
 1. Xây dựng biểu diễn 911 occupation bằng 41 Work Activities LV.
-2. Thử nghiệm K-Means với \(K=2\) đến \(K=8\).
-3. Chọn \(K=4\) làm phương án phân tích chính dựa trên mục tiêu mô tả và khả năng diễn giải.
+2. Thử nghiệm K-Means với K=2 đến K=8.
+3. Chọn K=4 làm phương án phân tích chính dựa trên mục tiêu mô tả và khả năng diễn giải.
 4. Xác định và mô tả bốn cluster dựa trên đặc trưng hoạt động công việc.
 5. Ghép OECD AI Exposure với nhãn cluster bằng `occupation_code`.
 6. So sánh AI Exposure giữa các cluster bằng thống kê mô tả, trực quan hóa và kiểm định phi tham số.
