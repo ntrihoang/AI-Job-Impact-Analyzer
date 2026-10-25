@@ -1,0 +1,41 @@
+﻿cluster,rank,activity,mean_level
+0,1,Handling and Moving Objects,4.172745098039216
+0,2,Establishing and Maintaining Interpersonal Relationships,3.682058823529412
+0,3,"Communicating with Supervisors, Peers, or Subordinates",3.4350980392156862
+0,4,"Organizing, Planning, and Prioritizing Work",3.396029411764706
+0,5,"Monitoring Processes, Materials, or Surroundings",3.3688725490196076
+0,6,Updating and Using Relevant Knowledge,3.3366176470588234
+0,7,Performing General Physical Activities,3.2931372549019606
+0,8,Making Decisions and Solving Problems,3.277205882352941
+0,9,"Identifying Objects, Actions, and Events",3.264754901960784
+0,10,Getting Information,3.1880882352941176
+1,1,Updating and Using Relevant Knowledge,4.937013574660633
+1,2,Establishing and Maintaining Interpersonal Relationships,4.888235294117647
+1,3,"Organizing, Planning, and Prioritizing Work",4.841538461538462
+1,4,Getting Information,4.619321266968326
+1,5,"Communicating with Supervisors, Peers, or Subordinates",4.595927601809955
+1,6,Making Decisions and Solving Problems,4.588778280542987
+1,7,Processing Information,4.319411764705882
+1,8,Thinking Creatively,4.29212669683258
+1,9,"Identifying Objects, Actions, and Events",4.256651583710408
+1,10,Analyzing Data or Information,4.07579185520362
+2,1,Updating and Using Relevant Knowledge,5.403875968992248
+2,2,Making Decisions and Solving Problems,5.3260077519379845
+2,3,"Organizing, Planning, and Prioritizing Work",5.317945736434108
+2,4,"Communicating with Supervisors, Peers, or Subordinates",5.181705426356588
+2,5,Establishing and Maintaining Interpersonal Relationships,5.164031007751937
+2,6,Processing Information,5.120620155038759
+2,7,Getting Information,5.093565891472869
+2,8,Analyzing Data or Information,4.9205813953488375
+2,9,"Identifying Objects, Actions, and Events",4.889767441860465
+2,10,Thinking Creatively,4.803100775193799
+3,1,Handling and Moving Objects,5.076052631578947
+3,2,"Monitoring Processes, Materials, or Surroundings",4.507543859649123
+3,3,Updating and Using Relevant Knowledge,4.465964912280702
+3,4,Controlling Machines and Processes,4.368201754385965
+3,5,Performing General Physical Activities,4.340833333333333
+3,6,Making Decisions and Solving Problems,4.321885964912281
+3,7,"Organizing, Planning, and Prioritizing Work",4.319254385964912
+3,8,"Communicating with Supervisors, Peers, or Subordinates",4.225263157894737
+3,9,Establishing and Maintaining Interpersonal Relationships,4.141666666666667
+3,10,"Inspecting Equipment, Structures, or Materials",4.071578947368422

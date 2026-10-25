@@ -1,0 +1,912 @@
+﻿occupation_code,cluster,occupation_title,ai_exposure_score
+11-1011.00,2,Chief Executives,0.49106317256559395
+11-1011.03,2,Chief Sustainability Officers,0.6962791930814456
+11-1021.00,2,General and Operations Managers,0.7393120715151662
+11-2011.00,1,Advertising and Promotions Managers,0.73816261752165
+11-2021.00,2,Marketing Managers,0.7429216788700694
+11-2022.00,2,Sales Managers,0.7257722449013648
+11-2032.00,2,Public Relations Managers,
+11-2033.00,1,Fundraising Managers,
+11-3012.00,2,Administrative Services Managers,0.8232753726802311
+11-3013.00,2,Facilities Managers,0.8197592781074894
+11-3013.01,2,Security Managers,
+11-3021.00,2,Computer and Information Systems Managers,0.7446280808804564
+11-3031.00,1,Financial Managers,0.754266101443453
+11-3031.01,2,Treasurers and Controllers,0.7634922020195273
+11-3031.03,1,Investment Fund Managers,0.7550066002540718
+11-3051.00,3,Industrial Production Managers,0.8067843031777129
+11-3051.01,2,Quality Control Systems Managers,0.7988846040519175
+11-3051.02,2,Geothermal Production Managers,0.8189342939382623
+11-3051.03,2,Biofuels Production Managers,0.8592041003990001
+11-3051.04,2,Biomass Power Plant Managers,0.8498722697393933
+11-3051.06,2,Hydroelectric Production Managers,0.8212657799745009
+11-3061.00,2,Purchasing Managers,0.7625735822915559
+11-3071.00,2,"Transportation, Storage, and Distribution Managers",0.7918052263532294
+11-3071.04,2,Supply Chain Managers,0.7450149345258417
+11-3111.00,1,Compensation and Benefits Managers,0.7676453133713904
+11-3121.00,2,Human Resources Managers,0.6877313432572445
+11-3131.00,2,Training and Development Managers,0.741807540365971
+11-9013.00,3,"Farmers, Ranchers, and Other Agricultural Managers",0.7533375340911559
+11-9021.00,2,Construction Managers,0.7697736103077708
+11-9031.00,2,"Education and Childcare Administrators, Preschool and Daycare",0.7307713777369578
+11-9032.00,2,"Education Administrators, Kindergarten through Secondary",0.6625504970155811
+11-9033.00,2,"Education Administrators, Postsecondary",0.6801418568386057
+11-9041.00,2,Architectural and Engineering Managers,0.7292203935592071
+11-9041.01,2,Biofuels/Biodiesel Technology and Product Development Managers,0.7651523677337431
+11-9051.00,3,Food Service Managers,0.8438709577434023
+11-9071.00,1,Gambling Managers,0.8096899867292381
+11-9072.00,2,"Entertainment and Recreation Managers, Except Gambling",
+11-9081.00,2,Lodging Managers,0.7579125987485296
+11-9111.00,2,Medical and Health Services Managers,0.6868623242430065
+11-9121.00,2,Natural Sciences Managers,0.7087664494047994
+11-9121.01,1,Clinical Research Coordinators,0.8155426824963434
+11-9121.02,2,Water Resource Specialists,0.7929498670278237
+11-9131.00,2,Postmasters and Mail Superintendents,0.8028754745816672
+11-9141.00,2,"Property, Real Estate, and Community Association Managers",0.8217795289539336
+11-9151.00,1,Social and Community Service Managers,0.683121164230241
+11-9161.00,2,Emergency Management Directors,0.6839493897361026
+11-9171.00,2,Funeral Home Managers,0.8288934768869826
+11-9179.01,1,Fitness and Wellness Coordinators,0.8499826221656714
+11-9179.02,2,Spa Managers,0.8455319191851771
+11-9199.01,2,Regulatory Affairs Managers,0.7434998158975645
+11-9199.02,2,Compliance Managers,0.7356631574037227
+11-9199.08,2,Loss Prevention Managers,0.7716862856467885
+11-9199.09,2,Wind Energy Operations Managers,0.7935875512677848
+11-9199.10,2,Wind Energy Development Managers,0.7489379783131986
+11-9199.11,2,Brownfield Redevelopment Specialists and Site Managers,0.7838158520435308
+13-1011.00,1,"Agents and Business Managers of Artists, Performers, and Athletes",0.7353272074446804
+13-1021.00,1,"Buyers and Purchasing Agents, Farm Products",0.873404721467746
+13-1022.00,2,"Wholesale and Retail Buyers, Except Farm Products",0.8857527773162022
+13-1023.00,2,"Purchasing Agents, Except Wholesale, Retail, and Farm Products",0.8229561453531392
+13-1031.00,1,"Claims Adjusters, Examiners, and Investigators",0.8197833915398118
+13-1032.00,1,"Insurance Appraisers, Auto Damage",0.9437423613197254
+13-1041.00,1,Compliance Officers,0.8709275405762296
+13-1041.01,1,Environmental Compliance Inspectors,0.8049648729464142
+13-1041.03,1,Equal Opportunity Representatives and Officers,0.7559943539582188
+13-1041.04,1,Government Property Inspectors and Investigators,0.7641239483719287
+13-1041.06,2,Coroners,0.7076116427423611
+13-1041.07,1,Regulatory Affairs Specialists,0.8347429914835065
+13-1041.08,2,Customs Brokers,0.8539357964851091
+13-1051.00,2,Cost Estimators,0.9008306529148546
+13-1071.00,1,Human Resources Specialists,0.8464132786213789
+13-1074.00,3,Farm Labor Contractors,0.948585783291774
+13-1075.00,1,Labor Relations Specialists,0.7254933568359003
+13-1081.00,2,Logisticians,0.7703270656639193
+13-1081.01,2,Logistics Engineers,0.8518417878301565
+13-1081.02,1,Logistics Analysts,0.9535484030887262
+13-1082.00,2,Project Management Specialists,
+13-1111.00,2,Management Analysts,0.7213710511018769
+13-1121.00,2,"Meeting, Convention, and Event Planners",0.7777610623291678
+13-1131.00,2,Fundraisers,0.7947195163015797
+13-1141.00,1,"Compensation, Benefits, and Job Analysis Specialists",0.8323211988507204
+13-1151.00,2,Training and Development Specialists,0.7671411131312917
+13-1161.00,1,Market Research Analysts and Marketing Specialists,0.8567714402359425
+13-1161.01,1,Search Marketing Strategists,0.8435948352661424
+13-1199.04,2,Business Continuity Planners,0.7597954964919009
+13-1199.05,2,Sustainability Specialists,0.8345100791133736
+13-1199.06,1,Online Merchants,0.9361506713513699
+13-1199.07,2,Security Management Specialists,
+13-2011.00,2,Accountants and Auditors,0.8540661410768706
+13-2022.00,1,Appraisers of Personal and Business Property,
+13-2023.00,1,Appraisers and Assessors of Real Estate,0.9151317060690777
+13-2031.00,1,Budget Analysts,0.8831120989376945
+13-2041.00,1,Credit Analysts,0.9534318310399826
+13-2052.00,1,Personal Financial Advisors,0.7821082615742339
+13-2053.00,1,Insurance Underwriters,0.9625056105460144
+13-2061.00,1,Financial Examiners,0.7847440306647412
+13-2071.00,1,Credit Counselors,0.8484709261284471
+13-2072.00,1,Loan Officers,0.8879982609164163
+13-2081.00,1,"Tax Examiners and Collectors, and Revenue Agents",0.9212213271299857
+13-2082.00,1,Tax Preparers,0.9467124394267479
+13-2099.01,1,Financial Quantitative Analysts,0.8597187106811238
+13-2099.04,2,"Fraud Examiners, Investigators and Analysts",0.7385346441436003
+15-1211.00,1,Computer Systems Analysts,0.8246315037853091
+15-1211.01,2,Health Informatics Specialists,0.7543794675909195
+15-1212.00,1,Information Security Analysts,0.8361931343571484
+15-1221.00,2,Computer and Information Research Scientists,0.7004698244823643
+15-1231.00,1,Computer Network Support Specialists,0.9430407921628651
+15-1232.00,1,Computer User Support Specialists,0.9083550674150939
+15-1241.00,2,Computer Network Architects,0.8488683145141376
+15-1241.01,2,Telecommunications Engineering Specialists,0.8908882124112162
+15-1242.00,1,Database Administrators,0.9349263849498384
+15-1243.00,2,Database Architects,0.9024327551027489
+15-1243.01,1,Data Warehousing Specialists,0.9546936277462088
+15-1244.00,1,Network and Computer Systems Administrators,0.8997679054070812
+15-1251.00,1,Computer Programmers,0.9069840478184237
+15-1252.00,1,Software Developers,
+15-1253.00,1,Software Quality Assurance Analysts and Testers,0.926344605009598
+15-1254.00,1,Web Developers,0.926379655315387
+15-1255.00,1,Web and Digital Interface Designers,
+15-1255.01,1,Video Game Designers,0.7472097667407345
+15-1299.01,1,Web Administrators,0.9300608970026264
+15-1299.02,1,Geographic Information Systems Technologists and Technicians,0.9411037076110526
+15-1299.03,1,Document Management Specialists,0.9294638512495387
+15-1299.04,2,Penetration Testers,
+15-1299.05,2,Information Security Engineers,
+15-1299.06,2,Digital Forensics Analysts,
+15-1299.07,2,Blockchain Engineers,
+15-1299.08,2,Computer Systems Engineers/Architects,0.8036208565643036
+15-1299.09,2,Information Technology Project Managers,0.7499194302276524
+15-2011.00,2,Actuaries,0.7999735029781199
+15-2021.00,1,Mathematicians,0.7575229382291662
+15-2031.00,2,Operations Research Analysts,0.8181631018648882
+15-2041.00,2,Statisticians,0.8304661256576824
+15-2041.01,1,Biostatisticians,0.7957786056431218
+15-2051.00,1,Data Scientists,
+15-2051.01,1,Business Intelligence Analysts,0.917972194779063
+15-2051.02,1,Clinical Data Managers,0.9369880383782836
+15-2099.01,1,Bioinformatics Technicians,0.941781082698952
+17-1011.00,2,"Architects, Except Landscape and Naval",0.7012616296701295
+17-1012.00,2,Landscape Architects,0.7950364873783021
+17-1021.00,1,Cartographers and Photogrammetrists,0.9708506255296764
+17-1022.00,2,Surveyors,0.8679357200881274
+17-1022.01,2,Geodetic Surveyors,0.9495220180493468
+17-2011.00,2,Aerospace Engineers,0.7930494057047367
+17-2021.00,2,Agricultural Engineers,0.8036110925009908
+17-2031.00,2,Bioengineers and Biomedical Engineers,0.7379742428158961
+17-2041.00,2,Chemical Engineers,0.8057799941996542
+17-2051.00,2,Civil Engineers,0.8122484059262615
+17-2051.01,2,Transportation Engineers,0.8204747786862537
+17-2051.02,2,Water/Wastewater Engineers,0.901305292908653
+17-2061.00,2,Computer Hardware Engineers,0.8692476120424468
+17-2071.00,2,Electrical Engineers,0.8430040577354894
+17-2072.00,3,"Electronics Engineers, Except Computer",0.8628131408981455
+17-2072.01,2,Radio Frequency Identification Device Specialists,0.9258365558186443
+17-2081.00,2,Environmental Engineers,0.7975967219913326
+17-2111.00,2,"Health and Safety Engineers, Except Mining Safety Engineers and Inspectors",0.7787366889423091
+17-2111.02,2,Fire-Prevention and Protection Engineers,0.765256744950827
+17-2112.00,3,Industrial Engineers,0.8904765211631205
+17-2112.01,2,Human Factors Engineers and Ergonomists,0.7675514813592763
+17-2112.02,2,Validation Engineers,0.8916939691535819
+17-2112.03,2,Manufacturing Engineers,0.8364078836923701
+17-2121.00,2,Marine Engineers and Naval Architects,0.8631228196894123
+17-2131.00,2,Materials Engineers,0.8026977568269426
+17-2141.00,3,Mechanical Engineers,0.8535741850877236
+17-2141.01,2,Fuel Cell Engineers,0.7987275212265937
+17-2141.02,2,Automotive Engineers,0.8531588999085753
+17-2151.00,2,"Mining and Geological Engineers, Including Mining Safety Engineers",0.7995990931343897
+17-2161.00,2,Nuclear Engineers,0.7304811519637093
+17-2171.00,2,Petroleum Engineers,0.7975196684940842
+17-2199.03,2,"Energy Engineers, Except Wind and Solar",0.8247583359693252
+17-2199.05,3,Mechatronics Engineers,0.9092192712968261
+17-2199.06,3,Microsystems Engineers,0.8384959478346137
+17-2199.07,2,Photonics Engineers,0.8172225434825596
+17-2199.08,2,Robotics Engineers,0.739585037459711
+17-2199.09,2,Nanosystems Engineers,0.7376484776125776
+17-2199.10,2,Wind Energy Engineers,0.9047538133255514
+17-2199.11,3,Solar Energy Systems Engineers,0.9248715731435426
+17-3011.00,2,Architectural and Civil Drafters,0.9653425387639394
+17-3012.00,1,Electrical and Electronics Drafters,0.9606953918874225
+17-3013.00,0,Mechanical Drafters,0.9732082247831475
+17-3021.00,3,Aerospace Engineering and Operations Technologists and Technicians,0.8953451770947467
+17-3022.00,1,Civil Engineering Technologists and Technicians,0.9356715873135428
+17-3023.00,3,Electrical and Electronic Engineering Technologists and Technicians,0.9219718891074575
+17-3024.00,3,Electro-Mechanical and Mechatronics Technologists and Technicians,0.8301008450112639
+17-3024.01,3,Robotics Technicians,0.8156025895195699
+17-3025.00,3,Environmental Engineering Technologists and Technicians,0.9255332477965361
+17-3026.00,3,Industrial Engineering Technologists and Technicians,0.9150610912424346
+17-3026.01,2,Nanotechnology Engineering Technologists and Technicians,0.9120959485072713
+17-3027.00,3,Mechanical Engineering Technologists and Technicians,0.880190116729295
+17-3027.01,3,Automotive Engineering Technicians,0.8907248554526752
+17-3028.00,3,Calibration Technologists and Technicians,
+17-3029.01,2,Non-Destructive Testing Specialists,0.8659261893258372
+17-3029.08,3,Photonics Technicians,0.8975895006865564
+17-3031.00,3,Surveying and Mapping Technicians,0.946147752794213
+19-1011.00,2,Animal Scientists,0.7660710581964347
+19-1012.00,2,Food Scientists and Technologists,0.8580860449711223
+19-1013.00,2,Soil and Plant Scientists,0.7348238788111416
+19-1021.00,2,Biochemists and Biophysicists,0.7696008749226408
+19-1022.00,2,Microbiologists,0.8080634406377964
+19-1023.00,2,Zoologists and Wildlife Biologists,0.707048120065247
+19-1029.01,1,Bioinformatics Scientists,0.7612093357023777
+19-1029.02,2,Molecular and Cellular Biologists,0.7061517452882878
+19-1029.03,2,Geneticists,0.7006764739483233
+19-1029.04,2,Biologists,0.7271433920307998
+19-1031.00,2,Conservation Scientists,0.8221397526140409
+19-1031.02,2,Range Managers,0.7980724970995471
+19-1031.03,1,Park Naturalists,0.7971056405897671
+19-1032.00,2,Foresters,0.7262159122955868
+19-1041.00,2,Epidemiologists,0.6742234785323337
+19-1042.00,2,"Medical Scientists, Except Epidemiologists",0.7009108060850975
+19-2011.00,2,Astronomers,0.7479726645285418
+19-2012.00,2,Physicists,0.6937984895447027
+19-2021.00,2,Atmospheric and Space Scientists,0.8138007436503206
+19-2031.00,2,Chemists,0.8439850109855596
+19-2032.00,2,Materials Scientists,0.7591051433424698
+19-2041.00,2,"Environmental Scientists and Specialists, Including Health",0.7593306020727337
+19-2041.01,1,Climate Change Policy Analysts,0.7483488947508674
+19-2041.02,2,Environmental Restoration Planners,0.7655599023625232
+19-2041.03,2,Industrial Ecologists,0.7807706189754119
+19-2042.00,2,"Geoscientists, Except Hydrologists and Geographers",0.7418188200950031
+19-2043.00,2,Hydrologists,0.7902148464583454
+19-2099.01,2,Remote Sensing Scientists and Technologists,0.8612479468336925
+19-3011.00,2,Economists,0.7421325947941636
+19-3011.01,1,Environmental Economists,0.7570094420851601
+19-3022.00,2,Survey Researchers,0.8665865797088471
+19-3032.00,2,Industrial-Organizational Psychologists,0.6745723813032103
+19-3033.00,1,Clinical and Counseling Psychologists,0.6339118443391749
+19-3034.00,2,School Psychologists,0.6978373224447261
+19-3039.02,2,Neuropsychologists,0.6861470285786841
+19-3039.03,2,Clinical Neuropsychologists,0.6797830220831751
+19-3041.00,2,Sociologists,0.6810724456075437
+19-3051.00,2,Urban and Regional Planners,0.7230782245544227
+19-3091.00,2,Anthropologists and Archeologists,0.7134625837664232
+19-3092.00,2,Geographers,0.782811869866139
+19-3093.00,1,Historians,0.7736255372393259
+19-3094.00,2,Political Scientists,0.6783510018254839
+19-3099.01,2,Transportation Planners,0.7640200527406064
+19-4012.00,3,Agricultural Technicians,0.9153000060269837
+19-4012.01,3,Precision Agriculture Technicians,0.961974888080742
+19-4013.00,3,Food Science Technicians,0.9709402003478607
+19-4021.00,3,Biological Technicians,0.9534747285440516
+19-4031.00,3,Chemical Technicians,0.8995465497165185
+19-4042.00,3,"Environmental Science and Protection Technicians, Including Health",0.9127565743572498
+19-4043.00,3,"Geological Technicians, Except Hydrologic Technicians",0.9485716352538817
+19-4051.00,3,Nuclear Technicians,0.895628794694615
+19-4051.02,3,Nuclear Monitoring Technicians,0.893253136338657
+19-4061.00,1,Social Science Research Assistants,0.9378302080730117
+19-4071.00,2,Forest and Conservation Technicians,0.8368146674254324
+19-4092.00,3,Forensic Science Technicians,0.7585246979016674
+19-4099.01,0,Quality Control Analysts,0.9266434277440597
+19-4099.03,1,Remote Sensing Technicians,0.9596843815371517
+19-5011.00,2,Occupational Health and Safety Specialists,0.8021285162464526
+19-5012.00,2,Occupational Health and Safety Technicians,0.8644890424305567
+21-1011.00,1,Substance Abuse and Behavioral Disorder Counselors,0.7079829231111467
+21-1012.00,1,"Educational, Guidance, and Career Counselors and Advisors",0.7569647151904342
+21-1013.00,1,Marriage and Family Therapists,0.6413546934790713
+21-1014.00,1,Mental Health Counselors,0.6253485113738633
+21-1015.00,1,Rehabilitation Counselors,0.760524906456096
+21-1021.00,1,"Child, Family, and School Social Workers",0.6753269892769673
+21-1022.00,1,Healthcare Social Workers,0.7104008495588863
+21-1023.00,1,Mental Health and Substance Abuse Social Workers,0.66506512103238
+21-1091.00,2,Health Education Specialists,0.804302007894969
+21-1092.00,2,Probation Officers and Correctional Treatment Specialists,0.7769455311962796
+21-1093.00,1,Social and Human Service Assistants,0.8560085258118516
+21-1094.00,1,Community Health Workers,0.7770185361570621
+21-2011.00,1,Clergy,0.6347940973755637
+21-2021.00,2,"Directors, Religious Activities and Education",0.7332644087674272
+23-1011.00,2,Lawyers,0.5856292499712067
+23-1012.00,0,Judicial Law Clerks,0.7986689150140565
+23-1021.00,1,"Administrative Law Judges, Adjudicators, and Hearing Officers",0.7160505531934058
+23-1022.00,1,"Arbitrators, Mediators, and Conciliators",0.672625497054449
+23-1023.00,1,"Judges, Magistrate Judges, and Magistrates",0.5868491044759495
+23-2011.00,1,Paralegals and Legal Assistants,0.9014827560471452
+23-2093.00,1,"Title Examiners, Abstractors, and Searchers",0.9595136560774218
+25-1011.00,1,"Business Teachers, Postsecondary",0.7063955544777415
+25-1021.00,2,"Computer Science Teachers, Postsecondary",0.711070067226993
+25-1022.00,1,"Mathematical Science Teachers, Postsecondary",0.7705162550967151
+25-1031.00,2,"Architecture Teachers, Postsecondary",0.6882156819261951
+25-1032.00,2,"Engineering Teachers, Postsecondary",0.7238086438209574
+25-1041.00,2,"Agricultural Sciences Teachers, Postsecondary",0.7078456000950466
+25-1042.00,2,"Biological Science Teachers, Postsecondary",0.7135530702353343
+25-1043.00,2,"Forestry and Conservation Science Teachers, Postsecondary",0.7121459017401175
+25-1051.00,1,"Atmospheric, Earth, Marine, and Space Sciences Teachers, Postsecondary",0.7128621791835938
+25-1052.00,1,"Chemistry Teachers, Postsecondary",0.710664849085909
+25-1053.00,2,"Environmental Science Teachers, Postsecondary",0.7103337807499844
+25-1054.00,2,"Physics Teachers, Postsecondary",0.7089271482348185
+25-1061.00,2,"Anthropology and Archeology Teachers, Postsecondary",0.6805324719181772
+25-1062.00,1,"Area, Ethnic, and Cultural Studies Teachers, Postsecondary",0.7120415531739066
+25-1063.00,1,"Economics Teachers, Postsecondary",0.7250139406452325
+25-1064.00,2,"Geography Teachers, Postsecondary",0.7653372923927738
+25-1065.00,1,"Political Science Teachers, Postsecondary",0.7173706546495178
+25-1066.00,2,"Psychology Teachers, Postsecondary",0.6913672240174116
+25-1067.00,1,"Sociology Teachers, Postsecondary",0.7273117883024638
+25-1071.00,2,"Health Specialties Teachers, Postsecondary",0.7168657079429468
+25-1072.00,2,"Nursing Instructors and Teachers, Postsecondary",0.7011047193449171
+25-1081.00,2,"Education Teachers, Postsecondary",0.7193195896783913
+25-1082.00,1,"Library Science Teachers, Postsecondary",0.7571553404214477
+25-1111.00,1,"Criminal Justice and Law Enforcement Teachers, Postsecondary",0.7395120477928868
+25-1112.00,1,"Law Teachers, Postsecondary",0.6998027620892332
+25-1113.00,1,"Social Work Teachers, Postsecondary",0.6775479055484195
+25-1121.00,2,"Art, Drama, and Music Teachers, Postsecondary",0.7307906815264585
+25-1122.00,2,"Communications Teachers, Postsecondary",0.7309154388457595
+25-1123.00,2,"English Language and Literature Teachers, Postsecondary",0.6996224981083221
+25-1124.00,1,"Foreign Language and Literature Teachers, Postsecondary",0.7299146212990184
+25-1125.00,1,"History Teachers, Postsecondary",0.7095706261632952
+25-1126.00,1,"Philosophy and Religion Teachers, Postsecondary",0.7119765383462999
+25-1192.00,1,"Family and Consumer Sciences Teachers, Postsecondary",0.7479891870892434
+25-1193.00,2,"Recreation and Fitness Studies Teachers, Postsecondary",0.7474884955720278
+25-1194.00,2,"Career/Technical Education Teachers, Postsecondary",0.7719897733322212
+25-2011.00,0,"Preschool Teachers, Except Special Education",0.7940119241787358
+25-2012.00,1,"Kindergarten Teachers, Except Special Education",0.7471495204209013
+25-2021.00,1,"Elementary School Teachers, Except Special Education",0.7325276279426978
+25-2022.00,1,"Middle School Teachers, Except Special and Career/Technical Education",0.7381139445859068
+25-2023.00,1,"Career/Technical Education Teachers, Middle School",0.7666468025609722
+25-2031.00,1,"Secondary School Teachers, Except Special and Career/Technical Education",0.743708664345205
+25-2032.00,2,"Career/Technical Education Teachers, Secondary School",0.7547960864725
+25-2051.00,1,"Special Education Teachers, Preschool",0.7225686879040363
+25-2055.00,1,"Special Education Teachers, Kindergarten",
+25-2056.00,1,"Special Education Teachers, Elementary School",
+25-2057.00,1,"Special Education Teachers, Middle School",0.7013015215811522
+25-2058.00,1,"Special Education Teachers, Secondary School",0.7206352308019387
+25-2059.01,2,Adapted Physical Education Specialists,0.7628469626276583
+25-3011.00,1,"Adult Basic Education, Adult Secondary Education, and English as a Second Language Instructors",0.8205285914240654
+25-3021.00,1,Self-Enrichment Teachers,0.8825377060616744
+25-3031.00,0,"Substitute Teachers, Short-Term",
+25-3041.00,1,Tutors,0.8423675667972352
+25-4011.00,2,Archivists,0.8665994965589315
+25-4012.00,2,Curators,0.7501512231515508
+25-4013.00,2,Museum Technicians and Conservators,0.8130193683798876
+25-4022.00,2,Librarians and Media Collections Specialists,0.8647565811528308
+25-4031.00,0,Library Technicians,0.9517332393193749
+25-9021.00,2,Farm and Home Management Educators,0.7391513221354753
+25-9031.00,2,Instructional Coordinators,0.730850405552759
+25-9042.00,1,"Teaching Assistants, Preschool, Elementary, Middle, and Secondary School, Except Special Education",0.8438639192767172
+25-9043.00,0,"Teaching Assistants, Special Education",
+25-9044.00,1,"Teaching Assistants, Postsecondary",0.8950987614160016
+27-1011.00,1,Art Directors,0.7424315847872323
+27-1012.00,0,Craft Artists,0.8090879165296461
+27-1013.00,0,"Fine Artists, Including Painters, Sculptors, and Illustrators",0.8007567411196147
+27-1014.00,1,Special Effects Artists and Animators,0.8923209716050272
+27-1021.00,3,Commercial and Industrial Designers,0.7993920727192598
+27-1022.00,1,Fashion Designers,0.8007581040689035
+27-1023.00,1,Floral Designers,0.9147049391798913
+27-1024.00,1,Graphic Designers,0.9235168896325339
+27-1025.00,2,Interior Designers,0.8039386675389697
+27-1026.00,0,Merchandise Displayers and Window Trimmers,0.8950915072102699
+27-1027.00,1,Set and Exhibit Designers,0.7813859756989802
+27-2011.00,0,Actors,0.7828144363813696
+27-2012.00,1,Producers and Directors,0.6810690681925927
+27-2012.03,1,Media Programming Directors,0.7135204696333628
+27-2012.04,1,Talent Directors,0.7927567480093455
+27-2012.05,3,Media Technical Directors/Managers,0.8680976061172281
+27-2021.00,2,Athletes and Sports Competitors,0.6814359612631657
+27-2022.00,1,Coaches and Scouts,0.7148411468205482
+27-2023.00,0,"Umpires, Referees, and Other Sports Officials",0.8613721368849003
+27-2031.00,0,Dancers,0.8610513285253014
+27-2032.00,2,Choreographers,0.7728171300809169
+27-2041.00,1,Music Directors and Composers,0.7993877289503044
+27-2042.00,0,Musicians and Singers,0.8389272126312874
+27-2091.00,3,"Disc Jockeys, Except Radio",
+27-3011.00,1,Broadcast Announcers and Radio Disc Jockeys,0.8228406082066224
+27-3023.00,1,"News Analysts, Reporters, and Journalists",0.774351824807837
+27-3031.00,2,Public Relations Specialists,0.7284358643529236
+27-3041.00,2,Editors,0.755323473857971
+27-3042.00,1,Technical Writers,0.9145621960017193
+27-3043.00,1,Writers and Authors,0.8301959009982439
+27-3043.05,1,"Poets, Lyricists and Creative Writers",0.7780433954609383
+27-3091.00,1,Interpreters and Translators,0.8230244267081912
+27-3092.00,0,Court Reporters and Simultaneous Captioners,0.9680156951539914
+27-4011.00,3,Audio and Video Technicians,0.859754261303081
+27-4012.00,3,Broadcast Technicians,0.9271726755078049
+27-4014.00,1,Sound Engineering Technicians,0.9173775940164074
+27-4021.00,1,Photographers,0.8740814316673571
+27-4031.00,0,"Camera Operators, Television, Video, and Film",0.8603061469574126
+27-4032.00,1,Film and Video Editors,0.8907541756945015
+29-1011.00,1,Chiropractors,0.7477010326113915
+29-1021.00,2,"Dentists, General",0.663346896262698
+29-1022.00,2,Oral and Maxillofacial Surgeons,0.6125685957163058
+29-1023.00,2,Orthodontists,0.736115790407345
+29-1024.00,2,Prosthodontists,0.7130717364973537
+29-1031.00,1,Dietitians and Nutritionists,0.7766864754721851
+29-1041.00,2,Optometrists,0.773224007412198
+29-1051.00,2,Pharmacists,0.7979722480605356
+29-1071.00,2,Physician Assistants,0.675551526976403
+29-1071.01,3,Anesthesiologist Assistants,0.7514368817028042
+29-1081.00,2,Podiatrists,0.7088287921400749
+29-1122.00,2,Occupational Therapists,0.6872570601518702
+29-1122.01,1,"Low Vision Therapists, Orientation and Mobility Specialists, and Vision Rehabilitation Therapists",0.7534673766419051
+29-1123.00,1,Physical Therapists,0.678770981399909
+29-1124.00,2,Radiation Therapists,0.8671769712813087
+29-1125.00,1,Recreational Therapists,0.7695973822453099
+29-1126.00,2,Respiratory Therapists,0.8064605929583357
+29-1127.00,1,Speech-Language Pathologists,0.7263550140969504
+29-1128.00,1,Exercise Physiologists,0.8279448130477298
+29-1129.01,1,Art Therapists,0.7004841660339494
+29-1129.02,1,Music Therapists,0.6722465932124462
+29-1131.00,1,Veterinarians,0.6545420742121846
+29-1141.00,1,Registered Nurses,0.6637736562451897
+29-1141.01,2,Acute Care Nurses,0.7010462844108648
+29-1141.02,2,Advanced Practice Psychiatric Nurses,0.6727312727293933
+29-1141.03,2,Critical Care Nurses,0.6664082555067155
+29-1141.04,2,Clinical Nurse Specialists,0.727520649847777
+29-1151.00,2,Nurse Anesthetists,0.6398642245246148
+29-1161.00,2,Nurse Midwives,0.6377817956733884
+29-1171.00,2,Nurse Practitioners,0.723371500856971
+29-1181.00,2,Audiologists,0.7422563286483456
+29-1211.00,2,Anesthesiologists,0.5913571840114275
+29-1213.00,1,Dermatologists,0.6636723900658966
+29-1214.00,2,Emergency Medicine Physicians,
+29-1215.00,1,Family Medicine Physicians,0.604567501036847
+29-1216.00,2,General Internal Medicine Physicians,0.6801365743275205
+29-1217.00,2,Neurologists,0.6829021661785084
+29-1218.00,2,Obstetricians and Gynecologists,0.5472028438651131
+29-1221.00,1,"Pediatricians, General",0.6341388336123194
+29-1222.00,2,"Physicians, Pathologists",0.7027908367876778
+29-1223.00,2,Psychiatrists,0.5757432308484923
+29-1224.00,2,Radiologists,0.7171384912960495
+29-1229.01,2,Allergists and Immunologists,0.6938155105986445
+29-1229.02,2,Hospitalists,0.6953323131990663
+29-1229.03,2,Urologists,0.5711548199311518
+29-1229.04,2,Physical Medicine and Rehabilitation Physicians,0.6984745856571544
+29-1229.05,2,Preventive Medicine Physicians,0.658144893374587
+29-1229.06,2,Sports Medicine Physicians,0.6508888813728098
+29-1241.00,2,"Ophthalmologists, Except Pediatric",0.5409977565808559
+29-1291.00,1,Acupuncturists,0.8303005623988583
+29-1292.00,1,Dental Hygienists,0.8361411082525623
+29-1299.01,2,Naturopathic Physicians,0.7385774886375389
+29-1299.02,1,Orthoptists,0.8343308887107822
+29-2011.00,3,Medical and Clinical Laboratory Technologists,0.8877958001302473
+29-2011.01,3,Cytogenetic Technologists,0.9282637686168884
+29-2011.02,0,Cytotechnologists,0.9423897254744662
+29-2011.04,0,Histotechnologists,0.8922043770888485
+29-2012.00,3,Medical and Clinical Laboratory Technicians,0.9336131535631097
+29-2012.01,0,Histology Technicians,
+29-2031.00,3,Cardiovascular Technologists and Technicians,0.8634063393830573
+29-2032.00,3,Diagnostic Medical Sonographers,0.850302361912757
+29-2033.00,3,Nuclear Medicine Technologists,0.880855008938571
+29-2034.00,2,Radiologic Technologists and Technicians,0.8791726137903682
+29-2035.00,3,Magnetic Resonance Imaging Technologists,0.8950918055204278
+29-2036.00,2,Medical Dosimetrists,0.9184935184135999
+29-2043.00,3,Paramedics,
+29-2051.00,3,Dietetic Technicians,0.9307817764985499
+29-2052.00,3,Pharmacy Technicians,0.9655770764434002
+29-2053.00,1,Psychiatric Technicians,0.7261573215400408
+29-2055.00,2,Surgical Technologists,0.8309959048676097
+29-2056.00,3,Veterinary Technologists and Technicians,0.8803889755260182
+29-2057.00,0,Ophthalmic Medical Technicians,0.9268912730193793
+29-2061.00,1,Licensed Practical and Licensed Vocational Nurses,0.7622744171242493
+29-2072.00,1,Medical Records Specialists,
+29-2081.00,2,"Opticians, Dispensing",0.9072942051331576
+29-2091.00,2,Orthotists and Prosthetists,0.7458366940113113
+29-2092.00,1,Hearing Aid Specialists,0.8735052870307934
+29-2099.01,2,Neurodiagnostic Technologists,0.9271520466908165
+29-2099.05,1,Ophthalmic Medical Technologists,0.8945154561209427
+29-2099.08,2,Patient Representatives,0.8013391995855494
+29-9091.00,1,Athletic Trainers,0.7794064761148201
+29-9092.00,1,Genetic Counselors,0.7471740599399838
+29-9093.00,3,Surgical Assistants,0.7002670647581226
+29-9099.01,2,Midwives,0.6924930546561924
+31-1121.00,2,Home Health Aides,0.7845984438558721
+31-1122.00,2,Personal Care Aides,0.8006577214889681
+31-1131.00,0,Nursing Assistants,0.8657353886260881
+31-1132.00,0,Orderlies,0.8748427989993863
+31-1133.00,1,Psychiatric Aides,0.7721692401345573
+31-2011.00,1,Occupational Therapy Assistants,0.7818802218226422
+31-2012.00,3,Occupational Therapy Aides,0.8878616377709685
+31-2021.00,3,Physical Therapist Assistants,0.8043595904328913
+31-2022.00,3,Physical Therapist Aides,0.9088521259800677
+31-9011.00,0,Massage Therapists,0.8331581008898161
+31-9091.00,3,Dental Assistants,0.900893885497472
+31-9092.00,2,Medical Assistants,0.9169493525479397
+31-9093.00,2,Medical Equipment Preparers,0.933908528663232
+31-9094.00,0,Medical Transcriptionists,0.99621566558411
+31-9095.00,0,Pharmacy Aides,0.9866451106232157
+31-9096.00,3,Veterinary Assistants and Laboratory Animal Caretakers,0.9099703069227262
+31-9097.00,1,Phlebotomists,0.8981228173516039
+31-9099.01,1,Speech-Language Pathology Assistants,0.9282608060480593
+31-9099.02,3,Endoscopy Technicians,0.9059957447923995
+33-1011.00,2,First-Line Supervisors of Correctional Officers,0.7244906713741681
+33-1012.00,2,First-Line Supervisors of Police and Detectives,0.7025512498691122
+33-1021.00,2,First-Line Supervisors of Firefighting and Prevention Workers,0.662537724136461
+33-1091.00,1,First-Line Supervisors of Security Workers,
+33-2011.00,3,Firefighters,0.5647663104111611
+33-2021.00,2,Fire Inspectors and Investigators,0.755115917751561
+33-2022.00,3,Forest Fire Inspectors and Prevention Specialists,0.8085841942995304
+33-3011.00,1,Bailiffs,0.8798564121548083
+33-3012.00,2,Correctional Officers and Jailers,0.7545031544822476
+33-3021.00,2,Detectives and Criminal Investigators,0.6443070076639277
+33-3021.02,1,Police Identification and Records Officers,0.8059345218906415
+33-3021.06,1,Intelligence Analysts,0.7543483699555564
+33-3031.00,3,Fish and Game Wardens,0.7080125241095543
+33-3041.00,1,Parking Enforcement Workers,0.9372568500532455
+33-3051.00,2,Police and Sheriff's Patrol Officers,0.5853912627188158
+33-3051.04,2,Customs and Border Protection Officers,0.7220598807721721
+33-3052.00,1,Transit and Railroad Police,0.7492822482198525
+33-9011.00,2,Animal Control Workers,0.7949603886775314
+33-9021.00,1,Private Detectives and Investigators,0.7543911485033201
+33-9031.00,1,Gambling Surveillance Officers and Gambling Investigators,0.9195128265263852
+33-9032.00,2,Security Guards,0.887386987038409
+33-9091.00,0,Crossing Guards and Flaggers,0.934699787911007
+33-9092.00,3,"Lifeguards, Ski Patrol, and Other Recreational Protective Service Workers",0.8027460426031388
+33-9093.00,0,Transportation Security Screeners,0.8834646355171951
+33-9094.00,0,School Bus Monitors,
+33-9099.02,1,Retail Loss Prevention Specialists,0.8465520201153723
+35-1011.00,3,Chefs and Head Cooks,0.7564622754848034
+35-1012.00,3,First-Line Supervisors of Food Preparation and Serving Workers,0.7951846771690982
+35-2011.00,0,"Cooks, Fast Food",0.9618940111935934
+35-2012.00,0,"Cooks, Institution and Cafeteria",0.9005794662559734
+35-2013.00,0,"Cooks, Private Household",0.8391907789770513
+35-2014.00,0,"Cooks, Restaurant",0.8683627938949299
+35-2015.00,0,"Cooks, Short Order",0.929346831671832
+35-2021.00,0,Food Preparation Workers,0.9479384188840375
+35-3011.00,0,Bartenders,0.8210288630630598
+35-3023.00,0,Fast Food and Counter Workers,0.9592180870129117
+35-3023.01,0,Baristas,0.9323616384795739
+35-3031.00,0,Waiters and Waitresses,0.8665587674351731
+35-3041.00,0,"Food Servers, Nonrestaurant",0.9469379057172737
+35-9011.00,0,Dining Room and Cafeteria Attendants and Bartender Helpers,0.937729419003442
+35-9021.00,0,Dishwashers,0.9478537867898527
+35-9031.00,0,"Hosts and Hostesses, Restaurant, Lounge, and Coffee Shop",0.9243527762028138
+37-1011.00,2,First-Line Supervisors of Housekeeping and Janitorial Workers,0.9083591853170235
+37-1012.00,3,"First-Line Supervisors of Landscaping, Lawn Service, and Groundskeeping Workers",0.8073648353299867
+37-2011.00,0,"Janitors and Cleaners, Except Maids and Housekeeping Cleaners",0.9397995410310808
+37-2012.00,0,Maids and Housekeeping Cleaners,0.9270633097065523
+37-2021.00,0,Pest Control Workers,0.8835647756611731
+37-3011.00,0,Landscaping and Groundskeeping Workers,0.899075467992017
+37-3012.00,0,"Pesticide Handlers, Sprayers, and Applicators, Vegetation",0.9234523123036883
+37-3013.00,3,Tree Trimmers and Pruners,0.773879550616672
+39-1013.00,0,First-Line Supervisors of Gambling Services Workers,0.8373188338490943
+39-1014.00,1,"First-Line Supervisors of Entertainment and Recreation Workers, Except Gambling Services",
+39-1022.00,1,First-Line Supervisors of Personal Service Workers,0.8260933826801605
+39-2011.00,1,Animal Trainers,0.7999701830194548
+39-2021.00,0,Animal Caretakers,0.9000359744143028
+39-3011.00,0,Gambling Dealers,0.9391897777200486
+39-3012.00,0,Gambling and Sports Book Writers and Runners,0.9658360627590439
+39-3021.00,0,Motion Picture Projectionists,0.9714773167734561
+39-3031.00,0,"Ushers, Lobby Attendants, and Ticket Takers",0.9498307490519777
+39-3091.00,0,Amusement and Recreation Attendants,0.9523088900219336
+39-3092.00,0,Costume Attendants,0.8652462371000538
+39-3093.00,0,"Locker Room, Coatroom, and Dressing Room Attendants",0.9689321299209829
+39-4011.00,3,Embalmers,0.8177858222176965
+39-4021.00,0,Funeral Attendants,0.9283253461873151
+39-4031.00,1,"Morticians, Undertakers, and Funeral Arrangers",0.8194059184614708
+39-5011.00,1,Barbers,0.8733436137373193
+39-5012.00,1,"Hairdressers, Hairstylists, and Cosmetologists",0.8093099135964811
+39-5091.00,1,"Makeup Artists, Theatrical and Performance",0.820944883821155
+39-5092.00,0,Manicurists and Pedicurists,0.9131219185845537
+39-5093.00,0,Shampooers,0.9464190949036353
+39-5094.00,1,Skincare Specialists,0.8778839129852125
+39-6011.00,3,Baggage Porters and Bellhops,0.9008024679290275
+39-6012.00,1,Concierges,0.8525224907709799
+39-7011.00,0,Tour Guides and Escorts,0.8942848477641577
+39-7012.00,1,Travel Guides,0.7652883796713374
+39-9011.00,0,Childcare Workers,0.8094544303380186
+39-9011.01,0,Nannies,0.7255091262418649
+39-9031.00,1,Exercise Trainers and Group Fitness Instructors,0.8339926478290234
+39-9032.00,2,Recreation Workers,0.8377298553702226
+39-9041.00,1,Residential Advisors,0.8259823911690449
+41-1011.00,1,First-Line Supervisors of Retail Sales Workers,0.8640600119055988
+41-1012.00,2,First-Line Supervisors of Non-Retail Sales Workers,0.8166980998257436
+41-2011.00,0,Cashiers,0.9788111132212407
+41-2012.00,0,Gambling Change Persons and Booth Cashiers,0.986615364600446
+41-2021.00,0,Counter and Rental Clerks,0.9802105407804077
+41-2022.00,2,Parts Salespersons,0.9415052691813041
+41-2031.00,0,Retail Salespersons,0.9455433030035808
+41-3011.00,2,Advertising Sales Agents,0.8403051295606907
+41-3021.00,1,Insurance Sales Agents,0.8587316797936668
+41-3031.00,1,"Securities, Commodities, and Financial Services Sales Agents",0.8208329084216032
+41-3041.00,1,Travel Agents,0.9386261102284557
+41-3091.00,1,"Sales Representatives of Services, Except Advertising, Insurance, Financial Services, and Travel",
+41-4011.00,0,"Sales Representatives, Wholesale and Manufacturing, Technical and Scientific Products",0.8275955965189709
+41-4011.07,1,Solar Sales Representatives and Assessors,0.8792478125907782
+41-4012.00,1,"Sales Representatives, Wholesale and Manufacturing, Except Technical and Scientific Products",0.8495137944321975
+41-9011.00,0,Demonstrators and Product Promoters,0.9044284529025078
+41-9012.00,0,Models,0.960169295169419
+41-9021.00,1,Real Estate Brokers,0.806808476126212
+41-9022.00,1,Real Estate Sales Agents,0.8294104296514224
+41-9031.00,1,Sales Engineers,0.7392613652102675
+41-9041.00,1,Telemarketers,0.9727225621280671
+41-9091.00,0,"Door-to-Door Sales Workers, News and Street Vendors, and Related Workers",0.9016310871317663
+43-1011.00,1,First-Line Supervisors of Office and Administrative Support Workers,0.794855264468869
+43-2011.00,0,"Switchboard Operators, Including Answering Service",0.9943359412509349
+43-2021.00,0,Telephone Operators,0.9854900438033063
+43-3011.00,0,Bill and Account Collectors,0.9448336726804586
+43-3021.00,0,Billing and Posting Clerks,1.0
+43-3031.00,1,"Bookkeeping, Accounting, and Auditing Clerks",1.0
+43-3041.00,0,Gambling Cage Workers,0.9944271885830424
+43-3051.00,0,Payroll and Timekeeping Clerks,0.9986019829420182
+43-3061.00,1,Procurement Clerks,0.9767957746802113
+43-3071.00,1,Tellers,0.9865307263752292
+43-4011.00,0,Brokerage Clerks,0.9892899464022227
+43-4021.00,0,Correspondence Clerks,0.968826039059426
+43-4031.00,1,"Court, Municipal, and License Clerks",0.9832997386788603
+43-4041.00,1,"Credit Authorizers, Checkers, and Clerks",0.9880766888683415
+43-4051.00,1,Customer Service Representatives,0.9389692043169858
+43-4061.00,1,"Eligibility Interviewers, Government Programs",0.890567409690966
+43-4071.00,1,File Clerks,1.0
+43-4081.00,1,"Hotel, Motel, and Resort Desk Clerks",0.9530124827096841
+43-4111.00,2,"Interviewers, Except Eligibility and Loan",0.9568472936793369
+43-4121.00,0,"Library Assistants, Clerical",0.9892600133303098
+43-4131.00,2,Loan Interviewers and Clerks,0.9740932005646521
+43-4141.00,0,New Accounts Clerks,0.9755470667038963
+43-4151.00,1,Order Clerks,0.9896618370085669
+43-4161.00,1,"Human Resources Assistants, Except Payroll and Timekeeping",0.9570834497699015
+43-4171.00,0,Receptionists and Information Clerks,0.9599418267985466
+43-4181.00,1,Reservation and Transportation Ticket Agents and Travel Clerks,0.9524056443606574
+43-5011.00,0,Cargo and Freight Agents,0.9657130727458274
+43-5011.01,2,Freight Forwarders,0.912246227384203
+43-5021.00,0,Couriers and Messengers,0.9387346429644184
+43-5031.00,2,Public Safety Telecommunicators,0.8390010884989619
+43-5032.00,0,"Dispatchers, Except Police, Fire, and Ambulance",0.9495725622227758
+43-5041.00,0,"Meter Readers, Utilities",0.9732863638350165
+43-5051.00,0,Postal Service Clerks,0.9871524032793475
+43-5052.00,0,Postal Service Mail Carriers,0.9568186601741983
+43-5053.00,0,"Postal Service Mail Sorters, Processors, and Processing Machine Operators",0.9625823507948048
+43-5061.00,0,"Production, Planning, and Expediting Clerks",0.9647022210385489
+43-5071.00,0,"Shipping, Receiving, and Inventory Clerks",0.9974962297247502
+43-5111.00,3,"Weighers, Measurers, Checkers, and Samplers, Recordkeeping",1.0
+43-6011.00,1,Executive Secretaries and Executive Administrative Assistants,0.8759311143491644
+43-6012.00,1,Legal Secretaries and Administrative Assistants,0.9776899406625131
+43-6013.00,1,Medical Secretaries and Administrative Assistants,0.9912628623289435
+43-6014.00,0,"Secretaries and Administrative Assistants, Except Legal, Medical, and Executive",0.9832633510019244
+43-9021.00,1,Data Entry Keyers,1.0
+43-9022.00,0,Word Processors and Typists,1.0
+43-9031.00,1,Desktop Publishers,0.9841007980203327
+43-9041.00,0,Insurance Claims and Policy Processing Clerks,0.9910536022801979
+43-9051.00,0,"Mail Clerks and Mail Machine Operators, Except Postal Service",0.9785670216964639
+43-9061.00,0,"Office Clerks, General",0.9919216572118651
+43-9071.00,0,"Office Machine Operators, Except Computer",0.9919852746351125
+43-9081.00,0,Proofreaders and Copy Markers,0.9937740095220389
+43-9111.00,1,Statistical Assistants,0.9963099032912855
+45-1011.00,3,"First-Line Supervisors of Farming, Fishing, and Forestry Workers",0.8020353758605916
+45-2011.00,1,Agricultural Inspectors,0.8552323415055573
+45-2021.00,0,Animal Breeders,0.9065353347520416
+45-2041.00,0,"Graders and Sorters, Agricultural Products",0.9806138009346291
+45-2091.00,0,Agricultural Equipment Operators,0.9051264193050127
+45-2092.00,3,"Farmworkers and Laborers, Crop, Nursery, and Greenhouse",0.897824259326081
+45-2093.00,3,"Farmworkers, Farm, Ranch, and Aquacultural Animals",0.852472455152786
+45-3031.00,3,Fishing and Hunting Workers,0.8547512856806658
+45-4011.00,3,Forest and Conservation Workers,0.9181103256085644
+45-4021.00,0,Fallers,0.8034829286514958
+45-4022.00,3,Logging Equipment Operators,0.8562767836413225
+45-4023.00,3,Log Graders and Scalers,0.9457166602065131
+47-1011.00,3,First-Line Supervisors of Construction Trades and Extraction Workers,0.7708066836526364
+47-1011.03,3,Solar Energy Installation Managers,0.861926969484035
+47-2011.00,3,Boilermakers,0.8047320017373611
+47-2021.00,3,Brickmasons and Blockmasons,0.8574135146249626
+47-2022.00,3,Stonemasons,0.8633819466773218
+47-2031.00,3,Carpenters,0.8123759520771704
+47-2041.00,0,Carpet Installers,0.9050991208709624
+47-2042.00,0,"Floor Layers, Except Carpet, Wood, and Hard Tiles",0.9136572370065166
+47-2043.00,3,Floor Sanders and Finishers,0.9088644139888848
+47-2044.00,0,Tile and Stone Setters,0.8787013090068301
+47-2051.00,3,Cement Masons and Concrete Finishers,0.8490002635618951
+47-2053.00,3,Terrazzo Workers and Finishers,0.8883667197539186
+47-2061.00,3,Construction Laborers,0.8447483291573165
+47-2071.00,3,"Paving, Surfacing, and Tamping Equipment Operators",0.8988337869700631
+47-2072.00,3,Pile Driver Operators,0.912917002189939
+47-2073.00,3,Operating Engineers and Other Construction Equipment Operators,0.8220206079919944
+47-2081.00,3,Drywall and Ceiling Tile Installers,0.8711211587642896
+47-2082.00,0,Tapers,0.9170277629537845
+47-2111.00,3,Electricians,0.7779733409054618
+47-2121.00,3,Glaziers,0.8647447051242767
+47-2131.00,0,"Insulation Workers, Floor, Ceiling, and Wall",0.9006101511742758
+47-2132.00,0,"Insulation Workers, Mechanical",0.9149252001358115
+47-2141.00,3,"Painters, Construction and Maintenance",0.8912311898028425
+47-2142.00,0,Paperhangers,0.901810221001692
+47-2151.00,0,Pipelayers,0.8805891032590978
+47-2152.00,3,"Plumbers, Pipefitters, and Steamfitters",0.8230970073710108
+47-2152.04,3,Solar Thermal Installers and Technicians,0.8622679388808929
+47-2161.00,3,Plasterers and Stucco Masons,0.866871887145654
+47-2171.00,3,Reinforcing Iron and Rebar Workers,0.8694451114405757
+47-2181.00,3,Roofers,0.8557344843027789
+47-2211.00,3,Sheet Metal Workers,0.828724947108851
+47-2221.00,3,Structural Iron and Steel Workers,0.7864702610267413
+47-2231.00,3,Solar Photovoltaic Installers,0.8503295654425796
+47-3011.00,3,"Helpers--Brickmasons, Blockmasons, Stonemasons, and Tile and Marble Setters",0.919518526714585
+47-3012.00,0,Helpers--Carpenters,0.90253207312804
+47-3013.00,3,Helpers--Electricians,0.9009747509604573
+47-3014.00,0,"Helpers--Painters, Paperhangers, Plasterers, and Stucco Masons",0.9336346233916921
+47-3015.00,3,"Helpers--Pipelayers, Plumbers, Pipefitters, and Steamfitters",0.8922985072456067
+47-3016.00,0,Helpers--Roofers,0.9006299773739648
+47-4011.00,1,Construction and Building Inspectors,0.855046915752654
+47-4011.01,3,Energy Auditors,0.9213492024045484
+47-4021.00,3,Elevator and Escalator Installers and Repairers,0.8086985119637281
+47-4031.00,3,Fence Erectors,0.8641436124990558
+47-4041.00,3,Hazardous Materials Removal Workers,0.8411073952300683
+47-4051.00,3,Highway Maintenance Workers,0.8713233216588492
+47-4061.00,3,Rail-Track Laying and Maintenance Equipment Operators,0.9214970746743496
+47-4071.00,0,Septic Tank Servicers and Sewer Pipe Cleaners,0.8617562576873641
+47-4091.00,3,Segmental Pavers,0.8622169036275121
+47-4099.03,3,Weatherization Installers and Technicians,0.8548428208811087
+47-5011.00,3,"Derrick Operators, Oil and Gas",0.8189310580611079
+47-5012.00,3,"Rotary Drill Operators, Oil and Gas",0.8051576850401735
+47-5013.00,3,"Service Unit Operators, Oil and Gas",0.7955603221219805
+47-5022.00,3,"Excavating and Loading Machine and Dragline Operators, Surface Mining",0.8568014681818231
+47-5023.00,3,"Earth Drillers, Except Oil and Gas",0.8462821578152201
+47-5032.00,3,"Explosives Workers, Ordnance Handling Experts, and Blasters",0.8212801778675434
+47-5041.00,3,Continuous Mining Machine Operators,0.8293480064670251
+47-5043.00,3,"Roof Bolters, Mining",0.8934084625079832
+47-5044.00,0,"Loading and Moving Machine Operators, Underground Mining",0.9066323441040179
+47-5051.00,0,"Rock Splitters, Quarry",0.8824961322051685
+47-5071.00,3,"Roustabouts, Oil and Gas",0.8697347706630506
+47-5081.00,3,Helpers--Extraction Workers,0.8773983118300446
+49-1011.00,3,"First-Line Supervisors of Mechanics, Installers, and Repairers",0.8092270795327243
+49-2011.00,0,"Computer, Automated Teller, and Office Machine Repairers",0.8978474285749908
+49-2021.00,3,"Radio, Cellular, and Tower Equipment Installers and Repairers",0.8614299924910639
+49-2022.00,3,"Telecommunications Equipment Installers and Repairers, Except Line Installers",0.8717957586209528
+49-2091.00,3,Avionics Technicians,0.8418051704608263
+49-2092.00,3,"Electric Motor, Power Tool, and Related Repairers",0.8762651903610829
+49-2093.00,3,"Electrical and Electronics Installers and Repairers, Transportation Equipment",0.8654897922998803
+49-2094.00,3,"Electrical and Electronics Repairers, Commercial and Industrial Equipment",0.8390531578834306
+49-2095.00,3,"Electrical and Electronics Repairers, Powerhouse, Substation, and Relay",0.8785049829449982
+49-2096.00,3,"Electronic Equipment Installers and Repairers, Motor Vehicles",0.8698417549703478
+49-2097.00,3,Audiovisual Equipment Installers and Repairers,0.8805119542477275
+49-2098.00,0,Security and Fire Alarm Systems Installers,0.8741993709476494
+49-3011.00,3,Aircraft Mechanics and Service Technicians,0.7716587146938461
+49-3021.00,3,Automotive Body and Related Repairers,0.8567441839793226
+49-3022.00,0,Automotive Glass Installers and Repairers,0.9201350203611591
+49-3023.00,3,Automotive Service Technicians and Mechanics,0.8035528852307591
+49-3031.00,3,Bus and Truck Mechanics and Diesel Engine Specialists,0.8254031710208652
+49-3041.00,3,Farm Equipment Mechanics and Service Technicians,0.7836839897690546
+49-3042.00,3,"Mobile Heavy Equipment Mechanics, Except Engines",0.8027290665838358
+49-3043.00,0,Rail Car Repairers,0.8520741152908601
+49-3051.00,3,Motorboat Mechanics and Service Technicians,0.8411337236342161
+49-3052.00,3,Motorcycle Mechanics,0.836049459227072
+49-3053.00,0,Outdoor Power Equipment and Other Small Engine Mechanics,0.8644575188245762
+49-3091.00,3,Bicycle Repairers,0.9090091146706657
+49-3092.00,3,Recreational Vehicle Service Technicians,0.8365404630670201
+49-3093.00,0,Tire Repairers and Changers,0.9279865294086822
+49-9011.00,3,Mechanical Door Repairers,0.8535407962596125
+49-9012.00,3,"Control and Valve Installers and Repairers, Except Mechanical Door",0.8953602029999286
+49-9021.00,3,"Heating, Air Conditioning, and Refrigeration Mechanics and Installers",0.8130790849902259
+49-9031.00,3,Home Appliance Repairers,0.8139821391287863
+49-9041.00,3,Industrial Machinery Mechanics,0.7844014494126808
+49-9043.00,3,"Maintenance Workers, Machinery",0.8907112061921917
+49-9044.00,3,Millwrights,0.7808149910375689
+49-9045.00,0,"Refractory Materials Repairers, Except Brickmasons",0.8897753752383233
+49-9051.00,3,Electrical Power-Line Installers and Repairers,0.7821450752399584
+49-9052.00,3,Telecommunications Line Installers and Repairers,0.8696987160369348
+49-9061.00,0,Camera and Photographic Equipment Repairers,0.9024424116320409
+49-9062.00,3,Medical Equipment Repairers,0.8537583917410907
+49-9063.00,3,Musical Instrument Repairers and Tuners,0.8569489909102579
+49-9064.00,3,Watch and Clock Repairers,0.8644355644714528
+49-9071.00,3,"Maintenance and Repair Workers, General",0.7828733808198198
+49-9081.00,3,Wind Turbine Service Technicians,0.7970281068679761
+49-9091.00,0,"Coin, Vending, and Amusement Machine Servicers and Repairers",0.9148120028016137
+49-9092.00,3,Commercial Divers,0.6766189570902665
+49-9094.00,3,Locksmiths and Safe Repairers,0.8459490496640183
+49-9095.00,2,Manufactured Building and Mobile Home Installers,0.8046229405406442
+49-9096.00,3,Riggers,0.8101413284384197
+49-9097.00,0,Signal and Track Switch Repairers,0.8822242059227522
+49-9098.00,0,"Helpers--Installation, Maintenance, and Repair Workers",0.9054661396725411
+49-9099.01,3,Geothermal Technicians,0.8601826621331724
+51-1011.00,3,First-Line Supervisors of Production and Operating Workers,0.800928809091229
+51-2011.00,3,"Aircraft Structure, Surfaces, Rigging, and Systems Assemblers",0.8792622732700314
+51-2021.00,0,"Coil Winders, Tapers, and Finishers",0.9517763560673069
+51-2022.00,0,Electrical and Electronic Equipment Assemblers,0.9400206025273534
+51-2023.00,0,Electromechanical Equipment Assemblers,0.9294831716048236
+51-2031.00,0,Engine and Other Machine Assemblers,0.8864449659369419
+51-2041.00,3,Structural Metal Fabricators and Fitters,0.8813929533204587
+51-2051.00,0,Fiberglass Laminators and Fabricators,0.9135717308030518
+51-2061.00,0,Timing Device Assemblers and Adjusters,0.8868342066100712
+51-2092.00,0,Team Assemblers,0.9241785500253049
+51-3011.00,0,Bakers,0.9426106184719925
+51-3021.00,0,Butchers and Meat Cutters,0.8887337874045924
+51-3022.00,0,"Meat, Poultry, and Fish Cutters and Trimmers",0.9141016888583683
+51-3023.00,0,Slaughterers and Meat Packers,0.9005393449459359
+51-3091.00,3,"Food and Tobacco Roasting, Baking, and Drying Machine Operators and Tenders",0.9708273889776733
+51-3092.00,0,Food Batchmakers,0.9855456402724213
+51-3093.00,0,Food Cooking Machine Operators and Tenders,0.9772251681371307
+51-4021.00,3,"Extruding and Drawing Machine Setters, Operators, and Tenders, Metal and Plastic",0.9608804617839798
+51-4022.00,3,"Forging Machine Setters, Operators, and Tenders, Metal and Plastic",0.9168314039518433
+51-4023.00,3,"Rolling Machine Setters, Operators, and Tenders, Metal and Plastic",0.9194004025012047
+51-4031.00,0,"Cutting, Punching, and Press Machine Setters, Operators, and Tenders, Metal and Plastic",0.9464027959367504
+51-4032.00,0,"Drilling and Boring Machine Tool Setters, Operators, and Tenders, Metal and Plastic",0.9575306624805222
+51-4033.00,3,"Grinding, Lapping, Polishing, and Buffing Machine Tool Setters, Operators, and Tenders, Metal and Plastic",0.9574442764620532
+51-4034.00,3,"Lathe and Turning Machine Tool Setters, Operators, and Tenders, Metal and Plastic",0.9553698496799936
+51-4035.00,3,"Milling and Planing Machine Setters, Operators, and Tenders, Metal and Plastic",0.9553451697195486
+51-4041.00,3,Machinists,0.8477912137393466
+51-4051.00,3,Metal-Refining Furnace Operators and Tenders,0.9045637632199525
+51-4052.00,0,"Pourers and Casters, Metal",0.9234817770518784
+51-4061.00,0,"Model Makers, Metal and Plastic",0.8571850816532394
+51-4062.00,3,"Patternmakers, Metal and Plastic",0.8841074559668448
+51-4071.00,0,Foundry Mold and Coremakers,0.9011620563336686
+51-4072.00,0,"Molding, Coremaking, and Casting Machine Setters, Operators, and Tenders, Metal and Plastic",0.9456496522292793
+51-4081.00,3,"Multiple Machine Tool Setters, Operators, and Tenders, Metal and Plastic",0.9233945688122553
+51-4111.00,3,Tool and Die Makers,0.8571169678504521
+51-4121.00,0,"Welders, Cutters, Solderers, and Brazers",0.8796902404584519
+51-4122.00,3,"Welding, Soldering, and Brazing Machine Setters, Operators, and Tenders",0.9585632017923493
+51-4191.00,0,"Heat Treating Equipment Setters, Operators, and Tenders, Metal and Plastic",0.9515941665577042
+51-4192.00,3,"Layout Workers, Metal and Plastic",0.9073261468155116
+51-4193.00,0,"Plating Machine Setters, Operators, and Tenders, Metal and Plastic",0.9671579764239988
+51-4194.00,0,"Tool Grinders, Filers, and Sharpeners",0.9114241952214663
+51-5111.00,3,Prepress Technicians and Workers,0.9781247552032999
+51-5112.00,3,Printing Press Operators,0.9310472674669926
+51-5113.00,0,Print Binding and Finishing Workers,0.9386539528412863
+51-6011.00,0,Laundry and Dry-Cleaning Workers,0.9400945710423454
+51-6021.00,0,"Pressers, Textile, Garment, and Related Materials",0.9257958992756864
+51-6031.00,0,Sewing Machine Operators,0.931440769891337
+51-6041.00,0,Shoe and Leather Workers and Repairers,0.9195541840920857
+51-6042.00,0,Shoe Machine Operators and Tenders,0.9661247082378553
+51-6051.00,0,"Sewers, Hand",0.894871542806206
+51-6052.00,0,"Tailors, Dressmakers, and Custom Sewers",0.8723533860909742
+51-6061.00,0,Textile Bleaching and Dyeing Machine Operators and Tenders,0.958805290886739
+51-6062.00,0,"Textile Cutting Machine Setters, Operators, and Tenders",0.9413333152947219
+51-6063.00,0,"Textile Knitting and Weaving Machine Setters, Operators, and Tenders",0.9424835004856442
+51-6064.00,0,"Textile Winding, Twisting, and Drawing Out Machine Setters, Operators, and Tenders",0.9893250065128001
+51-6091.00,3,"Extruding and Forming Machine Setters, Operators, and Tenders, Synthetic and Glass Fibers",0.96287548190092
+51-6092.00,0,Fabric and Apparel Patternmakers,0.9224516250915337
+51-6093.00,3,Upholsterers,0.8653184232548152
+51-7011.00,0,Cabinetmakers and Bench Carpenters,0.8579432332121341
+51-7021.00,0,Furniture Finishers,0.8841314549363332
+51-7031.00,0,"Model Makers, Wood",0.8878678167386723
+51-7032.00,3,"Patternmakers, Wood",0.8839441937550008
+51-7041.00,0,"Sawing Machine Setters, Operators, and Tenders, Wood",0.9476333658270973
+51-7042.00,0,"Woodworking Machine Setters, Operators, and Tenders, Except Sawing",0.9380362155744137
+51-8011.00,3,Nuclear Power Reactor Operators,0.8296352105441073
+51-8012.00,1,Power Distributors and Dispatchers,0.9079954957057604
+51-8013.00,3,Power Plant Operators,0.9063917050384419
+51-8013.03,3,Biomass Plant Technicians,0.9166550182648219
+51-8013.04,3,Hydroelectric Plant Technicians,0.8721551366795146
+51-8021.00,3,Stationary Engineers and Boiler Operators,0.8884534799889954
+51-8031.00,3,Water and Wastewater Treatment Plant and System Operators,0.9227923006729687
+51-8091.00,2,Chemical Plant and System Operators,0.8907900174049487
+51-8092.00,3,Gas Plant Operators,0.9198509266260136
+51-8093.00,0,"Petroleum Pump System Operators, Refinery Operators, and Gaugers",0.9461251542732442
+51-8099.01,3,Biofuels Processing Technicians,0.9206628866788564
+51-9011.00,0,Chemical Equipment Operators and Tenders,0.9210533752022433
+51-9012.00,0,"Separating, Filtering, Clarifying, Precipitating, and Still Machine Setters, Operators, and Tenders",0.9628512346748473
+51-9021.00,0,"Crushing, Grinding, and Polishing Machine Setters, Operators, and Tenders",0.964159784109696
+51-9022.00,3,"Grinding and Polishing Workers, Hand",0.8851727262415785
+51-9023.00,0,"Mixing and Blending Machine Setters, Operators, and Tenders",0.9827581821945808
+51-9031.00,0,"Cutters and Trimmers, Hand",0.9480194166909869
+51-9032.00,3,"Cutting and Slicing Machine Setters, Operators, and Tenders",0.9554412655001272
+51-9041.00,0,"Extruding, Forming, Pressing, and Compacting Machine Setters, Operators, and Tenders",0.9521471889918351
+51-9051.00,3,"Furnace, Kiln, Oven, Drier, and Kettle Operators and Tenders",0.950313550492499
+51-9061.00,3,"Inspectors, Testers, Sorters, Samplers, and Weighers",0.9648910323975394
+51-9071.00,3,Jewelers and Precious Stone and Metal Workers,0.8693487004123107
+51-9071.06,1,Gem and Diamond Workers,0.9079929127623294
+51-9081.00,3,Dental Laboratory Technicians,0.8873725822905736
+51-9082.00,3,Medical Appliance Technicians,0.8480387890892838
+51-9083.00,0,Ophthalmic Laboratory Technicians,0.934798711606983
+51-9111.00,0,Packaging and Filling Machine Operators and Tenders,0.9771017445170361
+51-9123.00,0,"Painting, Coating, and Decorating Workers",0.9412403811255227
+51-9124.00,3,"Coating, Painting, and Spraying Machine Setters, Operators, and Tenders",0.9122208099883211
+51-9141.00,3,Semiconductor Processing Technicians,0.959701032384566
+51-9151.00,0,Photographic Process Workers and Processing Machine Operators,0.9692793229351873
+51-9161.00,0,Computer Numerically Controlled Tool Operators,0.9351246836978591
+51-9162.00,3,Computer Numerically Controlled Tool Programmers,0.9834804897722991
+51-9191.00,0,Adhesive Bonding Machine Operators and Tenders,0.974231665607797
+51-9192.00,0,"Cleaning, Washing, and Metal Pickling Equipment Operators and Tenders",0.9824681843759828
+51-9193.00,3,Cooling and Freezing Equipment Operators and Tenders,0.969291920615095
+51-9194.00,0,Etchers and Engravers,0.9531735974614809
+51-9195.00,0,"Molders, Shapers, and Casters, Except Metal and Plastic",0.9391568820664615
+51-9195.03,3,"Stone Cutters and Carvers, Manufacturing",0.8822953300510228
+51-9195.04,3,"Glass Blowers, Molders, Benders, and Finishers",0.8446351120189123
+51-9195.05,0,"Potters, Manufacturing",0.8484950966826112
+51-9196.00,0,"Paper Goods Machine Setters, Operators, and Tenders",0.9570942197086473
+51-9197.00,0,Tire Builders,0.950929689570702
+51-9198.00,3,Helpers--Production Workers,0.9692826636614468
+53-1041.00,3,Aircraft Cargo Handling Supervisors,0.9248420572626854
+53-1042.00,3,"First-Line Supervisors of Helpers, Laborers, and Material Movers, Hand",0.8964958877312885
+53-1042.01,2,Recycling Coordinators,0.9082548016010025
+53-1043.00,2,First-Line Supervisors of Material-Moving Machine and Vehicle Operators,0.8604936947996293
+53-1044.00,2,First-Line Supervisors of Passenger Attendants,
+53-2011.00,3,"Airline Pilots, Copilots, and Flight Engineers",0.6327806057268639
+53-2012.00,2,Commercial Pilots,0.6615757763563477
+53-2021.00,1,Air Traffic Controllers,0.7820419871586328
+53-2022.00,3,Airfield Operations Specialists,0.8443471591019425
+53-2031.00,0,Flight Attendants,0.7971410864358717
+53-3011.00,3,"Ambulance Drivers and Attendants, Except Emergency Medical Technicians",0.7917569653033489
+53-3031.00,0,Driver/Sales Workers,0.8884758435636035
+53-3032.00,0,Heavy and Tractor-Trailer Truck Drivers,0.8282326399356875
+53-3033.00,3,Light Truck Drivers,0.8783466862959746
+53-3051.00,0,"Bus Drivers, School",
+53-3052.00,0,"Bus Drivers, Transit and Intercity",0.7895451241705429
+53-3053.00,0,Shuttle Drivers and Chauffeurs,
+53-4011.00,3,Locomotive Engineers,0.9005711339140857
+53-4013.00,3,"Rail Yard Engineers, Dinkey Operators, and Hostlers",0.8949835135860763
+53-4022.00,3,"Railroad Brake, Signal, and Switch Operators and Locomotive Firers",0.8844959792763376
+53-4031.00,0,Railroad Conductors and Yardmasters,0.898548409761952
+53-4041.00,0,Subway and Streetcar Operators,0.8995726566909898
+53-5011.00,3,Sailors and Marine Oilers,0.8781978915190186
+53-5021.00,3,"Captains, Mates, and Pilots of Water Vessels",0.7389284887167797
+53-5022.00,3,Motorboat Operators,0.8068955809712002
+53-5031.00,3,Ship Engineers,0.7970624025887713
+53-6011.00,0,Bridge and Lock Tenders,0.9416690247712333
+53-6021.00,0,Parking Attendants,0.9353148522293849
+53-6031.00,3,Automotive and Watercraft Service Attendants,0.9330131961572227
+53-6032.00,3,Aircraft Service Attendants,
+53-6041.00,3,Traffic Technicians,0.9466403799577341
+53-6051.00,3,Transportation Inspectors,0.9225361382084374
+53-6051.01,2,Aviation Inspectors,0.7734644783506227
+53-6051.07,3,"Transportation Vehicle, Equipment and Systems Inspectors, Except Aviation",0.9337581358642058
+53-6061.00,0,Passenger Attendants,0.9223190984936989
+53-7011.00,0,Conveyor Operators and Tenders,0.966096012684321
+53-7021.00,3,Crane and Tower Operators,0.853368086353874
+53-7031.00,0,Dredge Operators,0.9312356264830973
+53-7041.00,3,Hoist and Winch Operators,0.9102014945962978
+53-7051.00,3,Industrial Truck and Tractor Operators,0.9205344809454803
+53-7061.00,3,Cleaners of Vehicles and Equipment,0.9344715318829369
+53-7062.00,0,"Laborers and Freight, Stock, and Material Movers, Hand",0.9308806218941958
+53-7062.04,0,Recycling and Reclamation Workers,0.8971260620786237
+53-7063.00,0,Machine Feeders and Offbearers,0.9866518610766958
+53-7064.00,3,"Packers and Packagers, Hand",0.9796155889083432
+53-7065.00,0,Stockers and Order Fillers,0.9639227156836264
+53-7071.00,3,Gas Compressor and Gas Pumping Station Operators,0.9319969175782133
+53-7072.00,3,"Pump Operators, Except Wellhead Pumpers",0.9374022252665162
+53-7073.00,3,Wellhead Pumpers,0.9130827623217451
+53-7081.00,0,Refuse and Recyclable Material Collectors,0.8916547379506485
+53-7121.00,3,"Tank Car, Truck, and Ship Loaders",0.915008979851594

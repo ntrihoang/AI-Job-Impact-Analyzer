@@ -10,9 +10,9 @@
 | Feature Representation | 41 Work Activities LV (chính) và PCA 14 components (so sánh) | Hoàn thành |
 | Unsupervised Learning | K-Means, ứng viên K = 4, diễn giải cụm | Hoàn thành |
 | AI Exposure Analysis | Phân tích theo cụm, Kruskal–Wallis, Mann–Whitney U (Holm) | Hoàn thành |
-| Skill Similarity & Career Transition | Cosine similarity, Top-K occupation tương đồng | Tiếp theo |
-| Skill Gap Analysis | So sánh skill vector giữa nghề hiện tại và nghề mục tiêu | Chưa thực hiện |
-| Evaluation với O*NET Related Occupations | Top-K overlap, similarity distribution | Chưa thực hiện |
+| Skill Similarity & Career Transition | Cosine similarity, Top-K occupation tương đồng | Hoàn thành |
+| Skill Gap Analysis | So sánh skill vector giữa nghề hiện tại và nghề mục tiêu | Hoàn thành |
+| Evaluation với O*NET Related Occupations | Top-K overlap, similarity distribution | Hoàn thành |
 | Visualization & Streamlit | Occupation Explorer, Clusters, Career Transition | Chưa thực hiện |
 
 ---
